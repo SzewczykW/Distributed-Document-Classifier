@@ -1,0 +1,33 @@
+# Project info
+PROJECT_NAME           = "Distributed Document Classifier"
+PROJECT_BRIEF          = "MPI-based document classification tool"
+PROJECT_NUMBER         = "1.0"
+OUTPUT_DIRECTORY       = docs
+OUTPUT_LANGUAGE        = English
+OPTIMIZE_OUTPUT_FOR_C  = YES
+OPTIMIZE_OUTPUT_JAVA   = NO
+MARKDOWN_SUPPORT       = YES
+EXTRACT_ALL            = YES
+
+# Source files
+INPUT                  = ../include ../src
+FILE_PATTERNS          = *.h *.c
+RECURSIVE              = YES
+
+# Output formats
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+
+# Diagrams and dot
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
+
+# Misc
+GENERATE_TREEVIEW      = YES
+FULL_PATH_NAMES        = NO
+QUIET                  = YES
+

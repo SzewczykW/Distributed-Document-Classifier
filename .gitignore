@@ -1,52 +1,34 @@
-# Prerequisites
-*.d
+# Ignore everything by default
+*
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# --- Allow Git metadata ---
+!.gitignore
+!.gitattributes
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# --- Allow project configuration/scripts ---
+!CMakeLists.txt
+!README.md
+!LICENSE
+!install_mpich.sh
+!.editorconfig
+!.ycm_extra_conf.py
 
-# Precompiled Headers
-*.gch
-*.pch
+# --- Allow source code ---
+!src/
+!include/
+!src/*.c
+!src/**/*.c
+!include/*.h
+!include/**/*.h
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# --- Allow test/data files ---
+!data/
+!data/**
+!tests/
+!tests/**
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# --- Allow documentation sources ---
+!docs/
+!docs/Doxyfile
+!docs/**/*.md
+!docs/**/*.txt
