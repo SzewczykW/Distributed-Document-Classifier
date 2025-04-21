@@ -1,30 +1,61 @@
+/**
+ * @file main.c
+ * @brief Entry point of the distributed document classification application.
+ */
+
 #include <mpi.h>
-#include <stdlib.h>
-#include <string.h>
+#include "io_utils.h"
 #include "manager.h"
 #include "worker.h"
-#include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main(int argc, char *argv[]) {
-    if (argc != 3 || strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0) {
-        print_help(argv[0]);
-        return (argc == 3) ? EXIT_FAILURE : EXIT_SUCCESS;
+/**
+ * @brief Parses CLI arguments and launches the MPI application.
+ *
+ * Initializes MPI, checks for required input/output arguments,
+ * and dispatches to either the manager or a worker based on rank.
+ *
+ * @param argc Argument count.
+ * @param argv Argument vector.
+ * @return 0 on success, non-zero on error.
+ */
+int main(int argc, char *argv[])
+{
+    const char *input = NULL, *output = NULL;
+
+    for (int i = 1; i < argc; ++i)
+    {
+        if (!strcmp(argv[i], "--help"))
+        {
+            print_help(argv[0]);
+            return 0;
+        }
+        else if (!strcmp(argv[i], "--input") && i + 1 < argc)
+        {
+            input = argv[++i];
+        }
+        else if (!strcmp(argv[i], "--output") && i + 1 < argc)
+        {
+            output = argv[++i];
+        }
     }
 
-    const char *input_dir = argv[1];
-    const char *output_path = argv[2];
+    if (!input || !output)
+    {
+        print_help(argv[0]);
+        return 1;
+    }
 
     MPI_Init(&argc, &argv);
-
-    int rank, size;
+    int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    if (rank == 0) {
-        run_manager(input_dir, output_path, size);
-    } else {
-        run_worker(rank);
-    }
+    if (rank == 0)
+        run_manager(input, output, argc);
+    else
+        run_worker();
 
     MPI_Finalize();
     return 0;

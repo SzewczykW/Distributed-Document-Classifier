@@ -7,28 +7,39 @@
 
 # --- Allow project configuration/scripts ---
 !CMakeLists.txt
+!Makefile
 !README.md
 !LICENSE
-!install_mpich.sh
 !.editorconfig
 !.ycm_extra_conf.py
 
 # --- Allow source code ---
 !src/
 !include/
-!src/*.c
+!core/
+!lib/
+
 !src/**/*.c
-!include/*.h
 !include/**/*.h
+!core/**/*.c
+!lib/**/*.c
 
 # --- Allow test/data files ---
 !data/
-!data/**
+!data/**/*.html
+!data/**/*.txt
+!data/**/*.tex
+
 !tests/
-!tests/**
+!tests/**/*.c
+
+# --- Allow scripts ---
+!scipts/*.sh
+!scipts/**/*.sh
+
+# --- Allow GNU Make submodules
+!make/
+!make/**/*.mk
 
 # --- Allow documentation sources ---
-!docs/
 !docs/Doxyfile
-!docs/**/*.md
-!docs/**/*.txt
