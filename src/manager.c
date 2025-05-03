@@ -37,10 +37,17 @@ void manager(const char *input_dir, const char *dict_file, const char *output_fi
     fprintf(out, "\n");
 
     int current_file = 0;
-    for (int i = 1; i < size && current_file < file_count; i++) {
-        MPI_Send(files[current_file++], MAX_FILENAME, MPI_CHAR, i, FILE_MSG, MPI_COMM_WORLD);
+    int first_unused_rank = 1;
+
+    // wysyłanie plików do workerów
+    for (; first_unused_rank < size && current_file < file_count; first_unused_rank++) {
+        MPI_Send(files[current_file++], MAX_FILENAME, MPI_CHAR, first_unused_rank, FILE_MSG, MPI_COMM_WORLD);
     }
 
+    // workerzy bez zadań dostają od razu sygnał zakończenia
+    for (int i = first_unused_rank; i < size; i++) {
+        MPI_Send(NULL, 0, MPI_CHAR, i, DONE_MSG, MPI_COMM_WORLD);
+    }
     int done = 0;
     while (done < file_count) {
         int vec[MAX_KEYWORDS];
