@@ -12,9 +12,7 @@ BIN_DIR := $(BUILD_DIR)/bin
 OBJ_DIR := $(BUILD_DIR)/obj
 DOCS_DIR := docs
 
-SRC := src/main.c src/manager.c src/worker.c src/utils.c
-CORE := core/profile.c
-LIB := lib/hash_table.c lib/io_utils.c
+SRC := src/main.c src/manager.c src/worker.c src/hash_table.c src/file_utils.c
 TEST_SRC := tests/test_classification.c
 
 SRCS := $(SRC) $(CORE) $(LIB)

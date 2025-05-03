@@ -21,8 +21,14 @@ set(MPI_HOME $ENV{MPICH_TARGET_DIR})
 
 add_executable(classifier
     src/main.c
-    src/classifier.c
     src/utils.c
+    src/manager.c
+    src/worker.c
+    core/classifier.c
+    core/profile.c
+    lib/hash_table.c
+    lib/io_utils.c
+    lib/mpi_utils.c
 )
 
 target_include_directories(classifier PRIVATE

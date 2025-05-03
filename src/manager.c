@@ -1,80 +1,67 @@
-/**
- * @file manager.c
- * @brief Manager (rank 0) implementation responsible for task distribution and result aggregation.
- */
-
 #include "manager.h"
 #include <mpi.h>
-#include "io_utils.h"
-#include "utils.h"
+#include "file_utils.h"
+#include "worker.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-/**
- * @brief Runs the manager process.
- *
- * Loads documents, distributes tasks to workers,
- * receives feature vectors, and writes the final output matrix.
- *
- * @param input_dir Path to the input directory containing documents.
- * @param output_file Path to the output file for results.
- * @param world_size Number of processes in the MPI world.
- */
-void run_manager(const char *input_dir, const char *output_file, int world_size)
+void manager(__attribute__((unused)) int argc, char *argv[], int p)
 {
-    int file_count = 0;
-    char **files = list_documents(input_dir, &file_count);
-    if (!files || file_count == 0)
+    int i, words_cnt, assign_cnt = 0, dict_size, file_cnt, terminated = 0;
+    int *assigned = (int *) malloc(p * sizeof(int));
+    unsigned char *buffer;
+    unsigned char **vector;
+    char **file_name = NULL;
+    MPI_Request pending;
+    MPI_Status status;
+    int src, tag;
+
+    printf("\n\nManager:\n");
+
+    MPI_Irecv(&dict_size, 1, MPI_INT, MPI_ANY_SOURCE, DICT_SIZE_MSG, MPI_COMM_WORLD,
+              &pending);
+    MPI_Irecv(&words_cnt, 1, MPI_INT, MPI_ANY_SOURCE, 4, MPI_COMM_WORLD, &pending);
+
+    get_names(argv[DIR_ARG], &file_name, &file_cnt);
+    MPI_Wait(&pending, &status);
+
+    buffer = (unsigned char *) malloc(words_cnt * sizeof(unsigned char));
+    build_2d_array(file_cnt, words_cnt, &vector);
+
+    while (terminated < (p - 1))
     {
-        fprintf(stderr, "No documents found in %s\n", input_dir);
-        return;
-    }
-
-    int dict_size;
-    MPI_Recv(&dict_size, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-
-    unsigned char **matrix = malloc(file_count * sizeof(unsigned char *));
-    for (int i = 0; i < file_count; ++i)
-        matrix[i] = calloc(dict_size, sizeof(unsigned char));
-
-    int assigned = 0, completed = 0;
-
-    for (int i = 1; i < world_size && assigned < file_count; ++i)
-    {
-        const char *path = files[assigned];
-        MPI_Send(path, strlen(path) + 1, MPI_CHAR, i, 0, MPI_COMM_WORLD);
-        assigned++;
-    }
-
-    while (completed < file_count)
-    {
-        int sender;
-        MPI_Status status;
-        MPI_Probe(MPI_ANY_SOURCE, 1, MPI_COMM_WORLD, &status);
-        sender = status.MPI_SOURCE;
-
-        MPI_Recv(matrix[completed], dict_size, MPI_UNSIGNED_CHAR, sender, 1,
+        MPI_Recv(buffer, dict_size, MPI_UNSIGNED_CHAR, MPI_ANY_SOURCE, MPI_ANY_TAG,
                  MPI_COMM_WORLD, &status);
-        completed++;
+        src = status.MPI_SOURCE;
+        tag = status.MPI_TAG;
 
-        if (assigned < file_count)
+        if (tag == VECTOR_MSG)
         {
-            MPI_Send(files[assigned], strlen(files[assigned]) + 1, MPI_CHAR, sender, 0,
-                     MPI_COMM_WORLD);
-            assigned++;
+            for (i = 0; i < words_cnt; i++)
+            {
+                vector[assigned[src]][i] = buffer[i];
+            }
+        }
+
+        if (assign_cnt < file_cnt)
+        {
+            MPI_Send(file_name[assign_cnt], strlen(file_name[assign_cnt]) + 1, MPI_CHAR,
+                     src, FILE_NAME_MSG, MPI_COMM_WORLD);
+            assigned[src] = assign_cnt++;
         }
         else
         {
-            MPI_Send(NULL, 0, MPI_CHAR, sender, 2, MPI_COMM_WORLD);
+            MPI_Send(NULL, 0, MPI_CHAR, src, FILE_NAME_MSG, MPI_COMM_WORLD);
+            terminated++;
         }
     }
 
-    write_feature_matrix(output_file, matrix, file_count, dict_size);
+    write_profiles(argv[RES_ARG], file_cnt, words_cnt, file_name, vector);
 
-    for (int i = 0; i < file_count; ++i)
-        free(matrix[i]);
-    free(matrix);
-    free_file_list(files, file_count);
+    for (i = 0; i < file_cnt; i++)
+        free(file_name[i]);
+    free(file_name);
+    free(buffer);
+    free(assigned);
 }
-
