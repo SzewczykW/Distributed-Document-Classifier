@@ -6,6 +6,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <libgen.h>
+#include <errno.h>
 
 #include "file_utils.h"
 #include "hash_table.h"
@@ -125,24 +127,35 @@ void build_2d_array(int file_cnt, int words_cnt, unsigned char ***vector)
 void write_profiles(char *path, int file_cnt, int words_cnt, __attribute__((unused)) char **file_name,
                     unsigned char **vector)
 {
-    char result_path[1024];
-    snprintf(result_path, sizeof(result_path), "%s/result.txt", path);
+    // Utwórz katalog nadrzędny jeśli nie istnieje
+    char path_copy[1024];
+    strncpy(path_copy, path, sizeof(path_copy));
+    path_copy[sizeof(path_copy) - 1] = '\0';
 
-    FILE *f = fopen(result_path, "w");
-    if (!f)
-    {
+    char *dir = dirname(path_copy);
+    struct stat st = {0};
+    if (stat(dir, &st) == -1) {
+        if (mkdir(dir, 0755) != 0 && errno != EEXIST) {
+            perror("Cannot create directory for result file");
+            return;
+        }
+    }
+
+    FILE *f = fopen(path, "w");
+    if (!f) {
         perror("Cannot open result file for writing");
         return;
     }
 
-    for (int i = 0; i < file_cnt; i++)
-    {
-        fprintf(f, "Document%d :", i);
-        for (int j = 0; j < words_cnt; j++)
-        {
+    for (int i = 0; i < file_cnt; i++) {
+        fprintf(f, "%s :", file_name[i]);
+        printf("%s :", file_name[i]);
+        for (int j = 0; j < words_cnt; j++) {
             fprintf(f, "%d ", vector[i][j]);
+            printf("%d ", vector[i][j]);
         }
         fprintf(f, "\n");
+        printf("\n");
     }
 
     fclose(f);
