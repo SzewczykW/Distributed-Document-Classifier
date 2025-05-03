@@ -30,35 +30,54 @@ void manager(const char *input_dir, const char *dict_file, const char *output_fi
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
 
-    fprintf(out, "file         :");
+    fprintf(out, "%-12s:", "dictionary");
     for (int i = 0; i < num_keywords; i++) fprintf(out, " %s", keywords[i]);
     fprintf(out, "\n");
 
     int current_file = 0;
     int done_workers = 0;
 
+    int dummy;
+    MPI_Request req;
+    MPI_Status status;
+    MPI_Irecv(&dummy, 1, MPI_INT, MPI_ANY_SOURCE, REQUEST_MSG, MPI_COMM_WORLD, &req);
+
     while (done_workers < size - 1) {
-        int dummy;
-        MPI_Status status;
-        MPI_Recv(&dummy, 1, MPI_INT, MPI_ANY_SOURCE, REQUEST_MSG, MPI_COMM_WORLD, &status);
+        int flag = 0;
+        MPI_Test(&req, &flag, &status);
+        if (!flag) continue;
+
+        int source = status.MPI_SOURCE;
 
         if (current_file < file_count) {
-            MPI_Send(files[current_file++], PATH_MAX, MPI_CHAR, status.MPI_SOURCE, FILE_MSG, MPI_COMM_WORLD);
+            MPI_Send(files[current_file++], PATH_MAX, MPI_CHAR, source, FILE_MSG, MPI_COMM_WORLD);
         } else {
-            MPI_Send(NULL, 0, MPI_CHAR, status.MPI_SOURCE, DONE_MSG, MPI_COMM_WORLD);
+            MPI_Send(NULL, 0, MPI_CHAR, source, DONE_MSG, MPI_COMM_WORLD);
             done_workers++;
+
+            MPI_Irecv(&dummy, 1, MPI_INT, MPI_ANY_SOURCE, REQUEST_MSG, MPI_COMM_WORLD, &req);
             continue;
         }
 
         int vec[MAX_KEYWORDS];
         char fname[PATH_MAX];
-        MPI_Recv(vec, num_keywords, MPI_INT, status.MPI_SOURCE, VEC_MSG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        MPI_Recv(fname, PATH_MAX, MPI_CHAR, status.MPI_SOURCE, FILE_MSG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Recv(vec, num_keywords, MPI_INT, source, VEC_MSG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Recv(fname, PATH_MAX, MPI_CHAR, source, FILE_MSG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
         fprintf(out, "%-12s:", strrchr(fname, '/') ? strrchr(fname, '/') + 1 : fname);
         for (int i = 0; i < num_keywords; i++)
             fprintf(out, " %d", vec[i]);
         fprintf(out, "\n");
+
+        MPI_Irecv(&dummy, 1, MPI_INT, MPI_ANY_SOURCE, REQUEST_MSG, MPI_COMM_WORLD, &req);
+    }
+
+    int still_pending = 0;
+    MPI_Status final_status;
+    MPI_Test(&req, &still_pending, &final_status);
+    if (!still_pending) {
+        MPI_Cancel(&req);
+        MPI_Request_free(&req);
     }
 
     fclose(out);

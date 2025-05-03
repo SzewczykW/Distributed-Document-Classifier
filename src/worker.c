@@ -41,8 +41,10 @@ void worker(void) {
             }
         }
 
-        MPI_Send(vec, num_keywords, MPI_INT, 0, VEC_MSG, MPI_COMM_WORLD);
-        MPI_Send(filename, PATH_MAX, MPI_CHAR, 0, FILE_MSG, MPI_COMM_WORLD);
+        MPI_Request reqs[2];
+        MPI_Isend(vec, num_keywords, MPI_INT, 0, VEC_MSG, MPI_COMM_WORLD, &reqs[0]);
+        MPI_Isend(filename, PATH_MAX, MPI_CHAR, 0, FILE_MSG, MPI_COMM_WORLD, &reqs[1]);
+        MPI_Waitall(2, reqs, MPI_STATUSES_IGNORE);
     }
 
     for (int i = 0; i < num_keywords; i++) free(keywords[i]);
