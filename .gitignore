@@ -21,14 +21,6 @@
 
 !src/**/*.c
 !include/**/*.h
-!core/**/*.c
-!lib/**/*.c
-
-# --- Allow test/data files ---
-!data/
-!data/**/*.html
-!data/**/*.txt
-!data/**/*.tex
 
 !tests/
 !tests/**/*.c
@@ -36,6 +28,8 @@
 # --- Allow scripts ---
 !scipts/*.sh
 !scipts/**/*.sh
+!scipts/*.py
+!scipts/**/*.py
 
 # --- Allow GNU Make submodules
 !make/
