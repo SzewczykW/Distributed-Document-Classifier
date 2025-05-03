@@ -1,24 +1,21 @@
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
 
-#define HASH_SIZE 100
+#define HASH_SIZE 101
 
-typedef struct _node
-{
-    char *data;
-    int num;
-    struct _node *next;
-} node;
+typedef struct node {
+    char *word;
+    int index;
+    struct node *next;
+} Node;
 
-typedef struct _hash_table
-{
-    node *value;
-} hash_table;
+extern Node *hash_table[HASH_SIZE];
 
-int hash_func(char *string);
-void hash_insert(char *string, hash_table *hash_tbl, int num);
-hash_table *init_hash_table();
-char hash_exist(hash_table hash_tbl, char *string);
-void build_hash_table(char *buffer, hash_table *hash_tbl, int *words_cnt);
+int hash_func(const char *s);
+void insert_word(const char *word, int index);
+int find_word(const char *word);
+void clear_hash_table(void);
+void to_lower(char *str);
 
 #endif
+
