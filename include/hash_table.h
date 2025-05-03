@@ -3,7 +3,8 @@
 
 #define HASH_SIZE 101
 
-typedef struct node {
+typedef struct node
+{
     char *word;
     int index;
     struct node *next;
@@ -18,4 +19,3 @@ void clear_hash_table(void);
 void to_lower(char *str);
 
 #endif
-

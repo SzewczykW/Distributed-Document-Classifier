@@ -1,19 +1,23 @@
+#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
+
 #include "hash_table.h"
 
 Node *hash_table[HASH_SIZE];
 
-int hash_func(const char *s) {
+int hash_func(const char *s)
+{
     int h = 0;
-    for (int i = 0; s[i]; i++) {
+    for (int i = 0; s[i]; i++)
+    {
         h = (h * 31 + s[i]) % HASH_SIZE;
     }
     return h;
 }
 
-void insert_word(const char *word, int index) {
+void insert_word(const char *word, int index)
+{
     int h = hash_func(word);
     Node *new_node = malloc(sizeof(Node));
     new_node->word = strdup(word);
@@ -22,10 +26,12 @@ void insert_word(const char *word, int index) {
     hash_table[h] = new_node;
 }
 
-int find_word(const char *word) {
+int find_word(const char *word)
+{
     int h = hash_func(word);
     Node *cur = hash_table[h];
-    while (cur) {
+    while (cur)
+    {
         if (strcmp(cur->word, word) == 0)
             return cur->index;
         cur = cur->next;
@@ -33,10 +39,13 @@ int find_word(const char *word) {
     return -1;
 }
 
-void clear_hash_table(void) {
-    for (int i = 0; i < HASH_SIZE; i++) {
+void clear_hash_table(void)
+{
+    for (int i = 0; i < HASH_SIZE; i++)
+    {
         Node *cur = hash_table[i];
-        while (cur) {
+        while (cur)
+        {
             Node *tmp = cur;
             cur = cur->next;
             free(tmp->word);
@@ -46,7 +55,8 @@ void clear_hash_table(void) {
     }
 }
 
-void to_lower(char *str) {
-    for (; *str; ++str) *str = tolower(*str);
+void to_lower(char *str)
+{
+    for (; *str; ++str)
+        *str = tolower(*str);
 }
-

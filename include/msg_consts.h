@@ -5,9 +5,9 @@
 #define MAX_KEYWORDS 256
 #define MAX_WORD_LEN 64
 
-#define FILE_MSG 2
-#define VEC_MSG 3
-#define DONE_MSG 4
-
+#define REQUEST_MSG 0
+#define FILE_MSG 1
+#define VEC_MSG 2
+#define DONE_MSG 3
 
 #endif

@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <mpi.h>
 #include "manager.h"
+#include <mpi.h>
 #include "file_utils.h"
 #include "hash_table.h"
 #include "msg_consts.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 void manager(const char *input_dir, const char *dict_file, const char *output_file, int size) {
     char *keywords[MAX_KEYWORDS];
@@ -17,7 +17,7 @@ void manager(const char *input_dir, const char *dict_file, const char *output_fi
 
     broadcast_dictionary(keywords, num_keywords);
 
-    char files[MAX_FILES][MAX_FILENAME];
+    char files[MAX_FILES][PATH_MAX];
     int file_count = list_txt_files(input_dir, files, MAX_FILES);
     if (file_count < 0) {
         fprintf(stderr, "Error reading directory: %s\n", input_dir);
@@ -31,45 +31,34 @@ void manager(const char *input_dir, const char *dict_file, const char *output_fi
     }
 
     fprintf(out, "file         :");
-    for (int i = 0; i < num_keywords; i++) {
-        fprintf(out, " %s", keywords[i]);
-    }
+    for (int i = 0; i < num_keywords; i++) fprintf(out, " %s", keywords[i]);
     fprintf(out, "\n");
 
     int current_file = 0;
-    int first_unused_rank = 1;
+    int done_workers = 0;
 
-    // wysyłanie plików do workerów
-    for (; first_unused_rank < size && current_file < file_count; first_unused_rank++) {
-        MPI_Send(files[current_file++], MAX_FILENAME, MPI_CHAR, first_unused_rank, FILE_MSG, MPI_COMM_WORLD);
-    }
-
-    // workerzy bez zadań dostają od razu sygnał zakończenia
-    for (int i = first_unused_rank; i < size; i++) {
-        MPI_Send(NULL, 0, MPI_CHAR, i, DONE_MSG, MPI_COMM_WORLD);
-    }
-    int done = 0;
-    while (done < file_count) {
-        int vec[MAX_KEYWORDS];
-        char fname[MAX_FILENAME];
+    while (done_workers < size - 1) {
+        int dummy;
         MPI_Status status;
+        MPI_Recv(&dummy, 1, MPI_INT, MPI_ANY_SOURCE, REQUEST_MSG, MPI_COMM_WORLD, &status);
 
-        MPI_Recv(vec, num_keywords, MPI_INT, MPI_ANY_SOURCE, VEC_MSG, MPI_COMM_WORLD, &status);
-        MPI_Recv(fname, MAX_FILENAME, MPI_CHAR, status.MPI_SOURCE, FILE_MSG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        if (current_file < file_count) {
+            MPI_Send(files[current_file++], PATH_MAX, MPI_CHAR, status.MPI_SOURCE, FILE_MSG, MPI_COMM_WORLD);
+        } else {
+            MPI_Send(NULL, 0, MPI_CHAR, status.MPI_SOURCE, DONE_MSG, MPI_COMM_WORLD);
+            done_workers++;
+            continue;
+        }
+
+        int vec[MAX_KEYWORDS];
+        char fname[PATH_MAX];
+        MPI_Recv(vec, num_keywords, MPI_INT, status.MPI_SOURCE, VEC_MSG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Recv(fname, PATH_MAX, MPI_CHAR, status.MPI_SOURCE, FILE_MSG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
         fprintf(out, "%-12s:", strrchr(fname, '/') ? strrchr(fname, '/') + 1 : fname);
         for (int i = 0; i < num_keywords; i++)
             fprintf(out, " %d", vec[i]);
         fprintf(out, "\n");
-        fflush(out);
-
-        if (current_file < file_count) {
-            MPI_Send(files[current_file++], MAX_FILENAME, MPI_CHAR, status.MPI_SOURCE, FILE_MSG, MPI_COMM_WORLD);
-        } else {
-            MPI_Send(NULL, 0, MPI_CHAR, status.MPI_SOURCE, DONE_MSG, MPI_COMM_WORLD);
-        }
-
-        done++;
     }
 
     fclose(out);
