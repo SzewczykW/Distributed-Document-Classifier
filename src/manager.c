@@ -8,7 +8,7 @@
 #include <string.h>
 
 void manager(const char *input_dir, const char *dict_file, const char *output_file, int size) {
-    char *keywords[MAX_KEYWORDS];
+    char *keywords[MAX_KEYWORDS] = {0};
     int num_keywords = read_dictionary(dict_file, keywords, MAX_KEYWORDS);
     if (num_keywords < 0) {
         perror("Failed to read dictionary");
@@ -54,7 +54,6 @@ void manager(const char *input_dir, const char *dict_file, const char *output_fi
         } else {
             MPI_Send(NULL, 0, MPI_CHAR, source, DONE_MSG, MPI_COMM_WORLD);
             done_workers++;
-
             MPI_Irecv(&dummy, 1, MPI_INT, MPI_ANY_SOURCE, REQUEST_MSG, MPI_COMM_WORLD, &req);
             continue;
         }
@@ -72,12 +71,19 @@ void manager(const char *input_dir, const char *dict_file, const char *output_fi
         MPI_Irecv(&dummy, 1, MPI_INT, MPI_ANY_SOURCE, REQUEST_MSG, MPI_COMM_WORLD, &req);
     }
 
-    int still_pending = 0;
-    MPI_Status final_status;
-    MPI_Test(&req, &still_pending, &final_status);
-    if (!still_pending) {
-        MPI_Cancel(&req);
-        MPI_Request_free(&req);
+    int flag = 0;
+    while (MPI_Iprobe(MPI_ANY_SOURCE, VEC_MSG, MPI_COMM_WORLD, &flag, &status), flag) {
+        int vec[MAX_KEYWORDS];
+        char fname[PATH_MAX];
+
+        MPI_Recv(vec, num_keywords, MPI_INT, status.MPI_SOURCE, VEC_MSG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Recv(fname, PATH_MAX, MPI_CHAR, status.MPI_SOURCE, FILE_MSG, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+        fprintf(out, "%-12s:", strrchr(fname, '/') ? strrchr(fname, '/') + 1 : fname);
+        for (int i = 0; i < num_keywords; i++) {
+            fprintf(out, " %d", vec[i]);
+        }
+        fprintf(out, "\n");
     }
 
     fclose(out);
