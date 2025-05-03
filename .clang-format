@@ -1,0 +1,33 @@
+BasedOnStyle: LLVM
+
+IndentWidth: 4
+UseTab: Never
+TabWidth: 4
+IndentCaseLabels: true
+IndentGotoLabels: false
+
+BreakBeforeBraces: Allman
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+
+SpaceAfterCStyleCast: true
+SpacesBeforeTrailingComments: 1
+SpaceBeforeParens: ControlStatements
+
+IncludeBlocks: Preserve
+IncludeCategories:
+  - Regex:           '^<mpi.h>'
+    Priority:        1
+    SortPriority:    1
+  - Regex:           '^"'
+    Priority:        2
+    SortPriority:    2
+  - Regex:           '.*'
+    Priority:        3
+    SortPriority:    3
+
+ColumnLimit: 88
+SortIncludes: true
+AlwaysBreakAfterReturnType: None
+

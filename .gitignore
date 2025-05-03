@@ -12,6 +12,7 @@
 !LICENSE
 !.editorconfig
 !.ycm_extra_conf.py
+!.clang-format
 
 # --- Allow source code ---
 !src/
@@ -26,9 +27,8 @@
 !tests/**/*.c
 
 # --- Allow scripts ---
-!scipts/*.sh
+!scipts/
 !scipts/**/*.sh
-!scipts/*.py
 !scipts/**/*.py
 
 # --- Allow GNU Make submodules
