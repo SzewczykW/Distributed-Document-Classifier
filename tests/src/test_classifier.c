@@ -1,23 +1,27 @@
 #include <criterion/criterion.h>
 #include <string.h>
 
-#include "utils.h"
 #include "classifier.h"
+#include "utils.h"
 
-Test(classify, detects_keywords) {
-    char *keywords[] = { strdup("manager"), strdup("worker"), strdup("mpi") };
+Test(classify, detects_keywords)
+{
+    char *keywords[] = {strdup("manager"), strdup("worker"), strdup("mpi")};
     prepare_keywords(keywords, 3);
     int result[3] = {0};
     int expected[3] = {1, 1, 1};
 
-    classify_text("The Manager oversees MPI tasks. Each worker runs independently.", result, 3);
+    classify_text("The Manager oversees MPI tasks. Each worker runs independently.",
+                  result, 3);
     cr_assert_arr_eq(result, expected, 3);
 
-    for (int i = 0; i < 3; i++) free(keywords[i]);
+    for (int i = 0; i < 3; i++)
+        free(keywords[i]);
 }
 
-Test(classify, no_keywords_found) {
-    char *keywords[] = { strdup("thread"), strdup("mpi"), strdup("distributed") };
+Test(classify, no_keywords_found)
+{
+    char *keywords[] = {strdup("thread"), strdup("mpi"), strdup("distributed")};
     prepare_keywords(keywords, 3);
     int result[3] = {0};
     int expected[3] = {0};
@@ -25,11 +29,13 @@ Test(classify, no_keywords_found) {
     classify_text("Nothing to see here.", result, 3);
     cr_assert_arr_eq(result, expected, 3);
 
-    for (int i = 0; i < 3; i++) free(keywords[i]);
+    for (int i = 0; i < 3; i++)
+        free(keywords[i]);
 }
 
-Test(classify, multiple_occurrences) {
-    char *keywords[] = { strdup("task"), strdup("system") };
+Test(classify, multiple_occurrences)
+{
+    char *keywords[] = {strdup("task"), strdup("system")};
     prepare_keywords(keywords, 2);
     int result[2] = {0};
     int expected[2] = {3, 3};
@@ -37,11 +43,13 @@ Test(classify, multiple_occurrences) {
     classify_text("Task system Task SYSTEM system taSk.", result, 2);
     cr_assert_arr_eq(result, expected, 2);
 
-    for (int i = 0; i < 2; i++) free(keywords[i]);
+    for (int i = 0; i < 2; i++)
+        free(keywords[i]);
 }
 
-Test(classify, ignores_case) {
-    char *keywords[] = { strdup("mpi") };
+Test(classify, ignores_case)
+{
+    char *keywords[] = {strdup("mpi")};
     prepare_keywords(keywords, 1);
     int result[1] = {0};
 
@@ -51,8 +59,9 @@ Test(classify, ignores_case) {
     free(keywords[0]);
 }
 
-Test(classify, strips_punctuation) {
-    char *keywords[] = { strdup("task") };
+Test(classify, strips_punctuation)
+{
+    char *keywords[] = {strdup("task")};
     prepare_keywords(keywords, 1);
     int result[1] = {0};
 
@@ -61,4 +70,3 @@ Test(classify, strips_punctuation) {
 
     free(keywords[0]);
 }
-

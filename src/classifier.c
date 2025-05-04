@@ -13,7 +13,8 @@ void classify_text(const char *text, int result[], int keyword_count)
     buffer[sizeof(buffer) - 1] = '\0';
 
     char *token = strtok(buffer, CLASSIFY_TOKENS);
-    while (token) {
+    while (token)
+    {
         to_lower(token);
         int index = find_word(token);
         if (index != -1)
@@ -21,4 +22,3 @@ void classify_text(const char *text, int result[], int keyword_count)
         token = strtok(NULL, CLASSIFY_TOKENS);
     }
 }
-

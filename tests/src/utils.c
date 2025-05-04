@@ -1,5 +1,5 @@
-#include <criterion/criterion.h>
 #include "hash_table.h"
+#include <criterion/criterion.h>
 
 void prepare_keywords(char *keywords[], int count)
 {

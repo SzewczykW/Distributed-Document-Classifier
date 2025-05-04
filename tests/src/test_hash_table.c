@@ -1,7 +1,8 @@
-#include <criterion/criterion.h>
 #include "hash_table.h"
+#include <criterion/criterion.h>
 
-Test(hash_table, insert_and_find_basic) {
+Test(hash_table, insert_and_find_basic)
+{
     clear_hash_table();
 
     insert_word("apple", 0);
@@ -14,7 +15,8 @@ Test(hash_table, insert_and_find_basic) {
     cr_assert_eq(find_word("orange"), -1);
 }
 
-Test(hash_table, insert_duplicates_should_keep_first) {
+Test(hash_table, insert_duplicates_should_keep_first)
+{
     clear_hash_table();
 
     insert_word("apple", 10);
@@ -24,7 +26,8 @@ Test(hash_table, insert_duplicates_should_keep_first) {
     cr_assert(index == 10 || index == 99);
 }
 
-Test(hash_table, collision_handling) {
+Test(hash_table, collision_handling)
+{
     clear_hash_table();
 
     insert_word("abc", 1);
@@ -36,7 +39,8 @@ Test(hash_table, collision_handling) {
     cr_assert(find_word("bac") != -1);
 }
 
-Test(hash_table, clear_hash_table_works) {
+Test(hash_table, clear_hash_table_works)
+{
     clear_hash_table();
 
     insert_word("thread", 5);
@@ -50,8 +54,8 @@ Test(hash_table, clear_hash_table_works) {
     cr_assert_eq(find_word("parallel"), -1);
 }
 
-Test(hash_table, find_on_empty_table_returns_minus1) {
+Test(hash_table, find_on_empty_table_returns_minus1)
+{
     clear_hash_table();
     cr_assert_eq(find_word("nonexistent"), -1);
 }
-
