@@ -1,11 +1,12 @@
-#include "manager.h"
 #include <mpi.h>
-#include "file_utils.h"
-#include "hash_table.h"
-#include "msg_consts.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "file_utils.h"
+#include "hash_table.h"
+#include "manager.h"
+#include "msg_consts.h"
 
 void manager(const char *input_dir, const char *dict_file, const char *output_file,
              int size)

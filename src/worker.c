@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "classifier.h"
 #include "file_utils.h"
 #include "hash_table.h"
 #include "msg_consts.h"
@@ -40,16 +41,7 @@ void worker(void)
         }
         else
         {
-            memset(vec, 0, sizeof(vec));
-            char *token = strtok(buffer, " \n\t.,;:!?()[]{}\"'-");
-            while (token)
-            {
-                to_lower(token);
-                int idx = find_word(token);
-                if (idx != -1)
-                    vec[idx]++;
-                token = strtok(NULL, " \n\t.,;:!?()[]{}\"'-");
-            }
+            classify_text(buffer, vec, num_keywords);
         }
 
         MPI_Request reqs[2];
