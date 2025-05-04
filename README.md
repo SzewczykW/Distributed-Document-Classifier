@@ -2,36 +2,42 @@
 
 A parallel document classification engine based on MPI, inspired by Chapter 9 of *Parallel Programming in C with MPI and OpenMP* by Michael J. Quinn.
 
-This project implements a scalable manager-worker architecture using MPICH to classify text documents into feature vectors. It uses hashing to match words against a shared dictionary, distributes processing across processes using MPI.
+This project implements a scalable manager-worker architecture using MPICH to classify text documents into feature vectors. It uses hashing to match words against a shared dictionary and distributes processing using MPI. It supports only `.txt` documents.
 
 ---
 
 ## Overview
 
-- The **manager process** reads a directory of text documents and distributes file paths to worker processes.
-- Each **worker process** tokenizes the document, hashes its content against a dictionary, and builds a feature vector.
-- The vectors are returned to the manager, which writes the results to an output file.
-- Supports `.txt`, `.html`, and `.tex` formats.
+- The **manager process**:
+  - reads the dictionary file, which contains one keyword per line,
+  - broadcasts the dictionary to all worker processes,
+  - scans the input directory for `.txt` documents,
+  - distributes file paths to workers,
+  - receives classified feature vectors from workers and writes them to the output file.
 
+- Each **worker process**:
+  - receives the dictionary from the manager,
+  - receives a file path from the manager,
+  - tokenizes the document into lowercase words,
+  - checks each token against the dictionary stored in a fixed-size hash table,
+  - builds a feature vector representing the presence or frequency of dictionary words,
+  - sends the feature vector back to the manager.
 ---
 
 ## Project Structure
 
 ```
 .
-├── include/             # Header files
-├── src/                 # Core runtime: main, manager, worker, utils
-├── core/                # Feature vector generation
-├── lib/                 # Hash table, I/O and MPI utilities
-├── tests/               # Criterion unit tests
-├── docs/                # Doxygen config + generated docs
-├── make/                # Makefile submodules (build, test, docs, run)
-├── scripts/install_mpich.sh     # Script for downloading, building and installing MPICH locally
-├── Makefile             # Entry point Makefile
+├── include/                        # Header files
+├── src/                            # Core runtime: main, manager, worker, utils
+├── tests/                          # Criterion unit tests
+├── docs/                           # Doxygen config + generated docs
+├── make/                           # Makefile submodules (build, test, docs, run)
+├── scripts/install_mpich.sh        # Script for downloading, building and installing MPICH locally
+├── scripts/gen_data.py             # Script for generating random data (see ./scripts/gen_data.py --help for more)
+├── Makefile                        # Entry point Makefile
+├── CMakeLists.txt                  # Entry point CMake
 ```
-
-There is also [CMakeLists.txt](CMakeLists.txt) here but it is not supported for now.
-
 ---
 
 ## Requirements
@@ -52,7 +58,8 @@ To install MPICH into a project-local `.mpich/` directory without affecting your
 ./scripts/install_mpich.sh
 ```
 
-This script will download, build, and install MPICH 4.3.0 into `.mpich/`.
+This script will download, build, and install MPICH 4.3.0 into `.mpich/` in place where
+it was executed.
 
 ---
 
@@ -73,13 +80,10 @@ Builds the final executable `ddc` under:
 ## Running the Classifier
 
 ```bash
-make run MPI_FLAGS="-np 4" RUN_FLAGS="--input ./data --output result.txt"
+make run MPI_FLAGS='-f nodes -n 8' RUN_FLAGS='input/ dict.txt out.txt'
 ```
-
-- `MPI_FLAGS`: flags for `mpirun` (e.g., `-np 4`)
-- `RUN_FLAGS`: flags passed to the program:
-  - `--input <folder>`: folder with `.txt`, `.html`, `.tex` files
-  - `--output <file>`: output file for result vectors
+- `MPI_FLAGS`: flags for `mpiexec` (default: '-f nodes -n 16')
+- `RUN_FLAGS`: arguments for `ddc` (default: './example/input/ ./example/dict.txt ./example/output/result.txt')
 
 ---
 
