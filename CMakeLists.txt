@@ -14,38 +14,44 @@ if(NOT DEFINED ENV{MPICH_TARGET_DIR})
 endif()
 
 set(MPI_HOME $ENV{MPICH_TARGET_DIR})
+set(CMAKE_C_COMPILER "${MPI_HOME}/bin/mpicc")
+add_compile_definitions(_POSIX_C_SOURCE=200809L)
+add_compile_options(
+    -Wall
+    -Wextra
+    -Werror
+    -Wpedantic
+    -O3
+)
 
 # =============================
 # === Main application ========
 # =============================
-
-add_executable(classifier
+add_executable(ddc
+    src/classifier.c
+    src/file_utils.c
+    src/hash_table.c
     src/main.c
-    src/utils.c
     src/manager.c
     src/worker.c
-    core/classifier.c
-    core/profile.c
-    lib/hash_table.c
-    lib/io_utils.c
-    lib/mpi_utils.c
 )
 
-target_include_directories(classifier PRIVATE
+target_include_directories(ddc PRIVATE
     "${CMAKE_SOURCE_DIR}/include"
     "${MPI_HOME}/include"
 )
 
-target_link_directories(classifier PRIVATE
+target_link_directories(ddc PRIVATE
     "${MPI_HOME}/lib"
 )
 
-target_link_libraries(classifier PRIVATE mpi)
+target_link_libraries(ddc PRIVATE
+    mpi
+)
 
 # =============================
 # === Tests ===================
 # =============================
-
 include(FetchContent)
 
 FetchContent_Declare(
@@ -56,31 +62,31 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(criterion)
 
-add_executable(tests
-    tests/test_classification.c
+add_executable(ddc-tests
+    src/classifier.c
+    src/file_utils.c
+    src/hash_table.c
+    tests/src/test_classifier.c
+    tests/src/test_file_utils.c
+    tests/src/test_hash_table.c
+    tests/src/utils.c
 )
 
-target_include_directories(tests PRIVATE
+target_include_directories(ddc-tests PRIVATE
     "${CMAKE_SOURCE_DIR}/include"
-    "${MPI_HOME}/include"
+    "${CMAKE_SOURCE_DIR}/tests/include"
 )
 
-target_link_directories(tests PRIVATE
-    "${MPI_HOME}/lib"
-)
-
-target_link_libraries(tests PRIVATE
+target_link_libraries(ddc-tests PRIVATE
     criterion
-    mpi
 )
 
 enable_testing()
-add_test(NAME unit_tests COMMAND tests)
+add_test(NAME ddc-tests COMMAND ddc-tests)
 
 # =============================
 # === Documentation (Doxygen) ==
 # =============================
-
 find_package(Doxygen REQUIRED)
 
 set(DOXYFILE_IN "${CMAKE_SOURCE_DIR}/docs/Doxyfile")
