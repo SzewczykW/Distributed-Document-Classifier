@@ -17,8 +17,6 @@
 # --- Allow source code ---
 !src/
 !include/
-!core/
-!lib/
 
 !src/**/*.c
 !include/**/*.h
@@ -27,9 +25,9 @@
 !tests/**/*.c
 
 # --- Allow scripts ---
-!scipts/
-!scipts/**/*.sh
-!scipts/**/*.py
+!scripts/
+!scripts/**/*.sh
+!scripts/**/*.py
 
 # --- Allow GNU Make submodules
 !make/
