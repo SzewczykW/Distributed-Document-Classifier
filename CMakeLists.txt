@@ -52,6 +52,7 @@ target_link_libraries(ddc PRIVATE
 # =============================
 # === Tests ===================
 # =============================
+find_package(Criterion REQUIRED)
 include(FetchContent)
 
 FetchContent_Declare(
