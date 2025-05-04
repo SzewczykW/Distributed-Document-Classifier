@@ -1,3 +1,10 @@
+/**
+ * @file hash_table.c
+ * @author Wiktor Szewczyk
+ * @brief Implementation of fixed-size chained hash table for keyword lookup.
+ */
+
+
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>

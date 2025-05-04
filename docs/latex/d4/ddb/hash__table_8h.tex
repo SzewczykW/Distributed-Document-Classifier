@@ -1,0 +1,292 @@
+\doxysection{hash\+\_\+table.\+h File Reference}
+\hypertarget{hash__table_8h}{}\label{hash__table_8h}\index{hash\_table.h@{hash\_table.h}}
+
+
+Simple fixed-\/size chained hash table for word lookup.  
+
+
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/da9/hash__table_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structnode}{node}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{hash__table_8h_ad6074dd11ab3c97c8135c43aab03ae95}{HASH\+\_\+\+SIZE}}~101
+\begin{DoxyCompactList}\small\item\em Size of the hash table (number of buckets). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structnode}{node}} \mbox{\hyperlink{hash__table_8h_ac09cf950484bd9550d14d602b0e5e7fb}{Node}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{hash__table_8h_a2512fdab32c231a3a2e5621cb1e309c9}{clear\+\_\+hash\+\_\+table}} (void)
+\begin{DoxyCompactList}\small\item\em Frees all allocated hash table entries. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{hash__table_8h_a09866b547c82fa1cf347fe26223f9f51}{find\+\_\+word}} (const char \texorpdfstring{$\ast$}{*}word)
+\begin{DoxyCompactList}\small\item\em Finds a word in the hash table. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{hash__table_8h_ad0fdb05352f003d01650380f878c5059}{hash\+\_\+func}} (const char \texorpdfstring{$\ast$}{*}s)
+\begin{DoxyCompactList}\small\item\em Hash function for a word. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{hash__table_8h_a02829007f61a93c496676c28e3a4cc60}{insert\+\_\+word}} (const char \texorpdfstring{$\ast$}{*}word, int index)
+\begin{DoxyCompactList}\small\item\em Inserts a keyword into the hash table. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{hash__table_8h_a4c463db37a1ef64d9f98543215c06426}{to\+\_\+lower}} (char \texorpdfstring{$\ast$}{*}str)
+\begin{DoxyCompactList}\small\item\em Converts a string to lowercase in-\/place. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structNode}{Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hash__table_8h_aeda62ae8d888702da626332392ccb077}{hash\+\_\+table}} \mbox{[}101\mbox{]}
+\begin{DoxyCompactList}\small\item\em Global hash table structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Simple fixed-\/size chained hash table for word lookup. 
+
+\begin{DoxyAuthor}{Author}
+Wiktor Szewczyk 
+\end{DoxyAuthor}
+
+
+Definition in file \mbox{\hyperlink{hash__table_8h_source}{hash\+\_\+table.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{hash__table_8h_ad6074dd11ab3c97c8135c43aab03ae95}\label{hash__table_8h_ad6074dd11ab3c97c8135c43aab03ae95} 
+\index{hash\_table.h@{hash\_table.h}!HASH\_SIZE@{HASH\_SIZE}}
+\index{HASH\_SIZE@{HASH\_SIZE}!hash\_table.h@{hash\_table.h}}
+\doxysubsubsection{\texorpdfstring{HASH\_SIZE}{HASH\_SIZE}}
+{\footnotesize\ttfamily \#define HASH\+\_\+\+SIZE~101}
+
+
+
+Size of the hash table (number of buckets). 
+
+The hash table uses fixed-\/size separate chaining with linked lists. A prime number is chosen to reduce the likelihood of collisions and distribute keys uniformly. 
+
+Definition at line \mbox{\hyperlink{hash__table_8h_source_l00017}{17}} of file \mbox{\hyperlink{hash__table_8h_source}{hash\+\_\+table.\+h}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{hash__table_8h_ac09cf950484bd9550d14d602b0e5e7fb}\label{hash__table_8h_ac09cf950484bd9550d14d602b0e5e7fb} 
+\index{hash\_table.h@{hash\_table.h}!Node@{Node}}
+\index{Node@{Node}!hash\_table.h@{hash\_table.h}}
+\doxysubsubsection{\texorpdfstring{Node}{Node}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structnode}{node}} \mbox{\hyperlink{structNode}{Node}}}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{hash__table_8h_a2512fdab32c231a3a2e5621cb1e309c9}\label{hash__table_8h_a2512fdab32c231a3a2e5621cb1e309c9} 
+\index{hash\_table.h@{hash\_table.h}!clear\_hash\_table@{clear\_hash\_table}}
+\index{clear\_hash\_table@{clear\_hash\_table}!hash\_table.h@{hash\_table.h}}
+\doxysubsubsection{\texorpdfstring{clear\_hash\_table()}{clear\_hash\_table()}}
+{\footnotesize\ttfamily void clear\+\_\+hash\+\_\+table (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Frees all allocated hash table entries. 
+
+
+
+Definition at line \mbox{\hyperlink{hash__table_8c_source_l00049}{49}} of file \mbox{\hyperlink{hash__table_8c_source}{hash\+\_\+table.\+c}}.
+
+
+
+References \mbox{\hyperlink{hash__table_8h_source_l00017}{HASH\+\_\+\+SIZE}}, and \mbox{\hyperlink{hash__table_8c_source_l00014}{hash\+\_\+table}}.
+
+
+
+Referenced by \mbox{\hyperlink{manager_8c_source_l00017}{manager()}}, and \mbox{\hyperlink{worker_8c_source_l00019}{worker()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddb/hash__table_8h_a2512fdab32c231a3a2e5621cb1e309c9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hash__table_8h_a09866b547c82fa1cf347fe26223f9f51}\label{hash__table_8h_a09866b547c82fa1cf347fe26223f9f51} 
+\index{hash\_table.h@{hash\_table.h}!find\_word@{find\_word}}
+\index{find\_word@{find\_word}!hash\_table.h@{hash\_table.h}}
+\doxysubsubsection{\texorpdfstring{find\_word()}{find\_word()}}
+{\footnotesize\ttfamily int find\+\_\+word (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{word }\end{DoxyParamCaption})}
+
+
+
+Finds a word in the hash table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em word} & Word to find \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index in dictionary, or -\/1 if not found 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{hash__table_8c_source_l00036}{36}} of file \mbox{\hyperlink{hash__table_8c_source}{hash\+\_\+table.\+c}}.
+
+
+
+References \mbox{\hyperlink{hash__table_8c_source_l00016}{hash\+\_\+func()}}, and \mbox{\hyperlink{hash__table_8c_source_l00014}{hash\+\_\+table}}.
+
+
+
+Referenced by \mbox{\hyperlink{classifier_8c_source_l00013}{classify\+\_\+text()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{d4/ddb/hash__table_8h_a09866b547c82fa1cf347fe26223f9f51_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddb/hash__table_8h_a09866b547c82fa1cf347fe26223f9f51_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hash__table_8h_ad0fdb05352f003d01650380f878c5059}\label{hash__table_8h_ad0fdb05352f003d01650380f878c5059} 
+\index{hash\_table.h@{hash\_table.h}!hash\_func@{hash\_func}}
+\index{hash\_func@{hash\_func}!hash\_table.h@{hash\_table.h}}
+\doxysubsubsection{\texorpdfstring{hash\_func()}{hash\_func()}}
+{\footnotesize\ttfamily int hash\+\_\+func (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{s }\end{DoxyParamCaption})}
+
+
+
+Hash function for a word. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & Word to hash \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index in hash table 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{hash__table_8c_source_l00016}{16}} of file \mbox{\hyperlink{hash__table_8c_source}{hash\+\_\+table.\+c}}.
+
+
+
+References \mbox{\hyperlink{hash__table_8h_source_l00017}{HASH\+\_\+\+SIZE}}.
+
+
+
+Referenced by \mbox{\hyperlink{hash__table_8c_source_l00036}{find\+\_\+word()}}, and \mbox{\hyperlink{hash__table_8c_source_l00026}{insert\+\_\+word()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddb/hash__table_8h_ad0fdb05352f003d01650380f878c5059_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hash__table_8h_a02829007f61a93c496676c28e3a4cc60}\label{hash__table_8h_a02829007f61a93c496676c28e3a4cc60} 
+\index{hash\_table.h@{hash\_table.h}!insert\_word@{insert\_word}}
+\index{insert\_word@{insert\_word}!hash\_table.h@{hash\_table.h}}
+\doxysubsubsection{\texorpdfstring{insert\_word()}{insert\_word()}}
+{\footnotesize\ttfamily void insert\+\_\+word (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{word,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+Inserts a keyword into the hash table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em word} & Keyword string \\
+\hline
+{\em index} & Index in the dictionary \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{hash__table_8c_source_l00026}{26}} of file \mbox{\hyperlink{hash__table_8c_source}{hash\+\_\+table.\+c}}.
+
+
+
+References \mbox{\hyperlink{hash__table_8c_source_l00016}{hash\+\_\+func()}}, and \mbox{\hyperlink{hash__table_8c_source_l00014}{hash\+\_\+table}}.
+
+
+
+Referenced by \mbox{\hyperlink{file__utils_8c_source_l00057}{read\+\_\+dictionary()}}, and \mbox{\hyperlink{file__utils_8c_source_l00092}{receive\+\_\+dictionary()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{d4/ddb/hash__table_8h_a02829007f61a93c496676c28e3a4cc60_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddb/hash__table_8h_a02829007f61a93c496676c28e3a4cc60_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hash__table_8h_a4c463db37a1ef64d9f98543215c06426}\label{hash__table_8h_a4c463db37a1ef64d9f98543215c06426} 
+\index{hash\_table.h@{hash\_table.h}!to\_lower@{to\_lower}}
+\index{to\_lower@{to\_lower}!hash\_table.h@{hash\_table.h}}
+\doxysubsubsection{\texorpdfstring{to\_lower()}{to\_lower()}}
+{\footnotesize\ttfamily void to\+\_\+lower (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{str }\end{DoxyParamCaption})}
+
+
+
+Converts a string to lowercase in-\/place. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & String to lowercase \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{hash__table_8c_source_l00065}{65}} of file \mbox{\hyperlink{hash__table_8c_source}{hash\+\_\+table.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{classifier_8c_source_l00013}{classify\+\_\+text()}}, and \mbox{\hyperlink{file__utils_8c_source_l00057}{read\+\_\+dictionary()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/ddb/hash__table_8h_a4c463db37a1ef64d9f98543215c06426_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{hash__table_8h_aeda62ae8d888702da626332392ccb077}\label{hash__table_8h_aeda62ae8d888702da626332392ccb077} 
+\index{hash\_table.h@{hash\_table.h}!hash\_table@{hash\_table}}
+\index{hash\_table@{hash\_table}!hash\_table.h@{hash\_table.h}}
+\doxysubsubsection{\texorpdfstring{hash\_table}{hash\_table}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}\texorpdfstring{$\ast$}{*} hash\+\_\+table\mbox{[}101\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Global hash table structure. 
+
+
+
+Definition at line \mbox{\hyperlink{hash__table_8c_source_l00014}{14}} of file \mbox{\hyperlink{hash__table_8c_source}{hash\+\_\+table.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{hash__table_8c_source_l00049}{clear\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{hash__table_8c_source_l00036}{find\+\_\+word()}}, and \mbox{\hyperlink{hash__table_8c_source_l00026}{insert\+\_\+word()}}.
+

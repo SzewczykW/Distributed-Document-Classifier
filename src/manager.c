@@ -1,3 +1,9 @@
+/**
+ * @file manager.c
+ * @author Wiktor Szewczyk
+ * @brief Orchestrates the classification by managing worker coordination and output collection.
+ */
+
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>

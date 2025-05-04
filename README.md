@@ -22,22 +22,29 @@ This project implements a scalable manager-worker architecture using MPICH to cl
   - checks each token against the dictionary stored in a fixed-size hash table,
   - builds a feature vector representing the presence or frequency of dictionary words,
   - sends the feature vector back to the manager.
+
+---
+
+## Flow Diagram
+![Flow Diagram](docs/img/flow.svg)
+
 ---
 
 ## Project Structure
 
 ```
 .
-├── include/                        # Header files
-├── src/                            # Core runtime: main, manager, worker, utils
-├── tests/                          # Criterion unit tests
-├── docs/                           # Doxygen config + generated docs
-├── make/                           # Makefile submodules (build, test, docs, run)
-├── scripts/install_mpich.sh        # Script for downloading, building and installing MPICH locally
-├── scripts/gen_data.py             # Script for generating random data (see ./scripts/gen_data.py --help for more)
-├── Makefile                        # Entry point Makefile
-├── CMakeLists.txt                  # Entry point CMake
+|- include/                        # Header files
+|- src/                            # Core runtime: main, manager, worker, utils
+|- tests/                          # Criterion unit tests
+|- docs/                           # Doxygen config + generated docs
+|- make/                           # Makefile submodules (build, test, docs, run)
+|- scripts/install_mpich.sh        # Script for downloading, building and installing MPICH locally
+|- scripts/gen_data.py             # Script for generating random data (see ./scripts/gen_data.py --help for more)
+|- Makefile                        # Entry point Makefile
+|- CMakeLists.txt                  # Entry point CMake
 ```
+
 ---
 
 ## Requirements
@@ -45,7 +52,7 @@ This project implements a scalable manager-worker architecture using MPICH to cl
 - GCC 12+
 - GNU Make
 - MPICH 4.3.0+ (see below for installation)
-- (Optional) [Doxygen](https://www.doxygen.nl) + Graphviz + LaTeX for documentation
+- (Optional) [Doxygen](https://www.doxygen.nl) + [Doxygen-Awesome-CSS](https://github.com/jothepro/doxygen-awesome-css)
 - (Optional) [Criterion](https://github.com/Snaipe/Criterion) for unit testing
 
 ---
@@ -62,6 +69,14 @@ This script will download, build, and install MPICH 4.3.0 into `.mpich/` in plac
 it was executed.
 
 ---
+
+## Setting up MPICH path
+
+Before building or running the project, you must set the `MPICH_TARGET_DIR` environment variable to point to the root directory of your MPICH installation:
+
+```bash
+export MPICH_TARGET_DIR=/path/to/mpich
+```
 
 ## Building the Project
 
@@ -104,7 +119,6 @@ make docs
 ```
 
 - HTML docs: `docs/html/index.html`
-- PDF docs: `docs/latex/refman.pdf`
 
 ---
 
@@ -118,5 +132,6 @@ MIT License. See [LICENSE](LICENSE) for full details.
 
 - Michael J. Quinn, *Parallel Programming in C with MPI and OpenMP*, Chapter 9
 - [MPICH](https://www.mpich.org/)
-- [Doxygen](https://www.doxygen.nl/)
 - [Criterion](https://github.com/Snaipe/Criterion)
+- [Doxygen](https://www.doxygen.nl/)
+- [Doxygen-Awesome-CSS](https://github.com/jothepro/doxygen-awesome-css)

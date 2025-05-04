@@ -1,3 +1,13 @@
+/**
+ * @file test_hash_table.c
+ * @author Wiktor Szewczyk
+ * @brief Unit tests for the hash table data structure.
+ *
+ * Tests word insertion, collision resolution, lookup correctness,
+ * duplicate handling, and table clearing.
+ */
+
+
 #include "hash_table.h"
 #include <criterion/criterion.h>
 

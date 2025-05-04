@@ -1,3 +1,13 @@
+/**
+ * @file test_file_utils.c
+ * @author Wiktor Szewczyk
+ * @brief Unit tests for file I/O and dictionary utilities.
+ *
+ * Validates reading file content, reading dictionaries, handling limits,
+ * detecting duplicates, and scanning directories for .txt files.
+ */
+
+
 #include <criterion/criterion.h>
 #include <stdio.h>
 #include <string.h>

@@ -1,0 +1,287 @@
+\doxysection{file\+\_\+utils.\+c File Reference}
+\hypertarget{file__utils_8c}{}\label{file__utils_8c}\index{file\_utils.c@{file\_utils.c}}
+
+
+File reading, dictionary parsing, and dictionary broadcasting over MPI.  
+
+
+{\ttfamily \#include $<$mpi.\+h$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}file\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}hash\+\_\+table.\+h"{}}\newline
+{\ttfamily \#include "{}msg\+\_\+consts.\+h"{}}\newline
+Include dependency graph for file\+\_\+utils.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d30/file__utils_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{file__utils_8c_a07982d8fbcce521936640f6b39550dad}{broadcast\+\_\+dictionary}} (char \texorpdfstring{$\ast$}{*}keywords\mbox{[}$\,$\mbox{]}, int num\+\_\+keywords)
+\begin{DoxyCompactList}\small\item\em Broadcasts dictionary from manager to workers. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{file__utils_8c_af60f33bb7908850bdcf52ebe9f49d310}{list\+\_\+txt\+\_\+files}} (const char \texorpdfstring{$\ast$}{*}dir\+\_\+path, char files\mbox{[}$\,$\mbox{]}\mbox{[}PATH\+\_\+\+MAX\mbox{]}, int max\+\_\+files)
+\begin{DoxyCompactList}\small\item\em Lists all .txt files in a directory. \end{DoxyCompactList}\item 
+FILE \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{file__utils_8c_af2d299fe865532706c80ab701585b877}{open\+\_\+output\+\_\+file}} (const char \texorpdfstring{$\ast$}{*}output\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Opens the result output file for writing. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{file__utils_8c_a9cef8f76bf0bbcbbc225ed062b5d8d15}{read\+\_\+dictionary}} (const char \texorpdfstring{$\ast$}{*}dict\+\_\+path, char \texorpdfstring{$\ast$}{*}keywords\mbox{[}$\,$\mbox{]}, int max\+\_\+keywords)
+\begin{DoxyCompactList}\small\item\em Reads dictionary and builds global keyword list and hash table. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{file__utils_8c_aa06b061afa3a76842fb0de418d69fab4}{read\+\_\+file\+\_\+content}} (const char \texorpdfstring{$\ast$}{*}filename, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t bufsize)
+\begin{DoxyCompactList}\small\item\em Reads entire content of a file into buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{file__utils_8c_a9e7c1dc86cc9f5060dc30988f68aeb76}{receive\+\_\+dictionary}} (char \texorpdfstring{$\ast$}{*}keywords\mbox{[}$\,$\mbox{]}, int \texorpdfstring{$\ast$}{*}num\+\_\+keywords)
+\begin{DoxyCompactList}\small\item\em Receives dictionary in a worker and builds local keyword array and hash table. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File reading, dictionary parsing, and dictionary broadcasting over MPI. 
+
+\begin{DoxyAuthor}{Author}
+Wiktor Szewczyk 
+\end{DoxyAuthor}
+
+
+Definition in file \mbox{\hyperlink{file__utils_8c_source}{file\+\_\+utils.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{file__utils_8c_a07982d8fbcce521936640f6b39550dad}\label{file__utils_8c_a07982d8fbcce521936640f6b39550dad} 
+\index{file\_utils.c@{file\_utils.c}!broadcast\_dictionary@{broadcast\_dictionary}}
+\index{broadcast\_dictionary@{broadcast\_dictionary}!file\_utils.c@{file\_utils.c}}
+\doxysubsubsection{\texorpdfstring{broadcast\_dictionary()}{broadcast\_dictionary()}}
+{\footnotesize\ttfamily void broadcast\+\_\+dictionary (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{keywords\mbox{[}$\,$\mbox{]},  }\item[{int}]{num\+\_\+keywords }\end{DoxyParamCaption})}
+
+
+
+Broadcasts dictionary from manager to workers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em keywords} & Array of keyword strings \\
+\hline
+{\em num\+\_\+keywords} & Number of keywords \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{file__utils_8c_source_l00083}{83}} of file \mbox{\hyperlink{file__utils_8c_source}{file\+\_\+utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{msg__consts_8h_source_l00017}{MAX\+\_\+\+WORD\+\_\+\+LEN}}.
+
+
+
+Referenced by \mbox{\hyperlink{manager_8c_source_l00017}{manager()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d5e/file__utils_8c_a07982d8fbcce521936640f6b39550dad_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{file__utils_8c_af60f33bb7908850bdcf52ebe9f49d310}\label{file__utils_8c_af60f33bb7908850bdcf52ebe9f49d310} 
+\index{file\_utils.c@{file\_utils.c}!list\_txt\_files@{list\_txt\_files}}
+\index{list\_txt\_files@{list\_txt\_files}!file\_utils.c@{file\_utils.c}}
+\doxysubsubsection{\texorpdfstring{list\_txt\_files()}{list\_txt\_files()}}
+{\footnotesize\ttfamily int list\+\_\+txt\+\_\+files (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{dir\+\_\+path,  }\item[{char}]{files\mbox{[}$\,$\mbox{]}\mbox{[}\+PATH\+\_\+\+MAX\mbox{]},  }\item[{int}]{max\+\_\+files }\end{DoxyParamCaption})}
+
+
+
+Lists all .txt files in a directory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+\_\+path} & Path to the directory \\
+\hline
+{\em files} & Output array of full file paths \\
+\hline
+{\em max\+\_\+files} & Maximum number of files to find \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of files found, or -\/1 on error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{file__utils_8c_source_l00018}{18}} of file \mbox{\hyperlink{file__utils_8c_source}{file\+\_\+utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{manager_8c_source_l00017}{manager()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{d5/d5e/file__utils_8c_af60f33bb7908850bdcf52ebe9f49d310_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{file__utils_8c_af2d299fe865532706c80ab701585b877}\label{file__utils_8c_af2d299fe865532706c80ab701585b877} 
+\index{file\_utils.c@{file\_utils.c}!open\_output\_file@{open\_output\_file}}
+\index{open\_output\_file@{open\_output\_file}!file\_utils.c@{file\_utils.c}}
+\doxysubsubsection{\texorpdfstring{open\_output\_file()}{open\_output\_file()}}
+{\footnotesize\ttfamily FILE \texorpdfstring{$\ast$}{*} open\+\_\+output\+\_\+file (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{output\+\_\+path }\end{DoxyParamCaption})}
+
+
+
+Opens the result output file for writing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output\+\_\+path} & Output file path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+FILE\texorpdfstring{$\ast$}{*} handle or NULL on failure 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{file__utils_8c_source_l00052}{52}} of file \mbox{\hyperlink{file__utils_8c_source}{file\+\_\+utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{manager_8c_source_l00017}{manager()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d5e/file__utils_8c_af2d299fe865532706c80ab701585b877_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{file__utils_8c_a9cef8f76bf0bbcbbc225ed062b5d8d15}\label{file__utils_8c_a9cef8f76bf0bbcbbc225ed062b5d8d15} 
+\index{file\_utils.c@{file\_utils.c}!read\_dictionary@{read\_dictionary}}
+\index{read\_dictionary@{read\_dictionary}!file\_utils.c@{file\_utils.c}}
+\doxysubsubsection{\texorpdfstring{read\_dictionary()}{read\_dictionary()}}
+{\footnotesize\ttfamily int read\+\_\+dictionary (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{dict\+\_\+path,  }\item[{char \texorpdfstring{$\ast$}{*}}]{keywords\mbox{[}$\,$\mbox{]},  }\item[{int}]{max\+\_\+keywords }\end{DoxyParamCaption})}
+
+
+
+Reads dictionary and builds global keyword list and hash table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dict\+\_\+path} & Path to dictionary file \\
+\hline
+{\em keywords} & Output array of allocated keyword strings \\
+\hline
+{\em max\+\_\+keywords} & Maximum allowed keyword count \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of keywords read, or -\/1 on error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{file__utils_8c_source_l00057}{57}} of file \mbox{\hyperlink{file__utils_8c_source}{file\+\_\+utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{hash__table_8c_source_l00026}{insert\+\_\+word()}}, \mbox{\hyperlink{msg__consts_8h_source_l00017}{MAX\+\_\+\+WORD\+\_\+\+LEN}}, and \mbox{\hyperlink{hash__table_8c_source_l00065}{to\+\_\+lower()}}.
+
+
+
+Referenced by \mbox{\hyperlink{manager_8c_source_l00017}{manager()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d5e/file__utils_8c_a9cef8f76bf0bbcbbc225ed062b5d8d15_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{d5/d5e/file__utils_8c_a9cef8f76bf0bbcbbc225ed062b5d8d15_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{file__utils_8c_aa06b061afa3a76842fb0de418d69fab4}\label{file__utils_8c_aa06b061afa3a76842fb0de418d69fab4} 
+\index{file\_utils.c@{file\_utils.c}!read\_file\_content@{read\_file\_content}}
+\index{read\_file\_content@{read\_file\_content}!file\_utils.c@{file\_utils.c}}
+\doxysubsubsection{\texorpdfstring{read\_file\_content()}{read\_file\_content()}}
+{\footnotesize\ttfamily int read\+\_\+file\+\_\+content (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{filename,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{size\+\_\+t}]{bufsize }\end{DoxyParamCaption})}
+
+
+
+Reads entire content of a file into buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & File to read \\
+\hline
+{\em buffer} & Destination buffer \\
+\hline
+{\em bufsize} & Maximum size of buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on error 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{file__utils_8c_source_l00040}{40}} of file \mbox{\hyperlink{file__utils_8c_source}{file\+\_\+utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{worker_8c_source_l00019}{worker()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{d5/d5e/file__utils_8c_aa06b061afa3a76842fb0de418d69fab4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{file__utils_8c_a9e7c1dc86cc9f5060dc30988f68aeb76}\label{file__utils_8c_a9e7c1dc86cc9f5060dc30988f68aeb76} 
+\index{file\_utils.c@{file\_utils.c}!receive\_dictionary@{receive\_dictionary}}
+\index{receive\_dictionary@{receive\_dictionary}!file\_utils.c@{file\_utils.c}}
+\doxysubsubsection{\texorpdfstring{receive\_dictionary()}{receive\_dictionary()}}
+{\footnotesize\ttfamily void receive\+\_\+dictionary (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{keywords\mbox{[}$\,$\mbox{]},  }\item[{int \texorpdfstring{$\ast$}{*}}]{num\+\_\+keywords }\end{DoxyParamCaption})}
+
+
+
+Receives dictionary in a worker and builds local keyword array and hash table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em keywords} & Output array of keyword strings \\
+\hline
+{\em num\+\_\+keywords} & Output number of keywords \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{file__utils_8c_source_l00092}{92}} of file \mbox{\hyperlink{file__utils_8c_source}{file\+\_\+utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{hash__table_8c_source_l00026}{insert\+\_\+word()}}, and \mbox{\hyperlink{msg__consts_8h_source_l00017}{MAX\+\_\+\+WORD\+\_\+\+LEN}}.
+
+
+
+Referenced by \mbox{\hyperlink{worker_8c_source_l00019}{worker()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d5e/file__utils_8c_a9e7c1dc86cc9f5060dc30988f68aeb76_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d5e/file__utils_8c_a9e7c1dc86cc9f5060dc30988f68aeb76_icgraph}
+\end{center}
+\end{figure}

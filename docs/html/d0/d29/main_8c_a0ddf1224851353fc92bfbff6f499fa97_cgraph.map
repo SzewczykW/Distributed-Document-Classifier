@@ -1,0 +1,32 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,203,60,228"/>
+<area shape="rect" id="Node000002" href="$d4/d10/manager_8c.html#a5afb0ce7625828da3439e1e2aa87b0a9" title="Entry point for the manager process." alt="" coords="108,129,188,155"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="52,200,114,160,117,165,55,205"/>
+<area shape="rect" id="Node000011" href="$dc/d8e/worker_8c.html#a60b3bdb96860f3e67ef2dcc21b7b5c37" title="Entry point for each MPI worker process." alt="" coords="115,252,181,277"/>
+<area shape="poly" id="edge9_Node000001_Node000011" title=" " alt="" coords="61,224,106,244,104,249,59,229"/>
+<area shape="rect" id="Node000003" href="$d5/d5e/file__utils_8c.html#a07982d8fbcce521936640f6b39550dad" title="Broadcasts dictionary from manager to workers." alt="" coords="236,5,395,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="155,128,186,85,209,61,235,40,245,34,248,39,237,44,212,64,190,88,159,131"/>
+<area shape="rect" id="Node000004" href="$d2/daf/hash__table_8c.html#a2512fdab32c231a3a2e5621cb1e309c9" title="Frees all allocated hash table entries." alt="" coords="249,203,381,228"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="171,152,237,188,258,196,256,201,235,192,169,157"/>
+<area shape="rect" id="Node000005" href="$d5/d5e/file__utils_8c.html#af60f33bb7908850bdcf52ebe9f49d310" title="Lists all .txt files in a directory." alt="" coords="265,55,366,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="167,127,235,89,252,82,254,87,237,94,170,131"/>
+<area shape="rect" id="Node000006" href="$d5/d5e/file__utils_8c.html#af2d299fe865532706c80ab701585b877" title="Opens the result output file for writing." alt="" coords="250,104,381,129"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="188,133,236,126,237,131,189,139"/>
+<area shape="rect" id="Node000007" href="$d5/d5e/file__utils_8c.html#a9cef8f76bf0bbcbbc225ed062b5d8d15" title="Reads dictionary and builds global keyword list and hash table." alt="" coords="254,153,377,179"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="189,145,240,153,240,158,188,150"/>
+<area shape="rect" id="Node000008" href="$d2/daf/hash__table_8c.html#a02829007f61a93c496676c28e3a4cc60" title="Inserts a keyword into the hash table." alt="" coords="443,179,541,204"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="377,172,430,180,429,185,377,177"/>
+<area shape="rect" id="Node000010" href="$d2/daf/hash__table_8c.html#a4c463db37a1ef64d9f98543215c06426" title="Converts a string to lowercase in&#45;place." alt="" coords="453,252,531,277"/>
+<area shape="poly" id="edge8_Node000007_Node000010" title=" " alt="" coords="369,176,396,188,436,213,469,240,465,244,433,217,393,192,367,181"/>
+<area shape="poly" id="edge13_Node000011_Node000004" title=" " alt="" coords="181,252,258,229,259,235,182,258"/>
+<area shape="rect" id="Node000012" href="$d0/db9/classifier_8c.html#a34d7a99c1b14f5a3da44dc698c1f3bcb" title="Generates a classification vector from input text." alt="" coords="263,351,367,376"/>
+<area shape="poly" id="edge10_Node000011_Node000012" title=" " alt="" coords="163,276,195,306,237,336,254,343,251,348,235,340,192,310,160,280"/>
+<area shape="rect" id="Node000014" href="$d5/d5e/file__utils_8c.html#aa06b061afa3a76842fb0de418d69fab4" title="Reads entire content of a file into buffer." alt="" coords="248,301,383,327"/>
+<area shape="poly" id="edge14_Node000011_Node000014" title=" " alt="" coords="182,272,259,295,258,300,181,277"/>
+<area shape="rect" id="Node000015" href="$d5/d5e/file__utils_8c.html#a9e7c1dc86cc9f5060dc30988f68aeb76" title="Receives dictionary in a worker and builds local keyword array and hash table." alt="" coords="244,252,387,277"/>
+<area shape="poly" id="edge15_Node000011_Node000015" title=" " alt="" coords="181,262,230,262,230,267,181,267"/>
+<area shape="poly" id="edge12_Node000012_Node000010" title=" " alt="" coords="364,348,393,336,432,311,465,285,468,289,435,315,396,340,366,353"/>
+<area shape="rect" id="Node000013" href="$d2/daf/hash__table_8c.html#a09866b547c82fa1cf347fe26223f9f51" title="Finds a word in the hash table." alt="" coords="449,351,535,376"/>
+<area shape="poly" id="edge11_Node000012_Node000013" title=" " alt="" coords="367,361,435,361,435,366,367,366"/>
+<area shape="poly" id="edge16_Node000015_Node000008" title=" " alt="" coords="359,249,394,237,454,208,456,213,396,242,360,255"/>
+</map>

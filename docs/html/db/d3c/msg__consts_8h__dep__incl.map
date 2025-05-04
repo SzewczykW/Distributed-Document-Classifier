@@ -1,0 +1,11 @@
+<map id="msg_consts.h" name="msg_consts.h">
+<area shape="rect" id="Node000001" title="Constants for MPI messaging and buffer sizes." alt="" coords="165,5,275,31"/>
+<area shape="rect" id="Node000002" href="$d0/db9/classifier_8c.html" title="Implements document classification using tokenization and a hash table." alt="" coords="5,79,96,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,38,79,81,77,76,179,34"/>
+<area shape="rect" id="Node000003" href="$d5/d5e/file__utils_8c.html" title="File reading, dictionary parsing, and dictionary broadcasting over MPI." alt="" coords="120,79,208,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,43,175,80,171,77,200,40"/>
+<area shape="rect" id="Node000004" href="$d4/d10/manager_8c.html" title="Orchestrates the classification by managing worker coordination and output collection." alt="" coords="232,79,323,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="240,40,270,77,266,80,236,43"/>
+<area shape="rect" id="Node000005" href="$dc/d8e/worker_8c.html" title="Logic for a worker process participating in distributed document classification." alt="" coords="347,79,423,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="260,34,359,76,357,81,258,38"/>
+</map>

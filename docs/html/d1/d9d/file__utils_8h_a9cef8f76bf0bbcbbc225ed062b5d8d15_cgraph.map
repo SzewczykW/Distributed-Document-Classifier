@@ -1,0 +1,9 @@
+<map id="read_dictionary" name="read_dictionary">
+<area shape="rect" id="Node000001" title="Reads dictionary and builds global keyword list and hash table." alt="" coords="5,31,128,56"/>
+<area shape="rect" id="Node000002" href="$d2/daf/hash__table_8c.html#a02829007f61a93c496676c28e3a4cc60" title="Inserts a keyword into the hash table." alt="" coords="176,5,275,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,31,162,25,163,31,129,36"/>
+<area shape="rect" id="Node000004" href="$d2/daf/hash__table_8c.html#a4c463db37a1ef64d9f98543215c06426" title="Converts a string to lowercase in&#45;place." alt="" coords="186,55,265,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="129,50,173,57,172,62,128,55"/>
+<area shape="rect" id="Node000003" href="$d2/daf/hash__table_8c.html#ad0fdb05352f003d01650380f878c5059" title="Hash function for a word." alt="" coords="323,5,411,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="275,15,309,15,309,21,275,21"/>
+</map>

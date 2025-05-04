@@ -1,3 +1,9 @@
+/**
+ * @file main.c
+ * @author Wiktor Szewczyk
+ * @brief Entry point for the MPI-based document classifier.
+ */
+
 #include <mpi.h>
 #include <stdio.h>
 

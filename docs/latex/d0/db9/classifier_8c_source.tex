@@ -1,0 +1,32 @@
+\doxysection{classifier.\+c}
+\hypertarget{classifier_8c_source}{}\label{classifier_8c_source}\index{classifier.c@{classifier.c}}
+\mbox{\hyperlink{classifier_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{classifier_8h}{classifier.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{hash__table_8h}{hash\_table.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{msg__consts_8h}{msg\_consts.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00013}\mbox{\hyperlink{classifier_8h_a34d7a99c1b14f5a3da44dc698c1f3bcb}{00013}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classifier_8c_a34d7a99c1b14f5a3da44dc698c1f3bcb}{classify\_text}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *text,\ \textcolor{keywordtype}{int}\ result[],\ \textcolor{keywordtype}{int}\ keyword\_count)}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00014}00014\ \{}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00015}00015\ \ \ \ \ memset(result,\ 0,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})\ *\ keyword\_count);}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[\mbox{\hyperlink{msg__consts_8h_a38f0274fe1f86e8e289a1bdfeb560f5e}{MAX\_DOC\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00018}00018\ \ \ \ \ strncpy(buffer,\ text,\ \textcolor{keyword}{sizeof}(buffer));}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00019}00019\ \ \ \ \ buffer[\textcolor{keyword}{sizeof}(buffer)\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00021}00021\ \ \ \ \ \textcolor{keywordtype}{char}\ *token\ =\ strtok(buffer,\ \mbox{\hyperlink{classifier_8h_ac3c34c816372dddb13b1c4d86fc11ddd}{CLASSIFY\_TOKENS}});}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{while}\ (token)}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00023}00023\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00024}00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{hash__table_8h_a4c463db37a1ef64d9f98543215c06426}{to\_lower}}(token);}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ \mbox{\hyperlink{hash__table_8h_a09866b547c82fa1cf347fe26223f9f51}{find\_word}}(token);}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ !=\ -\/1)}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ result[index]++;}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ token\ =\ strtok(NULL,\ \mbox{\hyperlink{classifier_8h_ac3c34c816372dddb13b1c4d86fc11ddd}{CLASSIFY\_TOKENS}});}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{classifier_8c_source_l00031}00031\ }
+
+\end{DoxyCode}

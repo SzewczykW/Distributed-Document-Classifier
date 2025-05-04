@@ -1,0 +1,103 @@
+\doxysection{classifier.\+h File Reference}
+\hypertarget{classifier_8h}{}\label{classifier_8h}\index{classifier.h@{classifier.h}}
+
+
+Tokenization and text classification logic.  
+
+
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{db/d11/classifier_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{classifier_8h_ac3c34c816372dddb13b1c4d86fc11ddd}{CLASSIFY\+\_\+\+TOKENS}}~"{} \textbackslash{}n\textbackslash{}t.,;\+:!?()\mbox{[}$\,$\mbox{]}\{\}\textbackslash{}"{}\textquotesingle{}-\/"{}
+\begin{DoxyCompactList}\small\item\em Token delimiters for splitting text into words. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classifier_8h_a34d7a99c1b14f5a3da44dc698c1f3bcb}{classify\+\_\+text}} (const char \texorpdfstring{$\ast$}{*}text, int result\mbox{[}$\,$\mbox{]}, int keyword\+\_\+count)
+\begin{DoxyCompactList}\small\item\em Generates a classification vector from input text. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tokenization and text classification logic. 
+
+\begin{DoxyAuthor}{Author}
+Wiktor Szewczyk 
+\end{DoxyAuthor}
+
+
+Definition in file \mbox{\hyperlink{classifier_8h_source}{classifier.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{classifier_8h_ac3c34c816372dddb13b1c4d86fc11ddd}\label{classifier_8h_ac3c34c816372dddb13b1c4d86fc11ddd} 
+\index{classifier.h@{classifier.h}!CLASSIFY\_TOKENS@{CLASSIFY\_TOKENS}}
+\index{CLASSIFY\_TOKENS@{CLASSIFY\_TOKENS}!classifier.h@{classifier.h}}
+\doxysubsubsection{\texorpdfstring{CLASSIFY\_TOKENS}{CLASSIFY\_TOKENS}}
+{\footnotesize\ttfamily \#define CLASSIFY\+\_\+\+TOKENS~"{} \textbackslash{}n\textbackslash{}t.,;\+:!?()\mbox{[}$\,$\mbox{]}\{\}\textbackslash{}"{}\textquotesingle{}-\/"{}}
+
+
+
+Token delimiters for splitting text into words. 
+
+
+
+Definition at line \mbox{\hyperlink{classifier_8h_source_l00011}{11}} of file \mbox{\hyperlink{classifier_8h_source}{classifier.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{classifier_8h_a34d7a99c1b14f5a3da44dc698c1f3bcb}\label{classifier_8h_a34d7a99c1b14f5a3da44dc698c1f3bcb} 
+\index{classifier.h@{classifier.h}!classify\_text@{classify\_text}}
+\index{classify\_text@{classify\_text}!classifier.h@{classifier.h}}
+\doxysubsubsection{\texorpdfstring{classify\_text()}{classify\_text()}}
+{\footnotesize\ttfamily void classify\+\_\+text (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{text,  }\item[{int}]{result\mbox{[}$\,$\mbox{]},  }\item[{int}]{keyword\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+Generates a classification vector from input text. 
+
+The function tokenizes the input string and compares each token to a global hash table containing dictionary keywords.
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & Input document text \\
+\hline
+{\em result} & Output vector (must be zeroed and sized to keyword\+\_\+count) \\
+\hline
+{\em keyword\+\_\+count} & Number of keywords in dictionary \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{classifier_8c_source_l00013}{13}} of file \mbox{\hyperlink{classifier_8c_source}{classifier.\+c}}.
+
+
+
+References \mbox{\hyperlink{classifier_8h_source_l00011}{CLASSIFY\+\_\+\+TOKENS}}, \mbox{\hyperlink{hash__table_8c_source_l00036}{find\+\_\+word()}}, \mbox{\hyperlink{msg__consts_8h_source_l00011}{MAX\+\_\+\+DOC\+\_\+\+SIZE}}, and \mbox{\hyperlink{hash__table_8c_source_l00065}{to\+\_\+lower()}}.
+
+
+
+Referenced by \mbox{\hyperlink{worker_8c_source_l00019}{worker()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d85/classifier_8h_a34d7a99c1b14f5a3da44dc698c1f3bcb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{d9/d85/classifier_8h_a34d7a99c1b14f5a3da44dc698c1f3bcb_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,97 @@
+\doxysection{manager.\+c File Reference}
+\hypertarget{manager_8c}{}\label{manager_8c}\index{manager.c@{manager.c}}
+
+
+Orchestrates the classification by managing worker coordination and output collection.  
+
+
+{\ttfamily \#include $<$mpi.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}file\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}hash\+\_\+table.\+h"{}}\newline
+{\ttfamily \#include "{}manager.\+h"{}}\newline
+{\ttfamily \#include "{}msg\+\_\+consts.\+h"{}}\newline
+Include dependency graph for manager.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/dfb/manager_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9}{manager}} (const char \texorpdfstring{$\ast$}{*}input\+\_\+dir, const char \texorpdfstring{$\ast$}{*}dict\+\_\+file, const char \texorpdfstring{$\ast$}{*}output\+\_\+file, int size)
+\begin{DoxyCompactList}\small\item\em Entry point for the manager process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Orchestrates the classification by managing worker coordination and output collection. 
+
+\begin{DoxyAuthor}{Author}
+Wiktor Szewczyk 
+\end{DoxyAuthor}
+
+
+Definition in file \mbox{\hyperlink{manager_8c_source}{manager.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9}\label{manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9} 
+\index{manager.c@{manager.c}!manager@{manager}}
+\index{manager@{manager}!manager.c@{manager.c}}
+\doxysubsubsection{\texorpdfstring{manager()}{manager()}}
+{\footnotesize\ttfamily void manager (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{input\+\_\+dir,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{dict\+\_\+file,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{output\+\_\+file,  }\item[{int}]{size }\end{DoxyParamCaption})}
+
+
+
+Entry point for the manager process. 
+
+The manager is responsible for\+:
+\begin{DoxyItemize}
+\item Reading and broadcasting the dictionary
+\item Scanning the input directory for text files
+\item Distributing work to worker processes
+\item Collecting and writing classification results
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+dir} & Path to directory containing .txt files \\
+\hline
+{\em dict\+\_\+file} & Path to the dictionary file \\
+\hline
+{\em output\+\_\+file} & Path where results will be written \\
+\hline
+{\em size} & Number of MPI processes \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{manager_8c_source_l00017}{17}} of file \mbox{\hyperlink{manager_8c_source}{manager.\+c}}.
+
+
+
+References \mbox{\hyperlink{file__utils_8c_source_l00083}{broadcast\+\_\+dictionary()}}, \mbox{\hyperlink{hash__table_8c_source_l00049}{clear\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{msg__consts_8h_source_l00026}{DONE\+\_\+\+MSG}}, \mbox{\hyperlink{msg__consts_8h_source_l00024}{FILE\+\_\+\+MSG}}, \mbox{\hyperlink{file__utils_8c_source_l00018}{list\+\_\+txt\+\_\+files()}}, \mbox{\hyperlink{msg__consts_8h_source_l00020}{MAX\+\_\+\+FILES}}, \mbox{\hyperlink{msg__consts_8h_source_l00014}{MAX\+\_\+\+KEYWORDS}}, \mbox{\hyperlink{file__utils_8c_source_l00052}{open\+\_\+output\+\_\+file()}}, \mbox{\hyperlink{file__utils_8c_source_l00057}{read\+\_\+dictionary()}}, \mbox{\hyperlink{msg__consts_8h_source_l00023}{REQUEST\+\_\+\+MSG}}, and \mbox{\hyperlink{msg__consts_8h_source_l00025}{VEC\+\_\+\+MSG}}.
+
+
+
+Referenced by \mbox{\hyperlink{main_8c_source_l00013}{main()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d10/manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{d4/d10/manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9_icgraph}
+\end{center}
+\end{figure}

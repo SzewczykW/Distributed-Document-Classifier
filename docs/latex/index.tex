@@ -1,0 +1,124 @@
+\chapter{Distributed Document Classifier}
+\hypertarget{index}{}\label{index}\index{Distributed Document Classifier@{Distributed Document Classifier}}
+\begin{DoxyAuthor}{Author}
+Wiktor Szewczyk
+\end{DoxyAuthor}
+\hypertarget{index_intro}{}\doxysection{\texorpdfstring{Overview}{Overview}}\label{index_intro}
+A parallel document classification engine based on MPI, inspired by Chapter 9 of {\itshape Parallel Programming in C with MPI and Open\+MP} by Michael J. Quinn.
+
+This project implements a scalable manager–worker architecture using MPICH to classify text documents into feature vectors. It uses hashing to match words against a shared dictionary and distributes processing using MPI.
+
+It currently supports only {\ttfamily .txt} documents.\hypertarget{index_architecture}{}\doxysection{\texorpdfstring{Architecture}{Architecture}}\label{index_architecture}
+
+\begin{DoxyItemize}
+\item The {\bfseries{manager process}}\+:
+\begin{DoxyItemize}
+\item reads the dictionary file (one keyword per line),
+\item broadcasts it to all worker processes,
+\item scans the input directory for {\ttfamily .txt} files,
+\item distributes file paths to workers,
+\item receives classified vectors and writes them to the output file.
+\end{DoxyItemize}
+\item Each {\bfseries{worker process}}\+:
+\begin{DoxyItemize}
+\item receives the dictionary,
+\item receives a file path from the manager,
+\item tokenizes and lowercases the document content,
+\item hashes each word against a fixed-\/size dictionary hash table,
+\item builds a feature vector based on word presence or frequency,
+\item sends the result back to the manager.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{index_flow_diagram}{}\doxysection{\texorpdfstring{Flow Diagram}{Flow Diagram}}\label{index_flow_diagram}
+\hypertarget{index_layout}{}\doxysection{\texorpdfstring{Project Structure}{Project Structure}}\label{index_layout}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{.}
+\DoxyCodeLine{|-\/\ include/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Header\ files}
+\DoxyCodeLine{|-\/\ src/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Core\ runtime:\ \mbox{\hyperlink{main_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}},\ \mbox{\hyperlink{manager_8h_a5afb0ce7625828da3439e1e2aa87b0a9}{manager}},\ \mbox{\hyperlink{worker_8h_a60b3bdb96860f3e67ef2dcc21b7b5c37}{worker}},\ utils}
+\DoxyCodeLine{|-\/\ tests/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Criterion\ unit\ tests}
+\DoxyCodeLine{|-\/\ docs/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Doxygen\ config\ +\ generated\ docs}
+\DoxyCodeLine{|-\/\ make/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Makefile\ submodules\ (build,\ test,\ docs,\ run)}
+\DoxyCodeLine{|-\/\ scripts/install\_mpich.sh\ \ \ \ \ \ \ \ \#\ Script\ \textcolor{keywordflow}{for}\ downloading,\ building\ and\ installing\ MPICH\ locally}
+\DoxyCodeLine{|-\/\ scripts/gen\_data.py\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Script\ \textcolor{keywordflow}{for}\ generating\ random\ data\ (see\ ./scripts/gen\_data.py\ -\/-\/help\ \textcolor{keywordflow}{for}\ more)}
+\DoxyCodeLine{|-\/\ Makefile\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Entry\ point\ Makefile}
+\DoxyCodeLine{|-\/\ CMakeLists.txt\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Entry\ point\ CMake}
+
+\end{DoxyCode}
+\hypertarget{index_requirements}{}\doxysection{\texorpdfstring{Requirements}{Requirements}}\label{index_requirements}
+
+\begin{DoxyItemize}
+\item GCC 12+
+\item GNU Make
+\item MPICH 4.\+3.\+0+
+\item (Optional) Doxygen + Doxygen-\/\+Awesome-\/\+CSS
+\item (Optional) Criterion for unit testing
+\end{DoxyItemize}\hypertarget{index_mpich}{}\doxysection{\texorpdfstring{Installing MPICH Locally}{Installing MPICH Locally}}\label{index_mpich}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./scripts/install\_mpich.sh}
+
+\end{DoxyCode}
+
+
+This script installs MPICH 4.\+3.\+0 into a local {\ttfamily .mpich/} directory without system-\/wide changes.\hypertarget{index_path}{}\doxysection{\texorpdfstring{Setting up MPICH path}{Setting up MPICH path}}\label{index_path}
+Before building or running the project, you must set the {\ttfamily MPICH\+\_\+\+TARGET\+\_\+\+DIR} environment variable to point to the root directory of your MPICH installation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{export\ MPICH\_TARGET\_DIR=/path/to/mpich}
+
+\end{DoxyCode}
+\hypertarget{index_build}{}\doxysection{\texorpdfstring{Build}{Build}}\label{index_build}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ build}
+
+\end{DoxyCode}
+
+
+Builds the executable at\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./build/bin/ddc}
+
+\end{DoxyCode}
+\hypertarget{index_run}{}\doxysection{\texorpdfstring{Running the Classifier}{Running the Classifier}}\label{index_run}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ run\ MPI\_FLAGS='-\/f\ nodes\ -\/n\ 8'\ RUN\_FLAGS='input/\ dict.txt\ out.txt'}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item {\ttfamily MPI\+\_\+\+FLAGS}\+: passed to {\ttfamily mpiexec} (default\+: {\ttfamily -\/f nodes -\/n 16})
+\item {\ttfamily RUN\+\_\+\+FLAGS}\+: arguments for {\ttfamily ddc} (default\+: {\ttfamily ./example/input/ ./example/dict.txt ./example/output/result.txt})
+\end{DoxyItemize}\hypertarget{index_tests}{}\doxysection{\texorpdfstring{Running Tests}{Running Tests}}\label{index_tests}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ test}
+
+\end{DoxyCode}
+
+
+Runs all unit tests with Criterion.\hypertarget{index_docs}{}\doxysection{\texorpdfstring{Documentation}{Documentation}}\label{index_docs}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ docs}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item HTML docs\+: {\ttfamily docs/html/index.\+html}
+\end{DoxyItemize}\hypertarget{index_license}{}\doxysection{\texorpdfstring{License}{License}}\label{index_license}
+MIT License. See {\ttfamily LICENSE} for details.\hypertarget{index_references}{}\doxysection{\texorpdfstring{References}{References}}\label{index_references}
+
+\begin{DoxyItemize}
+\item Michael J. Quinn, {\itshape Parallel Programming in C with MPI and Open\+MP}, Chapter 9
+\item \href{https://www.mpich.org/}{\texttt{ MPICH}}
+\item \href{https://github.com/Snaipe/Criterion}{\texttt{ Criterion}}
+\item \href{https://www.doxygen.nl/}{\texttt{ Doxygen}}
+\item \href{https://github.com/jothepro/doxygen-awesome-css}{\texttt{ Doxygen-\/\+Awesome-\/\+CSS}} 
+\end{DoxyItemize}

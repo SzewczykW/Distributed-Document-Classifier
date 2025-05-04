@@ -1,0 +1,124 @@
+/**
+ * @mainpage Distributed Document Classifier
+ * @author Wiktor Szewczyk
+ *
+ * @section intro Overview
+ *
+ * A parallel document classification engine based on MPI, inspired by Chapter 9 of
+ * _Parallel Programming in C with MPI and OpenMP_ by Michael J. Quinn.
+ *
+ * This project implements a scalable manager–worker architecture using MPICH to
+ * classify text documents into feature vectors. It uses hashing to match words
+ * against a shared dictionary and distributes processing using MPI.
+ *
+ * It currently supports only `.txt` documents.
+ *
+ * @section architecture Architecture
+ *
+ * - The **manager process**:
+ *   - reads the dictionary file (one keyword per line),
+ *   - broadcasts it to all worker processes,
+ *   - scans the input directory for `.txt` files,
+ *   - distributes file paths to workers,
+ *   - receives classified vectors and writes them to the output file.
+ *
+ * - Each **worker process**:
+ *   - receives the dictionary,
+ *   - receives a file path from the manager,
+ *   - tokenizes and lowercases the document content,
+ *   - hashes each word against a fixed-size dictionary hash table,
+ *   - builds a feature vector based on word presence or frequency,
+ *   - sends the result back to the manager.
+ *
+ * @section flow_diagram Flow Diagram
+ *
+ * \image html flow.png
+ *
+ * @section layout Project Structure
+ *
+ * ```
+ * .
+ * |- include/                        # Header files
+ * |- src/                            # Core runtime: main, manager, worker, utils
+ * |- tests/                          # Criterion unit tests
+ * |- docs/                           # Doxygen config + generated docs
+ * |- make/                           # Makefile submodules (build, test, docs, run)
+ * |- scripts/install_mpich.sh        # Script for downloading, building and installing MPICH locally
+ * |- scripts/gen_data.py             # Script for generating random data (see ./scripts/gen_data.py --help for more)
+ * |- Makefile                        # Entry point Makefile
+ * |- CMakeLists.txt                  # Entry point CMake
+ * ```
+ *
+ * @section requirements Requirements
+ *
+ * - GCC 12+
+ * - GNU Make
+ * - MPICH 4.3.0+
+ * - (Optional) Doxygen + Doxygen-Awesome-CSS
+ * - (Optional) Criterion for unit testing
+ *
+ * @section mpich Installing MPICH Locally
+ *
+ * @code{.sh}
+ * ./scripts/install_mpich.sh
+ * @endcode
+ *
+ * This script installs MPICH 4.3.0 into a local `.mpich/` directory without system-wide changes.
+ *
+ * @section path Setting up MPICH path
+ *
+ * Before building or running the project, you must set the `MPICH_TARGET_DIR` environment variable to point to the root directory of your MPICH installation:
+ *
+ * ```bash
+ * export MPICH_TARGET_DIR=/path/to/mpich
+ * ```
+ *
+ * @section build Build
+ *
+ * @code{.sh}
+ * make build
+ * @endcode
+ *
+ * Builds the executable at:
+ * ```
+ * ./build/bin/ddc
+ * ```
+ *
+ * @section run Running the Classifier
+ *
+ * @code{.sh}
+ * make run MPI_FLAGS='-f nodes -n 8' RUN_FLAGS='input/ dict.txt out.txt'
+ * @endcode
+ *
+ * - `MPI_FLAGS`: passed to `mpiexec` (default: `-f nodes -n 16`)
+ * - `RUN_FLAGS`: arguments for `ddc` (default: `./example/input/ ./example/dict.txt ./example/output/result.txt`)
+ *
+ * @section tests Running Tests
+ *
+ * @code{.sh}
+ * make test
+ * @endcode
+ *
+ * Runs all unit tests with Criterion.
+ *
+ * @section docs Documentation
+ *
+ * @code{.sh}
+ * make docs
+ * @endcode
+ *
+ * - HTML docs: `docs/html/index.html`
+ *
+ * @section license License
+ *
+ * MIT License. See `LICENSE` for details.
+ *
+ * @section references References
+ *
+ * - Michael J. Quinn, *Parallel Programming in C with MPI and OpenMP*, Chapter 9
+ * - [MPICH](https://www.mpich.org/)
+ * - [Criterion](https://github.com/Snaipe/Criterion)
+ * - [Doxygen](https://www.doxygen.nl/)
+ * - [Doxygen-Awesome-CSS](https://github.com/jothepro/doxygen-awesome-css)
+ */
+

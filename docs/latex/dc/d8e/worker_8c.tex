@@ -1,0 +1,84 @@
+\doxysection{worker.\+c File Reference}
+\hypertarget{worker_8c}{}\label{worker_8c}\index{worker.c@{worker.c}}
+
+
+Logic for a worker process participating in distributed document classification.  
+
+
+{\ttfamily \#include $<$mpi.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}classifier.\+h"{}}\newline
+{\ttfamily \#include "{}file\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}hash\+\_\+table.\+h"{}}\newline
+{\ttfamily \#include "{}msg\+\_\+consts.\+h"{}}\newline
+{\ttfamily \#include "{}worker.\+h"{}}\newline
+Include dependency graph for worker.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d9e/worker_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{worker_8c_a60b3bdb96860f3e67ef2dcc21b7b5c37}{worker}} (void)
+\begin{DoxyCompactList}\small\item\em Entry point for each MPI worker process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Logic for a worker process participating in distributed document classification. 
+
+\begin{DoxyAuthor}{Author}
+Wiktor Szewczyk 
+\end{DoxyAuthor}
+
+
+Definition in file \mbox{\hyperlink{worker_8c_source}{worker.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{worker_8c_a60b3bdb96860f3e67ef2dcc21b7b5c37}\label{worker_8c_a60b3bdb96860f3e67ef2dcc21b7b5c37} 
+\index{worker.c@{worker.c}!worker@{worker}}
+\index{worker@{worker}!worker.c@{worker.c}}
+\doxysubsubsection{\texorpdfstring{worker()}{worker()}}
+{\footnotesize\ttfamily void worker (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Entry point for each MPI worker process. 
+
+Each worker\+:
+\begin{DoxyItemize}
+\item Receives the dictionary from the manager
+\item Processes assigned documents
+\item Sends back feature vectors to the manager 
+\end{DoxyItemize}
+
+Definition at line \mbox{\hyperlink{worker_8c_source_l00019}{19}} of file \mbox{\hyperlink{worker_8c_source}{worker.\+c}}.
+
+
+
+References \mbox{\hyperlink{classifier_8c_source_l00013}{classify\+\_\+text()}}, \mbox{\hyperlink{hash__table_8c_source_l00049}{clear\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{msg__consts_8h_source_l00026}{DONE\+\_\+\+MSG}}, \mbox{\hyperlink{msg__consts_8h_source_l00024}{FILE\+\_\+\+MSG}}, \mbox{\hyperlink{msg__consts_8h_source_l00011}{MAX\+\_\+\+DOC\+\_\+\+SIZE}}, \mbox{\hyperlink{msg__consts_8h_source_l00014}{MAX\+\_\+\+KEYWORDS}}, \mbox{\hyperlink{file__utils_8c_source_l00040}{read\+\_\+file\+\_\+content()}}, \mbox{\hyperlink{file__utils_8c_source_l00092}{receive\+\_\+dictionary()}}, \mbox{\hyperlink{msg__consts_8h_source_l00023}{REQUEST\+\_\+\+MSG}}, and \mbox{\hyperlink{msg__consts_8h_source_l00025}{VEC\+\_\+\+MSG}}.
+
+
+
+Referenced by \mbox{\hyperlink{main_8c_source_l00013}{main()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/d8e/worker_8c_a60b3bdb96860f3e67ef2dcc21b7b5c37_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{dc/d8e/worker_8c_a60b3bdb96860f3e67ef2dcc21b7b5c37_icgraph}
+\end{center}
+\end{figure}

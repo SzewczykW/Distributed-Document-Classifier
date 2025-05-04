@@ -1,0 +1,7 @@
+<map id="classifier.h" name="classifier.h">
+<area shape="rect" id="Node000001" title="Tokenization and text classification logic." alt="" coords="59,5,149,31"/>
+<area shape="rect" id="Node000002" href="$d0/db9/classifier_8c.html" title="Implements document classification using tokenization and a hash table." alt="" coords="5,79,96,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,43,61,80,57,77,85,40"/>
+<area shape="rect" id="Node000003" href="$dc/d8e/worker_8c.html" title="Logic for a worker process participating in distributed document classification." alt="" coords="121,79,197,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="123,40,152,77,148,80,119,43"/>
+</map>

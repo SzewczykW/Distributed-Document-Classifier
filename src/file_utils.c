@@ -1,3 +1,9 @@
+/**
+ * @file file_utils.c
+ * @author Wiktor Szewczyk
+ * @brief File reading, dictionary parsing, and dictionary broadcasting over MPI.
+ */
+
 #include <mpi.h>
 #include <dirent.h>
 #include <limits.h>
@@ -7,6 +13,7 @@
 
 #include "file_utils.h"
 #include "hash_table.h"
+#include "msg_consts.h"
 
 int list_txt_files(const char *dir_path, char files[][PATH_MAX], int max_files)
 {

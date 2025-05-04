@@ -1,0 +1,34 @@
+digraph DDC_Flow {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=10 shape=box style=filled fillcolor=lightblue];
+
+    Start         [label="Start (MPI_Init)" shape=ellipse fillcolor=gray95]
+    RoleCheck     [label="Check rank\n(if manager or worker)"]
+
+    // Manager branch
+    M_DictRead    [label="Manager: read dictionary"]
+    M_BcastDict   [label="Manager: broadcast dictionary"]
+    M_ListFiles   [label="Manager: list input .txt files"]
+    M_AssignWork  [label="Manager: assign files to workers"]
+    M_RecvVec     [label="Manager: receive vectors"]
+    M_WriteOutput [label="Manager: write result to file"]
+
+    // Worker branch
+    W_RecvDict    [label="Worker: receive dictionary via Bcast"]
+    W_RecvFile    [label="Worker: receive file path"]
+    W_Classify    [label="Worker: read file & classify"]
+    W_SendVec     [label="Worker: send vector to manager"]
+
+    End           [label="MPI_Finalize" shape=ellipse fillcolor=gray95]
+
+    // Flow
+    Start -> RoleCheck
+
+    RoleCheck -> M_DictRead [label="if rank 0 then manager", labelangel=-90]
+    M_DictRead -> M_BcastDict -> M_ListFiles -> M_AssignWork
+    M_AssignWork -> M_RecvVec -> M_WriteOutput -> End
+
+    RoleCheck -> W_RecvDict [label="else worker"]
+    W_RecvDict -> W_RecvFile -> W_Classify -> W_SendVec -> End
+}
+

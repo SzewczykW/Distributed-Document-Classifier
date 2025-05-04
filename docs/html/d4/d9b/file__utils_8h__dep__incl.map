@@ -1,0 +1,9 @@
+<map id="file_utils.h" name="file_utils.h">
+<area shape="rect" id="Node000001" title="Utility functions for files operations." alt="" coords="118,5,207,31"/>
+<area shape="rect" id="Node000002" href="$d5/d5e/file__utils_8c.html" title="File reading, dictionary parsing, and dictionary broadcasting over MPI." alt="" coords="5,79,93,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,40,69,81,66,76,131,36"/>
+<area shape="rect" id="Node000003" href="$d4/d10/manager_8c.html" title="Orchestrates the classification by managing worker coordination and output collection." alt="" coords="117,79,208,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,44,165,79,160,79,160,44"/>
+<area shape="rect" id="Node000004" href="$dc/d8e/worker_8c.html" title="Logic for a worker process participating in distributed document classification." alt="" coords="233,79,309,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="193,36,254,76,252,81,190,40"/>
+</map>

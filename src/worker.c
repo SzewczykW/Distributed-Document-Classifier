@@ -1,3 +1,10 @@
+/**
+ * @file worker.c
+ * @author Wiktor Szewczyk
+ * @brief Logic for a worker process participating in distributed document classification.
+ */
+
+
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>

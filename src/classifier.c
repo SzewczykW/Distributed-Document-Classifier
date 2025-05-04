@@ -1,3 +1,9 @@
+/**
+ * @file classifier.c
+ * @author Wiktor Szewczyk
+ * @brief Implements document classification using tokenization and a hash table.
+ */
+
 #include <string.h>
 
 #include "classifier.h"
@@ -22,3 +28,4 @@ void classify_text(const char *text, int result[], int keyword_count)
         token = strtok(NULL, CLASSIFY_TOKENS);
     }
 }
+

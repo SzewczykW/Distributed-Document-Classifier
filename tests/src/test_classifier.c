@@ -1,3 +1,13 @@
+/**
+ * @file test_classifier.c
+ * @author Wiktor Szewczyk
+ * @brief Unit tests for the classify_text function using Criterion.
+ *
+ * Covers keyword detection, case insensitivity, punctuation stripping,
+ * and handling of multiple/zero occurrences.
+ */
+
+
 #include <criterion/criterion.h>
 #include <string.h>
 

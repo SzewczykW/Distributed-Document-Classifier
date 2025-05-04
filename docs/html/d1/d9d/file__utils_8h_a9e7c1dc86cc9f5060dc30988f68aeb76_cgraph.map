@@ -1,0 +1,7 @@
+<map id="receive_dictionary" name="receive_dictionary">
+<area shape="rect" id="Node000001" title="Receives dictionary in a worker and builds local keyword array and hash table." alt="" coords="5,5,148,31"/>
+<area shape="rect" id="Node000002" href="$d2/daf/hash__table_8c.html#a02829007f61a93c496676c28e3a4cc60" title="Inserts a keyword into the hash table." alt="" coords="196,5,295,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,15,182,15,182,21,148,21"/>
+<area shape="rect" id="Node000003" href="$d2/daf/hash__table_8c.html#ad0fdb05352f003d01650380f878c5059" title="Hash function for a word." alt="" coords="343,5,431,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="295,15,329,15,329,21,295,21"/>
+</map>

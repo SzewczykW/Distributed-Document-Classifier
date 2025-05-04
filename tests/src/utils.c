@@ -1,3 +1,10 @@
+/**
+ * @file utils.c
+ * @author Wiktor Szewczyk
+ * @brief Shared test helper functions.
+ */
+
+
 #include "hash_table.h"
 #include <criterion/criterion.h>
 

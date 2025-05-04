@@ -4,6 +4,7 @@
 # --- Allow Git metadata ---
 !.gitignore
 !.gitattributes
+!.gitmodules
 
 # --- Allow project configuration/scripts ---
 !CMakeLists.txt
@@ -34,4 +35,6 @@
 !make/**/*.mk
 
 # --- Allow documentation sources ---
-!docs/Doxyfile
+!docs/
+!docs/**
+!docs/**/*.*
