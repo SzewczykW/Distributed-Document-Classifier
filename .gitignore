@@ -38,3 +38,8 @@
 !docs/
 !docs/**
 !docs/**/*.*
+
+# --- Allow example data ---
+!example/
+!example/**
+!example/**/*.*
