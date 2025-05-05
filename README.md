@@ -52,8 +52,8 @@ This project implements a scalable manager-worker architecture using MPICH to cl
 - GCC 12+
 - GNU Make
 - MPICH 4.3.0+ (see below for installation)
-- (Optional) [Doxygen](https://www.doxygen.nl) + [Doxygen-Awesome-CSS](https://github.com/jothepro/doxygen-awesome-css)
-- (Optional) [Criterion](https://github.com/Snaipe/Criterion) for unit testing
+- (Optional) [Doxygen 1.9.8+](https://www.doxygen.nl) + [Doxygen-Awesome-CSS](https://github.com/jothepro/doxygen-awesome-css)
+- (Optional) [Criterion 2.4.1+](https://github.com/Snaipe/Criterion) for unit testing
 
 ---
 

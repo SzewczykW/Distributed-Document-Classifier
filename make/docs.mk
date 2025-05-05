@@ -10,6 +10,7 @@ docs: $(DOXYGEN_THEME_PATH)
 	@if [ -d "docs/latex" ]; then \
 		echo "Building PDF documentation..."; \
 		$(MAKE) -C docs/latex > /dev/null; \
+        rm -f docs/latex/ddc_docs.pdf || true; \
         ln -s docs/latex/refman.pdf docs/latex/ddc_docs.pdf; \
 	fi
 	@echo ""

@@ -54,8 +54,8 @@
  * - GCC 12+
  * - GNU Make
  * - MPICH 4.3.0+
- * - (Optional) Doxygen + Doxygen-Awesome-CSS
- * - (Optional) Criterion for unit testing
+ * - (Optional) [Doxygen 1.9.8+](https://www.doxygen.nl) + [Doxygen-Awesome-CSS](https://github.com/jothepro/doxygen-awesome-css)
+ * - (Optional) [Criterion 2.4.1+](https://github.com/Snaipe/Criterion) for unit testing
  *
  * @section mpich Installing MPICH Locally
  *
@@ -104,6 +104,7 @@
  * @section docs Documentation
  *
  * @code{.sh}
+ * git submodule update --init --update
  * make docs
  * @endcode
  *

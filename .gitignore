@@ -24,6 +24,7 @@
 
 !tests/
 !tests/**/*.c
+!tests/**/*.h
 
 # --- Allow scripts ---
 !scripts/

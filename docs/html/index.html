@@ -146,8 +146,8 @@ Requirements</h1>
 <li>GCC 12+</li>
 <li>GNU Make</li>
 <li>MPICH 4.3.0+</li>
-<li>(Optional) Doxygen + Doxygen-Awesome-CSS</li>
-<li>(Optional) Criterion for unit testing</li>
+<li>(Optional) <a href="https://www.doxygen.nl">Doxygen 1.9.8+</a> + <a href="https://github.com/jothepro/doxygen-awesome-css">Doxygen-Awesome-CSS</a></li>
+<li>(Optional) <a href="https://github.com/Snaipe/Criterion">Criterion 2.4.1+</a> for unit testing</li>
 </ul>
 <h1><a class="anchor" id="mpich"></a>
 Installing MPICH Locally</h1>
@@ -174,7 +174,8 @@ Running Tests</h1>
 </div><!-- fragment --><p>Runs all unit tests with Criterion.</p>
 <h1><a class="anchor" id="docs"></a>
 Documentation</h1>
-<div class="fragment"><div class="line">make docs</div>
+<div class="fragment"><div class="line">git submodule update --init --update</div>
+<div class="line">make docs</div>
 </div><!-- fragment --><ul>
 <li>HTML docs: <code>docs/html/index.html</code></li>
 </ul>
