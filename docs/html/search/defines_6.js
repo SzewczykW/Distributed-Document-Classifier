@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vec_5fmsg_0',['VEC_MSG',['../d2/d81/msg__consts_8h.html#acd7ee4380f1a94150f3a40b15b576e77',1,'msg_consts.h']]]
+  ['shutdown_5fnotif_0',['SHUTDOWN_NOTIF',['../d2/d81/msg__consts_8h.html#a3a4a4071bbae7d864b6b182695254729',1,'msg_consts.h']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['next_0',['next',['../d5/da1/structnode.html#aa3e8aa83f864292b5a01210f4453fcc0',1,'node']]],
-  ['node_1',['node',['../d5/da1/structnode.html',1,'node'],['../d8/d49/structNode.html',1,'Node'],['../d4/ddb/hash__table_8h.html#ac09cf950484bd9550d14d602b0e5e7fb',1,'Node:&#160;hash_table.h']]]
+  ['license_0',['License',['../index.html#license',1,'']]],
+  ['list_5ftxt_5ffiles_1',['list_txt_files',['../d1/d9d/file__utils_8h.html#af60f33bb7908850bdcf52ebe9f49d310',1,'list_txt_files(const char *dir_path, char files[][PATH_MAX], int max_files):&#160;file_utils.c'],['../d5/d5e/file__utils_8c.html#af60f33bb7908850bdcf52ebe9f49d310',1,'list_txt_files(const char *dir_path, char files[][PATH_MAX], int max_files):&#160;file_utils.c']]]
 ];

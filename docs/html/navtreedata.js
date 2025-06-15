@@ -27,11 +27,11 @@ var NAVTREE =
   [ "Distributed Document Classifier", "index.html", [
     [ "Overview", "index.html#intro", null ],
     [ "Architecture", "index.html#architecture", null ],
+    [ "GASPI Memory Segments", "index.html#gaspi_segments", null ],
     [ "Flow Diagram", "index.html#flow_diagram", null ],
     [ "Project Structure", "index.html#layout", null ],
     [ "Requirements", "index.html#requirements", null ],
-    [ "Installing MPICH Locally", "index.html#mpich", null ],
-    [ "Setting up MPICH path", "index.html#path", null ],
+    [ "Environment Setup", "index.html#environment", null ],
     [ "Build", "index.html#build", null ],
     [ "Running the Classifier", "index.html#run", null ],
     [ "Running Tests", "index.html#tests", null ],

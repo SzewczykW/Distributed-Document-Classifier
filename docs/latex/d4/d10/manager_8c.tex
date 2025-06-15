@@ -5,11 +5,13 @@
 Orchestrates the classification by managing worker coordination and output collection.  
 
 
-{\ttfamily \#include $<$mpi.\+h$>$}\newline
+{\ttfamily \#include $<$GASPI.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include "{}file\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}gaspi\+\_\+utils.\+h"{}}\newline
 {\ttfamily \#include "{}hash\+\_\+table.\+h"{}}\newline
 {\ttfamily \#include "{}manager.\+h"{}}\newline
 {\ttfamily \#include "{}msg\+\_\+consts.\+h"{}}\newline
@@ -24,7 +26,7 @@ Include dependency graph for manager.\+c\+:
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9}{manager}} (const char \texorpdfstring{$\ast$}{*}input\+\_\+dir, const char \texorpdfstring{$\ast$}{*}dict\+\_\+file, const char \texorpdfstring{$\ast$}{*}output\+\_\+file, int size)
+void \mbox{\hyperlink{manager_8c_a693fc6348be56bfec805d6893f018c42}{manager}} (const char \texorpdfstring{$\ast$}{*}input\+\_\+dir, const char \texorpdfstring{$\ast$}{*}dict\+\_\+file, const char \texorpdfstring{$\ast$}{*}output\+\_\+file, int processes\+\_\+num)
 \begin{DoxyCompactList}\small\item\em Entry point for the manager process. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -41,11 +43,11 @@ Definition in file \mbox{\hyperlink{manager_8c_source}{manager.\+c}}.
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9}\label{manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9} 
+\Hypertarget{manager_8c_a693fc6348be56bfec805d6893f018c42}\label{manager_8c_a693fc6348be56bfec805d6893f018c42} 
 \index{manager.c@{manager.c}!manager@{manager}}
 \index{manager@{manager}!manager.c@{manager.c}}
 \doxysubsubsection{\texorpdfstring{manager()}{manager()}}
-{\footnotesize\ttfamily void manager (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{input\+\_\+dir,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{dict\+\_\+file,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{output\+\_\+file,  }\item[{int}]{size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void manager (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{input\+\_\+dir,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{dict\+\_\+file,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{output\+\_\+file,  }\item[{int}]{processes\+\_\+num }\end{DoxyParamCaption})}
 
 
 
@@ -67,27 +69,27 @@ The manager is responsible for\+:
 \hline
 {\em output\+\_\+file} & Path where results will be written \\
 \hline
-{\em size} & Number of MPI processes \\
+{\em processes\+\_\+num} & Number of GASPI processes \\
 \hline
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{manager_8c_source_l00017}{17}} of file \mbox{\hyperlink{manager_8c_source}{manager.\+c}}.
+Definition at line \mbox{\hyperlink{manager_8c_source_l00020}{20}} of file \mbox{\hyperlink{manager_8c_source}{manager.\+c}}.
 
 
 
-References \mbox{\hyperlink{file__utils_8c_source_l00083}{broadcast\+\_\+dictionary()}}, \mbox{\hyperlink{hash__table_8c_source_l00049}{clear\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{msg__consts_8h_source_l00026}{DONE\+\_\+\+MSG}}, \mbox{\hyperlink{msg__consts_8h_source_l00024}{FILE\+\_\+\+MSG}}, \mbox{\hyperlink{file__utils_8c_source_l00018}{list\+\_\+txt\+\_\+files()}}, \mbox{\hyperlink{msg__consts_8h_source_l00020}{MAX\+\_\+\+FILES}}, \mbox{\hyperlink{msg__consts_8h_source_l00014}{MAX\+\_\+\+KEYWORDS}}, \mbox{\hyperlink{file__utils_8c_source_l00052}{open\+\_\+output\+\_\+file()}}, \mbox{\hyperlink{file__utils_8c_source_l00057}{read\+\_\+dictionary()}}, \mbox{\hyperlink{msg__consts_8h_source_l00023}{REQUEST\+\_\+\+MSG}}, and \mbox{\hyperlink{msg__consts_8h_source_l00025}{VEC\+\_\+\+MSG}}.
+References \mbox{\hyperlink{file__utils_8c_source_l00084}{broadcast\+\_\+dictionary()}}, \mbox{\hyperlink{hash__table_8c_source_l00048}{clear\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{gaspi__utils_8h_source_l00033}{DICT\+\_\+\+SEGMENT\+\_\+\+ID}}, \mbox{\hyperlink{gaspi__utils_8h_source_l00019}{GASPI\+\_\+\+CHECK}}, \mbox{\hyperlink{file__utils_8c_source_l00019}{list\+\_\+txt\+\_\+files()}}, \mbox{\hyperlink{msg__consts_8h_source_l00020}{MAX\+\_\+\+FILES}}, \mbox{\hyperlink{msg__consts_8h_source_l00014}{MAX\+\_\+\+KEYWORDS}}, \mbox{\hyperlink{msg__consts_8h_source_l00017}{MAX\+\_\+\+WORD\+\_\+\+LEN}}, \mbox{\hyperlink{file__utils_8c_source_l00053}{open\+\_\+output\+\_\+file()}}, \mbox{\hyperlink{file__utils_8c_source_l00058}{read\+\_\+dictionary()}}, \mbox{\hyperlink{gaspi__utils_8h_source_l00043}{RESULT\+\_\+\+OFFSET}}, \mbox{\hyperlink{gaspi__utils_8h_source_l00035}{RESULT\+\_\+\+SEGMENT\+\_\+\+ID}}, \mbox{\hyperlink{msg__consts_8h_source_l00023}{SHUTDOWN\+\_\+\+NOTIF}}, \mbox{\hyperlink{msg__consts_8h_source_l00024}{WORK\+\_\+\+AVAILABLE\+\_\+\+NOTIF}}, \mbox{\hyperlink{msg__consts_8h_source_l00025}{WORK\+\_\+\+DONE\+\_\+\+NOTIF}}, \mbox{\hyperlink{msg__consts_8h_source_l00028}{WORK\+\_\+\+NOTIF\+\_\+\+ID}}, \mbox{\hyperlink{gaspi__utils_8h_source_l00041}{WORK\+\_\+\+OFFSET}}, \mbox{\hyperlink{gaspi__utils_8h_source_l00034}{WORK\+\_\+\+SEGMENT\+\_\+\+ID}}, and \mbox{\hyperlink{gaspi__utils_8h_source_l00038}{WORKER\+\_\+\+DATA\+\_\+\+SIZE}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00013}{main()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00014}{main()}}.
 
 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{d4/d10/manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9_cgraph}
+\includegraphics[width=350pt]{d4/d10/manager_8c_a693fc6348be56bfec805d6893f018c42_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:
@@ -95,6 +97,6 @@ Here is the caller graph for this function\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=217pt]{d4/d10/manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9_icgraph}
+\includegraphics[width=217pt]{d4/d10/manager_8c_a693fc6348be56bfec805d6893f018c42_icgraph}
 \end{center}
 \end{figure}

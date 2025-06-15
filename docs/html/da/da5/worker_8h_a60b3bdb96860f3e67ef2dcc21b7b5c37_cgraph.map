@@ -1,5 +1,5 @@
 <map id="worker" name="worker">
-<area shape="rect" id="Node000001" title="Entry point for each MPI worker process." alt="" coords="5,80,72,105"/>
+<area shape="rect" id="Node000001" title="Entry point for each GASPI worker process." alt="" coords="5,80,72,105"/>
 <area shape="rect" id="Node000002" href="$d0/db9/classifier_8c.html#a34d7a99c1b14f5a3da44dc698c1f3bcb" title="Generates a classification vector from input text." alt="" coords="139,5,243,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="56,77,119,40,134,33,136,38,121,44,59,82"/>
 <area shape="rect" id="Node000006" href="$d2/daf/hash__table_8c.html#a2512fdab32c231a3a2e5621cb1e309c9" title="Frees all allocated hash table entries." alt="" coords="125,55,257,80"/>

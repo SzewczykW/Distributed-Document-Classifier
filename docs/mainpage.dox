@@ -4,31 +4,42 @@
  *
  * @section intro Overview
  *
- * A parallel document classification engine based on MPI, inspired by Chapter 9 of
- * _Parallel Programming in C with MPI and OpenMP_ by Michael J. Quinn.
+ * A parallel document classification engine based on GASPI (Global Address Space Programming Interface),
+ * inspired by Chapter 9 of _Parallel Programming in C with MPI and OpenMP_ by Michael J. Quinn.
  *
- * This project implements a scalable manager–worker architecture using MPICH to
- * classify text documents into feature vectors. It uses hashing to match words
- * against a shared dictionary and distributes processing using MPI.
+ * This project implements a scalable manager–worker architecture using GASPI's PGAS (Partitioned Global
+ * Address Space) model to classify text documents into feature vectors. It uses hashing to match words
+ * against a shared dictionary and distributes processing using one-sided communication.
  *
  * It currently supports only `.txt` documents.
  *
  * @section architecture Architecture
  *
- * - The **manager process**:
+ * - The **manager process** (rank 0):
+ *   - creates GASPI memory segments for communication (DICT, WORK, RESULT),
  *   - reads the dictionary file (one keyword per line),
- *   - broadcasts it to all worker processes,
+ *   - writes dictionary to shared DICT_SEGMENT for all workers,
  *   - scans the input directory for `.txt` files,
- *   - distributes file paths to workers,
- *   - receives classified vectors and writes them to the output file.
+ *   - distributes file paths to workers via WORK_SEGMENT using gaspi_write_notify,
+ *   - receives classified vectors from RESULT_SEGMENT and writes them to the output file.
  *
- * - Each **worker process**:
- *   - receives the dictionary,
- *   - receives a file path from the manager,
+ * - Each **worker process** (rank 1 to n-1):
+ *   - reads the dictionary from DICT_SEGMENT,
+ *   - waits for work notifications via gaspi_notify_waitsome,
+ *   - receives file paths from WORK_SEGMENT,
  *   - tokenizes and lowercases the document content,
  *   - hashes each word against a fixed-size dictionary hash table,
  *   - builds a feature vector based on word presence or frequency,
- *   - sends the result back to the manager.
+ *   - writes results to RESULT_SEGMENT using gaspi_write_notify.
+ *
+ * @section gaspi_segments GASPI Memory Segments
+ *
+ * The application uses three global memory segments:
+ * - **DICT_SEGMENT_ID (0)**: Shared dictionary data
+ * - **WORK_SEGMENT_ID (1)**: File assignment from manager to workers
+ * - **RESULT_SEGMENT_ID (2)**: Classification results from workers to manager
+ *
+ * Each worker has dedicated offsets within segments to avoid memory conflicts.
  *
  * @section flow_diagram Flow Diagram
  *
@@ -43,34 +54,31 @@
  * |- tests/                          # Criterion unit tests
  * |- docs/                           # Doxygen config + generated docs
  * |- make/                           # Makefile submodules (build, test, docs, run)
- * |- scripts/install_mpich.sh        # Script for downloading, building and installing MPICH locally
- * |- scripts/gen_data.py             # Script for generating random data (see ./scripts/gen_data.py --help for more)
+ * |- scripts/gaspi_wrapper.sh        # GASPI environment wrapper script
+ * |- scripts/gen_data.py             # Script for generating random data
  * |- Makefile                        # Entry point Makefile
- * |- CMakeLists.txt                  # Entry point CMake
+ * |- nodes.txt                       # GASPI node configuration file
  * ```
  *
  * @section requirements Requirements
  *
  * - GCC 12+
  * - GNU Make
- * - MPICH 4.3.0+
+ * - GASPI/GPI-2 1.5.1+
+ * - MPICH 4.3.0+ (for compilation compatibility)
+ * - CUDA Toolkit 12.1+ (runtime libraries)
  * - (Optional) [Doxygen 1.9.8+](https://www.doxygen.nl) + [Doxygen-Awesome-CSS](https://github.com/jothepro/doxygen-awesome-css)
  * - (Optional) [Criterion 2.4.1+](https://github.com/Snaipe/Criterion) for unit testing
  *
- * @section mpich Installing MPICH Locally
+ * @section environment Environment Setup
  *
- * @code{.sh}
- * ./scripts/install_mpich.sh
- * @endcode
- *
- * This script installs MPICH 4.3.0 into a local `.mpich/` directory without system-wide changes.
- *
- * @section path Setting up MPICH path
- *
- * Before building or running the project, you must set the `MPICH_TARGET_DIR` environment variable to point to the root directory of your MPICH installation:
+ * Before building or running the project, you must set the required environment variables:
  *
  * ```bash
+ * export GASPI_TARGET_DIR=/path/to/gpi2
  * export MPICH_TARGET_DIR=/path/to/mpich
+ * export CUDA_TARGET_DIR=/path/to/cuda
+ *
  * ```
  *
  * @section build Build
@@ -87,10 +95,10 @@
  * @section run Running the Classifier
  *
  * @code{.sh}
- * make run MPI_FLAGS='-f nodes -n 8' RUN_FLAGS='input/ dict.txt out.txt'
+ * make run GASPI_FLAGS='-n 8' RUN_FLAGS='input/ dict.txt out.txt'
  * @endcode
  *
- * - `MPI_FLAGS`: passed to `mpiexec` (default: `-f nodes -n 16`)
+ * - `GASPI_FLAGS`: passed to `gaspi_run` (default: `-n 16`)
  * - `RUN_FLAGS`: arguments for `ddc` (default: `./example/input/ ./example/dict.txt ./example/output/result.txt`)
  *
  * @section tests Running Tests
@@ -117,7 +125,7 @@
  * @section references References
  *
  * - Michael J. Quinn, *Parallel Programming in C with MPI and OpenMP*, Chapter 9
- * - [MPICH](https://www.mpich.org/)
+ * - [GASPI/GPI-2](https://github.com/cc-hpc-itwm/GPI-2)
  * - [Criterion](https://github.com/Snaipe/Criterion)
  * - [Doxygen](https://www.doxygen.nl/)
  * - [Doxygen-Awesome-CSS](https://github.com/jothepro/doxygen-awesome-css)

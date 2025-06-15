@@ -7,7 +7,6 @@
  * duplicate handling, and table clearing.
  */
 
-
 #include "hash_table.h"
 #include <criterion/criterion.h>
 

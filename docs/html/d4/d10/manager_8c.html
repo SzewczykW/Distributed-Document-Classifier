@@ -98,27 +98,29 @@ $(document).ready(function(){initNavTree('d4/d10/manager_8c.html','../../'); ini
 
 <p>Orchestrates the classification by managing worker coordination and output collection.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;mpi.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;GASPI.h&gt;</code><br />
+<code>#include &lt;limits.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../d1/d9d/file__utils_8h_source.html">file_utils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../df/df9/gaspi__utils_8h_source.html">gaspi_utils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d4/ddb/hash__table_8h_source.html">hash_table.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../db/d45/manager_8h_source.html">manager.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d2/d81/msg__consts_8h_source.html">msg_consts.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for manager.c:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../de/dfb/manager_8c__incl.svg" width="804" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../de/dfb/manager_8c__incl.svg" width="920" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="../../d4/d10/manager_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5afb0ce7625828da3439e1e2aa87b0a9" id="r_a5afb0ce7625828da3439e1e2aa87b0a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d10/manager_8c.html#a5afb0ce7625828da3439e1e2aa87b0a9">manager</a> (const char *input_dir, const char *dict_file, const char *output_file, int size)</td></tr>
-<tr class="memdesc:a5afb0ce7625828da3439e1e2aa87b0a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry point for the manager process.  <br /></td></tr>
-<tr class="separator:a5afb0ce7625828da3439e1e2aa87b0a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a693fc6348be56bfec805d6893f018c42" id="r_a693fc6348be56bfec805d6893f018c42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d10/manager_8c.html#a693fc6348be56bfec805d6893f018c42">manager</a> (const char *input_dir, const char *dict_file, const char *output_file, int processes_num)</td></tr>
+<tr class="memdesc:a693fc6348be56bfec805d6893f018c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry point for the manager process.  <br /></td></tr>
+<tr class="separator:a693fc6348be56bfec805d6893f018c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Orchestrates the classification by managing worker coordination and output collection. </p>
@@ -126,8 +128,8 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="../../d4/d10/manager_8c_source.html">manager.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a5afb0ce7625828da3439e1e2aa87b0a9" name="a5afb0ce7625828da3439e1e2aa87b0a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5afb0ce7625828da3439e1e2aa87b0a9">&#9670;&#160;</a></span>manager()</h2>
+<a id="a693fc6348be56bfec805d6893f018c42" name="a693fc6348be56bfec805d6893f018c42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a693fc6348be56bfec805d6893f018c42">&#9670;&#160;</a></span>manager()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,7 +156,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
+          <td class="paramname"><em>processes_num</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -176,25 +178,25 @@ Functions</h2></td></tr>
     <tr><td class="paramname">input_dir</td><td>Path to directory containing .txt files </td></tr>
     <tr><td class="paramname">dict_file</td><td>Path to the dictionary file </td></tr>
     <tr><td class="paramname">output_file</td><td>Path where results will be written </td></tr>
-    <tr><td class="paramname">size</td><td>Number of MPI processes </td></tr>
+    <tr><td class="paramname">processes_num</td><td>Number of GASPI processes </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d4/d10/manager_8c_source.html#l00017">17</a> of file <a class="el" href="../../d4/d10/manager_8c_source.html">manager.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d4/d10/manager_8c_source.html#l00020">20</a> of file <a class="el" href="../../d4/d10/manager_8c_source.html">manager.c</a>.</p>
 
-<p class="reference">References <a class="el" href="../../d5/d5e/file__utils_8c_source.html#l00083">broadcast_dictionary()</a>, <a class="el" href="../../d2/daf/hash__table_8c_source.html#l00049">clear_hash_table()</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00026">DONE_MSG</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00024">FILE_MSG</a>, <a class="el" href="../../d5/d5e/file__utils_8c_source.html#l00018">list_txt_files()</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00020">MAX_FILES</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00014">MAX_KEYWORDS</a>, <a class="el" href="../../d5/d5e/file__utils_8c_source.html#l00052">open_output_file()</a>, <a class="el" href="../../d5/d5e/file__utils_8c_source.html#l00057">read_dictionary()</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00023">REQUEST_MSG</a>, and <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00025">VEC_MSG</a>.</p>
+<p class="reference">References <a class="el" href="../../d5/d5e/file__utils_8c_source.html#l00084">broadcast_dictionary()</a>, <a class="el" href="../../d2/daf/hash__table_8c_source.html#l00048">clear_hash_table()</a>, <a class="el" href="../../df/df9/gaspi__utils_8h_source.html#l00033">DICT_SEGMENT_ID</a>, <a class="el" href="../../df/df9/gaspi__utils_8h_source.html#l00019">GASPI_CHECK</a>, <a class="el" href="../../d5/d5e/file__utils_8c_source.html#l00019">list_txt_files()</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00020">MAX_FILES</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00014">MAX_KEYWORDS</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00017">MAX_WORD_LEN</a>, <a class="el" href="../../d5/d5e/file__utils_8c_source.html#l00053">open_output_file()</a>, <a class="el" href="../../d5/d5e/file__utils_8c_source.html#l00058">read_dictionary()</a>, <a class="el" href="../../df/df9/gaspi__utils_8h_source.html#l00043">RESULT_OFFSET</a>, <a class="el" href="../../df/df9/gaspi__utils_8h_source.html#l00035">RESULT_SEGMENT_ID</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00023">SHUTDOWN_NOTIF</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00024">WORK_AVAILABLE_NOTIF</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00025">WORK_DONE_NOTIF</a>, <a class="el" href="../../d2/d81/msg__consts_8h_source.html#l00028">WORK_NOTIF_ID</a>, <a class="el" href="../../df/df9/gaspi__utils_8h_source.html#l00041">WORK_OFFSET</a>, <a class="el" href="../../df/df9/gaspi__utils_8h_source.html#l00034">WORK_SEGMENT_ID</a>, and <a class="el" href="../../df/df9/gaspi__utils_8h_source.html#l00038">WORKER_DATA_SIZE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d0/d29/main_8c_source.html#l00013">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d0/d29/main_8c_source.html#l00014">main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d4/d10/manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9_cgraph.svg" width="580" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d4/d10/manager_8c_a693fc6348be56bfec805d6893f018c42_cgraph.svg" width="580" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d4/d10/manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9_icgraph.svg" width="194" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d4/d10/manager_8c_a693fc6348be56bfec805d6893f018c42_icgraph.svg" width="194" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

@@ -1,8 +1,8 @@
 <map id="main" name="main">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,203,60,228"/>
-<area shape="rect" id="Node000002" href="$d4/d10/manager_8c.html#a5afb0ce7625828da3439e1e2aa87b0a9" title="Entry point for the manager process." alt="" coords="108,129,188,155"/>
+<area shape="rect" id="Node000002" href="$d4/d10/manager_8c.html#a693fc6348be56bfec805d6893f018c42" title="Entry point for the manager process." alt="" coords="108,129,188,155"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="52,200,114,160,117,165,55,205"/>
-<area shape="rect" id="Node000011" href="$dc/d8e/worker_8c.html#a60b3bdb96860f3e67ef2dcc21b7b5c37" title="Entry point for each MPI worker process." alt="" coords="115,252,181,277"/>
+<area shape="rect" id="Node000011" href="$dc/d8e/worker_8c.html#a60b3bdb96860f3e67ef2dcc21b7b5c37" title="Entry point for each GASPI worker process." alt="" coords="115,252,181,277"/>
 <area shape="poly" id="edge9_Node000001_Node000011" title=" " alt="" coords="61,224,106,244,104,249,59,229"/>
 <area shape="rect" id="Node000003" href="$d5/d5e/file__utils_8c.html#a07982d8fbcce521936640f6b39550dad" title="Broadcasts dictionary from manager to workers." alt="" coords="236,5,395,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="155,128,186,85,209,61,235,40,245,34,248,39,237,44,212,64,190,88,159,131"/>

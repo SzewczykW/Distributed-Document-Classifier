@@ -19,9 +19,9 @@
  * @param input_dir Path to directory containing .txt files
  * @param dict_file Path to the dictionary file
  * @param output_file Path where results will be written
- * @param size Number of MPI processes
+ * @param processes_num Number of GASPI processes
  */
-void manager(const char *input_dir, const char *dict_file, const char *output_file, int size);
+void manager(const char *input_dir, const char *dict_file, const char *output_file,
+             int processes_num);
 
 #endif
-

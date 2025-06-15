@@ -1,24 +1,31 @@
 <map id="worker.c" name="worker.c">
-<area shape="rect" id="Node000001" title="Logic for a worker process participating in distributed document classification." alt="" coords="337,5,413,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,64,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="337,29,83,81,78,82,77,77,82,76,336,24"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="216,152,283,177"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="337,25,281,32,218,44,162,60,142,69,129,80,123,91,124,101,129,111,140,120,169,136,204,149,202,154,167,141,137,124,125,114,119,103,118,90,125,77,139,65,160,55,217,38,280,27,336,20"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="139,79,210,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="343,33,221,76,220,71,342,28"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="234,79,305,104"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="359,33,299,73,296,69,356,28"/>
-<area shape="rect" id="Node000006" href="$d9/d85/classifier_8h.html" title="Tokenization and text classification logic." alt="" coords="329,79,420,104"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="377,31,377,65,372,65,372,31"/>
-<area shape="rect" id="Node000007" href="$d1/d9d/file__utils_8h.html" title="Utility functions for files operations." alt="" coords="445,79,534,104"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="394,28,460,69,458,74,392,33"/>
-<area shape="rect" id="Node000009" href="$d4/ddb/hash__table_8h.html" title="Simple fixed&#45;size chained hash table for word lookup." alt="" coords="558,79,663,104"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="413,28,560,72,559,77,412,33"/>
-<area shape="rect" id="Node000010" href="$d2/d81/msg__consts_8h.html" title="Constants for MPI messaging and buffer sizes." alt="" coords="687,79,798,104"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="414,24,674,74,673,79,413,29"/>
-<area shape="rect" id="Node000011" href="$da/da5/worker_8h.html" title="Interface for worker process." alt="" coords="823,79,900,104"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="413,21,581,41,809,76,808,81,580,46,412,26"/>
-<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="452,107,297,152,295,147,450,101"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="454,152,525,177"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="492,104,492,138,487,138,487,104"/>
+<area shape="rect" id="Node000001" title="Logic for a worker process participating in distributed document classification." alt="" coords="401,5,477,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,152,79,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="401,25,238,43,155,59,122,70,98,81,83,93,71,108,53,140,49,138,67,106,80,90,95,76,120,65,153,54,238,38,401,19"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="225,152,296,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="402,27,344,45,314,60,289,80,273,109,265,139,260,138,268,107,285,77,311,55,342,40,400,22"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="521,152,587,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="478,18,512,22,549,32,585,50,614,77,619,96,613,114,600,131,584,146,580,142,596,128,608,112,614,96,609,80,582,54,547,37,511,28,477,23"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="121,152,192,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="401,23,327,27,239,37,159,54,129,66,109,80,104,95,108,110,119,126,133,141,129,145,115,130,103,113,99,94,105,77,126,61,157,49,238,31,327,22,401,18"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="299,79,369,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="424,33,364,73,361,69,421,28"/>
+<area shape="rect" id="Node000007" href="$d9/d85/classifier_8h.html" title="Tokenization and text classification logic." alt="" coords="394,79,485,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="442,31,442,65,437,65,437,31"/>
+<area shape="rect" id="Node000008" href="$d1/d9d/file__utils_8h.html" title="Utility functions for files operations." alt="" coords="509,79,599,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="459,28,525,69,522,74,456,33"/>
+<area shape="rect" id="Node000009" href="$df/df9/gaspi__utils_8h.html" title="Utility macros and functions for GASPI error handling." alt="" coords="119,79,223,104"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="402,32,229,78,227,73,400,27"/>
+<area shape="rect" id="Node000010" href="$d4/ddb/hash__table_8h.html" title="Simple fixed&#45;size chained hash table for word lookup." alt="" coords="675,79,780,104"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="478,26,668,73,667,78,477,31"/>
+<area shape="rect" id="Node000011" href="$d2/d81/msg__consts_8h.html" title="Constants for GASPI messaging and buffer sizes." alt="" coords="804,79,915,104"/>
+<area shape="poly" id="edge16_Node000001_Node000011" title=" " alt="" coords="478,23,791,76,790,81,477,28"/>
+<area shape="rect" id="Node000012" href="$da/da5/worker_8h.html" title="Interface for worker process." alt="" coords="939,79,1017,104"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="478,20,666,40,926,76,925,81,666,45,477,25"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="509,106,310,154,309,149,508,101"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="557,104,557,138,551,138,551,104"/>
+<area shape="poly" id="edge11_Node000009_Node000002" title=" " alt="" coords="152,106,77,147,74,143,149,102"/>
+<area shape="poly" id="edge12_Node000009_Node000003" title=" " alt="" coords="187,102,237,141,234,145,184,106"/>
+<area shape="poly" id="edge13_Node000009_Node000004" title=" " alt="" coords="224,100,507,152,506,157,223,105"/>
+<area shape="poly" id="edge14_Node000009_Node000005" title=" " alt="" coords="172,105,164,139,159,138,166,104"/>
 </map>

@@ -20,10 +20,11 @@
  * @struct Node
  * @brief Represents a dictionary word in a linked list at a hash slot.
  */
-typedef struct node {
-    char *word;         ///< Keyword string
-    int index;          ///< Position in feature vector
-    struct node *next;  ///< Next node in chain
+typedef struct node
+{
+    char *word;        ///< Keyword string
+    int index;         ///< Position in feature vector
+    struct node *next; ///< Next node in chain
 } Node;
 
 /// Global hash table structure
@@ -66,4 +67,3 @@ void clear_hash_table(void);
 void to_lower(char *str);
 
 #endif
-

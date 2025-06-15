@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Simple fixed&#45;size chained hash table for word lookup." alt="" coords="231,5,337,31"/>
 <area shape="rect" id="Node000002" href="$d0/db9/classifier_8c.html" title="Implements document classification using tokenization and a hash table." alt="" coords="5,79,96,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,37,89,81,88,76,233,32"/>
-<area shape="rect" id="Node000003" href="$d5/d5e/file__utils_8c.html" title="File reading, dictionary parsing, and dictionary broadcasting over MPI." alt="" coords="120,79,208,104"/>
+<area shape="rect" id="Node000003" href="$d5/d5e/file__utils_8c.html" title="File reading, dictionary parsing, and dictionary broadcasting over GASPI." alt="" coords="120,79,208,104"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="254,40,185,81,182,76,251,35"/>
 <area shape="rect" id="Node000004" href="$d2/daf/hash__table_8c.html" title="Implementation of fixed&#45;size chained hash table for keyword lookup." alt="" coords="232,79,336,104"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="287,44,287,79,281,79,281,44"/>

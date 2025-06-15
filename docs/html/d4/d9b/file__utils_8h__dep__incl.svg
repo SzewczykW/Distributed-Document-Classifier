@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="../../d5/d5e/file__utils_8c.html" target="_top" xlink:title="File reading, dictionary parsing, and dictionary broadcasting over MPI.">
+<g id="a_Node000002"><a xlink:href="../../d5/d5e/file__utils_8c.html" target="_top" xlink:title="File reading, dictionary parsing, and dictionary broadcasting over GASPI.">
 <polygon fill="white" stroke="#666666" points="66,-19 0,-19 0,0 66,0 66,-19"/>
 <text text-anchor="middle" x="33" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">file_utils.c</text>
 </a>

@@ -56,7 +56,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="../../dc/d8e/worker_8c.html#a60b3bdb96860f3e67ef2dcc21b7b5c37" target="_top" xlink:title="Entry point for each MPI worker process.">
+<g id="a_Node000003"><a xlink:href="../../dc/d8e/worker_8c.html#a60b3bdb96860f3e67ef2dcc21b7b5c37" target="_top" xlink:title="Entry point for each GASPI worker process.">
 <polygon fill="white" stroke="#666666" points="132,-56 82,-56 82,-37 132,-37 132,-56"/>
 <text text-anchor="middle" x="107" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">worker</text>
 </a>
@@ -92,7 +92,7 @@
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="../../d4/d10/manager_8c.html#a5afb0ce7625828da3439e1e2aa87b0a9" target="_top" xlink:title="Entry point for the manager process.">
+<g id="a_Node000006"><a xlink:href="../../d4/d10/manager_8c.html#a693fc6348be56bfec805d6893f018c42" target="_top" xlink:title="Entry point for the manager process.">
 <polygon fill="white" stroke="#666666" points="137,-19 77,-19 77,0 137,0 137,-19"/>
 <text text-anchor="middle" x="107" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">manager</text>
 </a>

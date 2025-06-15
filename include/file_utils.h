@@ -65,4 +65,3 @@ void broadcast_dictionary(char *keywords[], int num_keywords);
 void receive_dictionary(char *keywords[], int *num_keywords);
 
 #endif
-

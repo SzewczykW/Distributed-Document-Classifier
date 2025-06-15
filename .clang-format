@@ -17,7 +17,7 @@ SpaceBeforeParens: ControlStatements
 
 IncludeBlocks: Preserve
 IncludeCategories:
-  - Regex:           '^<mpi.h>'
+  - Regex:           '^<GASPI.h>'
     Priority:        1
     SortPriority:    1
   - Regex:           '^"'

@@ -7,7 +7,6 @@
  * detecting duplicates, and scanning directories for .txt files.
  */
 
-
 #include <criterion/criterion.h>
 #include <stdio.h>
 #include <string.h>

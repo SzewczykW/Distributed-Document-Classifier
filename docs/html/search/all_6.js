@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['index_0',['index',['../d5/da1/structnode.html#a5359a7ce1309be9415907be3ebbd2f91',1,'node']]],
-  ['insert_5fword_1',['insert_word',['../d4/ddb/hash__table_8h.html#a02829007f61a93c496676c28e3a4cc60',1,'insert_word(const char *word, int index):&#160;hash_table.c'],['../d2/daf/hash__table_8c.html#a02829007f61a93c496676c28e3a4cc60',1,'insert_word(const char *word, int index):&#160;hash_table.c']]],
-  ['installing_20mpich_20locally_2',['Installing MPICH Locally',['../index.html#mpich',1,'']]]
+  ['gaspi_20memory_20segments_0',['GASPI Memory Segments',['../index.html#gaspi_segments',1,'']]],
+  ['gaspi_5fcheck_1',['GASPI_CHECK',['../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1',1,'gaspi_utils.h']]],
+  ['gaspi_5futils_2ec_2',['gaspi_utils.c',['../db/dfb/gaspi__utils_8c.html',1,'']]],
+  ['gaspi_5futils_2eh_3',['gaspi_utils.h',['../df/df9/gaspi__utils_8h.html',1,'']]]
 ];

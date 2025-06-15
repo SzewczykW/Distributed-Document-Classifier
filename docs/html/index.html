@@ -96,30 +96,40 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Wiktor Szewczyk</dd></dl>
 <h1><a class="anchor" id="intro"></a>
 Overview</h1>
-<p>A parallel document classification engine based on MPI, inspired by Chapter 9 of <em>Parallel Programming in C with MPI and OpenMP</em> by Michael J. Quinn.</p>
-<p>This project implements a scalable manager–worker architecture using MPICH to classify text documents into feature vectors. It uses hashing to match words against a shared dictionary and distributes processing using MPI.</p>
+<p>A parallel document classification engine based on GASPI (Global Address Space Programming Interface), inspired by Chapter 9 of <em>Parallel Programming in C with MPI and OpenMP</em> by Michael J. Quinn.</p>
+<p>This project implements a scalable manager–worker architecture using GASPI's PGAS (Partitioned Global Address Space) model to classify text documents into feature vectors. It uses hashing to match words against a shared dictionary and distributes processing using one-sided communication.</p>
 <p>It currently supports only <code>.txt</code> documents.</p>
 <h1><a class="anchor" id="architecture"></a>
 Architecture</h1>
 <ul>
-<li>The <b>manager process</b>:<ul>
+<li>The <b>manager process</b> (rank 0):<ul>
+<li>creates GASPI memory segments for communication (DICT, WORK, RESULT),</li>
 <li>reads the dictionary file (one keyword per line),</li>
-<li>broadcasts it to all worker processes,</li>
+<li>writes dictionary to shared DICT_SEGMENT for all workers,</li>
 <li>scans the input directory for <code>.txt</code> files,</li>
-<li>distributes file paths to workers,</li>
-<li>receives classified vectors and writes them to the output file.</li>
+<li>distributes file paths to workers via WORK_SEGMENT using gaspi_write_notify,</li>
+<li>receives classified vectors from RESULT_SEGMENT and writes them to the output file.</li>
 </ul>
 </li>
-<li>Each <b>worker process</b>:<ul>
-<li>receives the dictionary,</li>
-<li>receives a file path from the manager,</li>
+<li>Each <b>worker process</b> (rank 1 to n-1):<ul>
+<li>reads the dictionary from DICT_SEGMENT,</li>
+<li>waits for work notifications via gaspi_notify_waitsome,</li>
+<li>receives file paths from WORK_SEGMENT,</li>
 <li>tokenizes and lowercases the document content,</li>
 <li>hashes each word against a fixed-size dictionary hash table,</li>
 <li>builds a feature vector based on word presence or frequency,</li>
-<li>sends the result back to the manager.</li>
+<li>writes results to RESULT_SEGMENT using gaspi_write_notify.</li>
 </ul>
 </li>
 </ul>
+<h1><a class="anchor" id="gaspi_segments"></a>
+GASPI Memory Segments</h1>
+<p>The application uses three global memory segments:</p><ul>
+<li><b>DICT_SEGMENT_ID (0)</b>: Shared dictionary data</li>
+<li><b>WORK_SEGMENT_ID (1)</b>: File assignment from manager to workers</li>
+<li><b>RESULT_SEGMENT_ID (2)</b>: Classification results from workers to manager</li>
+</ul>
+<p>Each worker has dedicated offsets within segments to avoid memory conflicts.</p>
 <h1><a class="anchor" id="flow_diagram"></a>
 Flow Diagram</h1>
 <div class="image">
@@ -129,43 +139,44 @@ Flow Diagram</h1>
 Project Structure</h1>
 <div class="fragment"><div class="line">.</div>
 <div class="line">|- include/                        # Header files</div>
-<div class="line">|- src/                            # Core runtime: <a class="code hl_function" href="d0/d29/main_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>, <a class="code hl_function" href="db/d45/manager_8h.html#a5afb0ce7625828da3439e1e2aa87b0a9">manager</a>, <a class="code hl_function" href="da/da5/worker_8h.html#a60b3bdb96860f3e67ef2dcc21b7b5c37">worker</a>, utils</div>
+<div class="line">|- src/                            # Core runtime: <a class="code hl_function" href="d0/d29/main_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>, <a class="code hl_function" href="db/d45/manager_8h.html#a693fc6348be56bfec805d6893f018c42">manager</a>, <a class="code hl_function" href="da/da5/worker_8h.html#a60b3bdb96860f3e67ef2dcc21b7b5c37">worker</a>, utils</div>
 <div class="line">|- tests/                          # Criterion unit tests</div>
 <div class="line">|- docs/                           # Doxygen config + generated docs</div>
 <div class="line">|- make/                           # Makefile submodules (build, test, docs, run)</div>
-<div class="line">|- scripts/install_mpich.sh        # Script <span class="keywordflow">for</span> downloading, building and installing MPICH locally</div>
-<div class="line">|- scripts/gen_data.py             # Script <span class="keywordflow">for</span> generating random data (see ./scripts/gen_data.py --help <span class="keywordflow">for</span> more)</div>
+<div class="line">|- scripts/gaspi_wrapper.sh        # GASPI environment wrapper script</div>
+<div class="line">|- scripts/gen_data.py             # Script <span class="keywordflow">for</span> generating random data</div>
 <div class="line">|- Makefile                        # Entry point Makefile</div>
-<div class="line">|- CMakeLists.txt                  # Entry point CMake</div>
-<div class="ttc" id="amain_8c_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="d0/d29/main_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdef"><b>Definition</b> <a href="d0/d29/main_8c_source.html#l00013">main.c:13</a></div></div>
-<div class="ttc" id="amanager_8h_html_a5afb0ce7625828da3439e1e2aa87b0a9"><div class="ttname"><a href="db/d45/manager_8h.html#a5afb0ce7625828da3439e1e2aa87b0a9">manager</a></div><div class="ttdeci">void manager(const char *input_dir, const char *dict_file, const char *output_file, int size)</div><div class="ttdoc">Entry point for the manager process.</div><div class="ttdef"><b>Definition</b> <a href="d4/d10/manager_8c_source.html#l00017">manager.c:17</a></div></div>
-<div class="ttc" id="aworker_8h_html_a60b3bdb96860f3e67ef2dcc21b7b5c37"><div class="ttname"><a href="da/da5/worker_8h.html#a60b3bdb96860f3e67ef2dcc21b7b5c37">worker</a></div><div class="ttdeci">void worker(void)</div><div class="ttdoc">Entry point for each MPI worker process.</div><div class="ttdef"><b>Definition</b> <a href="dc/d8e/worker_8c_source.html#l00019">worker.c:19</a></div></div>
+<div class="line">|- nodes.txt                       # GASPI <a class="code hl_struct" href="d5/da1/structnode.html">node</a> configuration file</div>
+<div class="ttc" id="amain_8c_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="d0/d29/main_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdef"><b>Definition</b> <a href="d0/d29/main_8c_source.html#l00014">main.c:14</a></div></div>
+<div class="ttc" id="amanager_8h_html_a693fc6348be56bfec805d6893f018c42"><div class="ttname"><a href="db/d45/manager_8h.html#a693fc6348be56bfec805d6893f018c42">manager</a></div><div class="ttdeci">void manager(const char *input_dir, const char *dict_file, const char *output_file, int processes_num)</div><div class="ttdoc">Entry point for the manager process.</div><div class="ttdef"><b>Definition</b> <a href="d4/d10/manager_8c_source.html#l00020">manager.c:20</a></div></div>
+<div class="ttc" id="astructnode_html"><div class="ttname"><a href="d5/da1/structnode.html">node</a></div><div class="ttdef"><b>Definition</b> <a href="d4/ddb/hash__table_8h_source.html#l00023">hash_table.h:24</a></div></div>
+<div class="ttc" id="aworker_8h_html_a60b3bdb96860f3e67ef2dcc21b7b5c37"><div class="ttname"><a href="da/da5/worker_8h.html#a60b3bdb96860f3e67ef2dcc21b7b5c37">worker</a></div><div class="ttdeci">void worker(void)</div><div class="ttdoc">Entry point for each GASPI worker process.</div><div class="ttdef"><b>Definition</b> <a href="dc/d8e/worker_8c_source.html#l00021">worker.c:21</a></div></div>
 </div><!-- fragment --><h1><a class="anchor" id="requirements"></a>
 Requirements</h1>
 <ul>
 <li>GCC 12+</li>
 <li>GNU Make</li>
-<li>MPICH 4.3.0+</li>
+<li>GASPI/GPI-2 1.5.1+</li>
+<li>MPICH 4.3.0+ (for compilation compatibility)</li>
+<li>CUDA Toolkit 12.1+ (runtime libraries)</li>
 <li>(Optional) <a href="https://www.doxygen.nl">Doxygen 1.9.8+</a> + <a href="https://github.com/jothepro/doxygen-awesome-css">Doxygen-Awesome-CSS</a></li>
 <li>(Optional) <a href="https://github.com/Snaipe/Criterion">Criterion 2.4.1+</a> for unit testing</li>
 </ul>
-<h1><a class="anchor" id="mpich"></a>
-Installing MPICH Locally</h1>
-<div class="fragment"><div class="line">./scripts/install_mpich.sh</div>
-</div><!-- fragment --><p>This script installs MPICH 4.3.0 into a local <code>.mpich/</code> directory without system-wide changes.</p>
-<h1><a class="anchor" id="path"></a>
-Setting up MPICH path</h1>
-<p>Before building or running the project, you must set the <code>MPICH_TARGET_DIR</code> environment variable to point to the root directory of your MPICH installation:</p>
-<div class="fragment"><div class="line">export MPICH_TARGET_DIR=/path/to/mpich</div>
+<h1><a class="anchor" id="environment"></a>
+Environment Setup</h1>
+<p>Before building or running the project, you must set the required environment variables:</p>
+<div class="fragment"><div class="line">export GASPI_TARGET_DIR=/path/to/gpi2</div>
+<div class="line">export MPICH_TARGET_DIR=/path/to/mpich</div>
+<div class="line">export CUDA_TARGET_DIR=/path/to/cuda</div>
 </div><!-- fragment --><h1><a class="anchor" id="build"></a>
 Build</h1>
 <div class="fragment"><div class="line">make build</div>
 </div><!-- fragment --><p>Builds the executable at: </p><div class="fragment"><div class="line">./build/bin/ddc</div>
 </div><!-- fragment --><h1><a class="anchor" id="run"></a>
 Running the Classifier</h1>
-<div class="fragment"><div class="line">make run MPI_FLAGS=&#39;-f nodes -n 8&#39; RUN_FLAGS=&#39;input/ dict.txt out.txt&#39;</div>
+<div class="fragment"><div class="line">make run GASPI_FLAGS=&#39;-n 8&#39; RUN_FLAGS=&#39;input/ dict.txt out.txt&#39;</div>
 </div><!-- fragment --><ul>
-<li><code>MPI_FLAGS</code>: passed to <code>mpiexec</code> (default: <code>-f nodes -n 16</code>)</li>
+<li><code>GASPI_FLAGS</code>: passed to <code>gaspi_run</code> (default: <code>-n 16</code>)</li>
 <li><code>RUN_FLAGS</code>: arguments for <code>ddc</code> (default: <code>./example/input/ ./example/dict.txt ./example/output/result.txt</code>)</li>
 </ul>
 <h1><a class="anchor" id="tests"></a>
@@ -186,7 +197,7 @@ License</h1>
 References</h1>
 <ul>
 <li>Michael J. Quinn, <em>Parallel Programming in C with MPI and OpenMP</em>, Chapter 9</li>
-<li><a href="https://www.mpich.org/">MPICH</a></li>
+<li><a href="https://github.com/cc-hpc-itwm/GPI-2">GASPI/GPI-2</a></li>
 <li><a href="https://github.com/Snaipe/Criterion">Criterion</a></li>
 <li><a href="https://www.doxygen.nl/">Doxygen</a></li>
 <li><a href="https://github.com/jothepro/doxygen-awesome-css">Doxygen-Awesome-CSS</a> </li>

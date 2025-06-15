@@ -2,33 +2,48 @@ digraph DDC_Flow {
     rankdir=TB;
     node [fontname="Helvetica", fontsize=10 shape=box style=filled fillcolor=lightblue];
 
-    Start         [label="Start (MPI_Init)" shape=ellipse fillcolor=gray95]
+    Start         [label="Start (gaspi_proc_init)" shape=ellipse fillcolor=gray95]
     RoleCheck     [label="Check rank\n(if manager or worker)"]
 
     // Manager branch
+    M_CreateSegs  [label="Manager: create GASPI segments\n(DICT, WORK, RESULT)"]
     M_DictRead    [label="Manager: read dictionary"]
-    M_BcastDict   [label="Manager: broadcast dictionary"]
+    M_BcastDict   [label="Manager: write dict to DICT_SEGMENT"]
     M_ListFiles   [label="Manager: list input .txt files"]
-    M_AssignWork  [label="Manager: assign files to workers"]
-    M_RecvVec     [label="Manager: receive vectors"]
+    M_AssignWork  [label="Manager: write_notify files\nto workers via WORK_SEGMENT"]
+    M_WaitNotif   [label="Manager: notify_waitsome\nfor WORK_DONE_NOTIF"]
+    M_ReadResults [label="Manager: read results\nfrom RESULT_SEGMENT"]
     M_WriteOutput [label="Manager: write result to file"]
+    M_CleanupSegs [label="Manager: delete GASPI segments"]
 
     // Worker branch
-    W_RecvDict    [label="Worker: receive dictionary via Bcast"]
-    W_RecvFile    [label="Worker: receive file path"]
+    W_GetSegPtr   [label="Worker: get segment pointers\n(DICT, WORK, RESULT)"]
+    W_RecvDict    [label="Worker: read dictionary\nfrom DICT_SEGMENT"]
+    W_WaitWork    [label="Worker: notify_waitsome\nfor WORK_AVAILABLE_NOTIF"]
+    W_ReadFile    [label="Worker: read filename\nfrom WORK_SEGMENT"]
     W_Classify    [label="Worker: read file & classify"]
-    W_SendVec     [label="Worker: send vector to manager"]
+    W_WriteResult [label="Worker: write_notify results\nto RESULT_SEGMENT"]
+    W_CheckShutdown [label="Worker: check for\nSHUTDOWN_NOTIF"]
 
-    End           [label="MPI_Finalize" shape=ellipse fillcolor=gray95]
+    End           [label="gaspi_proc_term" shape=ellipse fillcolor=gray95]
 
     // Flow
     Start -> RoleCheck
 
-    RoleCheck -> M_DictRead [label="if rank 0 then manager", labelangel=-90]
-    M_DictRead -> M_BcastDict -> M_ListFiles -> M_AssignWork
-    M_AssignWork -> M_RecvVec -> M_WriteOutput -> End
+    // Manager flow
+    RoleCheck -> M_CreateSegs [label="if rank 0 then manager", labelangle=-90]
+    M_CreateSegs -> M_DictRead -> M_BcastDict -> M_ListFiles -> M_AssignWork
+    M_AssignWork -> M_WaitNotif -> M_ReadResults -> M_WriteOutput
+    M_WriteOutput -> M_AssignWork [label="more files?", style=dashed]
+    M_WriteOutput -> M_CleanupSegs [label="all done"]
+    M_CleanupSegs -> End
 
-    RoleCheck -> W_RecvDict [label="else worker"]
-    W_RecvDict -> W_RecvFile -> W_Classify -> W_SendVec -> End
+    // Worker flow
+    RoleCheck -> W_GetSegPtr [label="else worker"]
+    W_GetSegPtr -> W_RecvDict -> W_WaitWork -> W_ReadFile
+    W_ReadFile -> W_CheckShutdown [label="empty filename?", style=dashed]
+    W_CheckShutdown -> End [label="shutdown"]
+    W_ReadFile -> W_Classify [label="valid file"]
+    W_Classify -> W_WriteResult -> W_WaitWork [label="wait for next task"]
 }
 

@@ -3,106 +3,163 @@
 \mbox{\hyperlink{manager_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{manager_8c_source_l00001}00001\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <mpi.h>}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <string.h>}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00011}00011\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{file__utils_8h}{file\_utils.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{hash__table_8h}{hash\_table.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{manager_8h}{manager.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{msg__consts_8h}{msg\_consts.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00016}00016\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00017}\mbox{\hyperlink{manager_8h_a5afb0ce7625828da3439e1e2aa87b0a9}{00017}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{manager_8c_a5afb0ce7625828da3439e1e2aa87b0a9}{manager}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *input\_dir,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dict\_file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *output\_file,}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00019}00019\ \{}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{char}\ *keywords[\mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\_KEYWORDS}}]\ =\ \{0\};}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00021}00021\ \ \ \ \ \textcolor{keywordtype}{int}\ num\_keywords\ =\ \mbox{\hyperlink{file__utils_8h_a9cef8f76bf0bbcbbc225ed062b5d8d15}{read\_dictionary}}(dict\_file,\ keywords,\ \mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\_KEYWORDS}});}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_keywords\ <\ 0)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00023}00023\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00024}00024\ \ \ \ \ \ \ \ \ perror(\textcolor{stringliteral}{"{}Failed\ to\ read\ dictionary"{}});}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00025}00025\ \ \ \ \ \ \ \ \ MPI\_Abort(MPI\_COMM\_WORLD,\ 1);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00026}00026\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00027}00027\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{file__utils_8h_a07982d8fbcce521936640f6b39550dad}{broadcast\_dictionary}}(keywords,\ num\_keywords);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00029}00029\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00030}00030\ \ \ \ \ \textcolor{keywordtype}{char}\ files[\mbox{\hyperlink{msg__consts_8h_a2c5eecb22513a88c24ae5831a3265e54}{MAX\_FILES}}][PATH\_MAX]\ =\ \{0\};}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00031}00031\ \ \ \ \ \textcolor{keywordtype}{int}\ file\_count\ =\ \mbox{\hyperlink{file__utils_8h_af60f33bb7908850bdcf52ebe9f49d310}{list\_txt\_files}}(input\_dir,\ files,\ \mbox{\hyperlink{msg__consts_8h_a2c5eecb22513a88c24ae5831a3265e54}{MAX\_FILES}});}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\_count\ <\ 0)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00033}00033\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Error\ reading\ directory:\ \%s\(\backslash\)n"{}},\ input\_dir);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ MPI\_Abort(MPI\_COMM\_WORLD,\ 1);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00036}00036\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00037}00037\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00038}00038\ \ \ \ \ FILE\ *out\ =\ \mbox{\hyperlink{file__utils_8h_af2d299fe865532706c80ab701585b877}{open\_output\_file}}(output\_file);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{if}\ (!out)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00040}00040\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ perror(\textcolor{stringliteral}{"{}Failed\ to\ open\ output\ file"{}});}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ MPI\_Abort(MPI\_COMM\_WORLD,\ 1);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00043}00043\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00044}00044\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00045}00045\ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\%-\/12s:"{}},\ \textcolor{stringliteral}{"{}dictionary"{}});}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ num\_keywords;\ i++)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\ \%s"{}},\ keywords[i]);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00048}00048\ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <GASPI.h>}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <limits.h>}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{file__utils_8h}{file\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{gaspi__utils_8h}{gaspi\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{hash__table_8h}{hash\_table.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{manager_8h}{manager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{msg__consts_8h}{msg\_consts.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00020}\mbox{\hyperlink{manager_8h_a693fc6348be56bfec805d6893f018c42}{00020}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{manager_8c_a693fc6348be56bfec805d6893f018c42}{manager}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *input\_dir,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dict\_file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *output\_file,}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ processes\_num)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00022}00022\ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00023}00023\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Starting\ with\ \%d\ processes\(\backslash\)n"{}},\ processes\_num);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00025}00025\ \ \ \ \ gaspi\_size\_t\ dict\_size\ =\ \textcolor{keyword}{sizeof}(int)\ +\ \mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\_KEYWORDS}}\ *\ \mbox{\hyperlink{msg__consts_8h_acd24df7121adef94ef8ff697ad56fb4f}{MAX\_WORD\_LEN}};}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00026}00026\ \ \ \ \ gaspi\_size\_t\ work\_size\ =\ processes\_num\ *\ PATH\_MAX;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00027}00027\ \ \ \ \ gaspi\_size\_t\ result\_size\ =\ processes\_num\ *\ \mbox{\hyperlink{gaspi__utils_8h_a3fb116497578f7ccb5b53f4b090573fc}{WORKER\_DATA\_SIZE}};}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00029}00029\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Creating\ GASPI\ segments...\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00030}00030\ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_segment\_create(\mbox{\hyperlink{gaspi__utils_8h_a5b7eb988a6a94afc6a78a0e5e48d6eee}{DICT\_SEGMENT\_ID}},\ dict\_size,\ GASPI\_GROUP\_ALL,}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GASPI\_BLOCK,\ GASPI\_ALLOC\_DEFAULT));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00033}00033\ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_segment\_create(\mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}},\ work\_size,\ GASPI\_GROUP\_ALL,}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GASPI\_BLOCK,\ GASPI\_ALLOC\_DEFAULT));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00036}00036\ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_segment\_create(\mbox{\hyperlink{gaspi__utils_8h_acd20f6c3dec7f555aa69e37102735855}{RESULT\_SEGMENT\_ID}},\ result\_size,\ GASPI\_GROUP\_ALL,}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GASPI\_BLOCK,\ GASPI\_ALLOC\_DEFAULT));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00038}00038\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ GASPI\ segments\ created\ successfully\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00040}00040\ \ \ \ \ \textcolor{keywordtype}{char}\ *keywords[\mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\_KEYWORDS}}]\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{int}\ num\_keywords\ =\ \mbox{\hyperlink{file__utils_8h_a9cef8f76bf0bbcbbc225ed062b5d8d15}{read\_dictionary}}(dict\_file,\ keywords,\ \mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\_KEYWORDS}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{if}\ (num\_keywords\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00043}00043\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ perror(\textcolor{stringliteral}{"{}Failed\ to\ read\ dictionary"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ gaspi\_proc\_term(GASPI\_BLOCK);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ exit(1);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00048}00048\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Dictionary\ loaded:\ \%d\ keywords\(\backslash\)n"{}},\ num\_keywords);}
 \DoxyCodeLine{\Hypertarget{manager_8c_source_l00049}00049\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00050}00050\ \ \ \ \ \textcolor{keywordtype}{int}\ current\_file\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00051}00051\ \ \ \ \ \textcolor{keywordtype}{int}\ done\_workers\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00050}00050\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Broadcasting\ dictionary\ to\ workers...\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{file__utils_8h_a07982d8fbcce521936640f6b39550dad}{broadcast\_dictionary}}(keywords,\ num\_keywords);}
 \DoxyCodeLine{\Hypertarget{manager_8c_source_l00052}00052\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00053}00053\ \ \ \ \ MPI\_Request\ req;}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00054}00054\ \ \ \ \ MPI\_Status\ status;}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00055}00055\ \ \ \ \ MPI\_Irecv(NULL,\ 0,\ MPI\_CHAR,\ MPI\_ANY\_SOURCE,\ \mbox{\hyperlink{msg__consts_8h_a6839dd297b5061b3e9400e19237d9869}{REQUEST\_MSG}},\ MPI\_COMM\_WORLD,\ \&req);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00056}00056\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{while}\ (done\_workers\ <\ size\ -\/\ 1)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00058}00058\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ MPI\_Test(\&req,\ \&flag,\ \&status);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!flag)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00063}00063\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ source\ =\ status.MPI\_SOURCE;}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00065}00065\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_file\ <\ file\_count)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(files[current\_file++],\ PATH\_MAX,\ MPI\_CHAR,\ source,\ \mbox{\hyperlink{msg__consts_8h_a157536d2849554b7111608f8824d571a}{FILE\_MSG}},}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_COMM\_WORLD);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Send(NULL,\ 0,\ MPI\_CHAR,\ source,\ \mbox{\hyperlink{msg__consts_8h_a4dd9ac5a198afbe2477a1105baf7771c}{DONE\_MSG}},\ MPI\_COMM\_WORLD);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ done\_workers++;}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Irecv(NULL,\ 0,\ MPI\_CHAR,\ MPI\_ANY\_SOURCE,\ \mbox{\hyperlink{msg__consts_8h_a6839dd297b5061b3e9400e19237d9869}{REQUEST\_MSG}},\ MPI\_COMM\_WORLD,}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&req);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00078}00078\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00079}00079\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ vec[\mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\_KEYWORDS}}];}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ fname[PATH\_MAX];}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ MPI\_Recv(vec,\ num\_keywords,\ MPI\_INT,\ source,\ \mbox{\hyperlink{msg__consts_8h_acd7ee4380f1a94150f3a40b15b576e77}{VEC\_MSG}},\ MPI\_COMM\_WORLD,}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_STATUS\_IGNORE);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ MPI\_Recv(fname,\ PATH\_MAX,\ MPI\_CHAR,\ source,\ \mbox{\hyperlink{msg__consts_8h_a157536d2849554b7111608f8824d571a}{FILE\_MSG}},\ MPI\_COMM\_WORLD,}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_STATUS\_IGNORE);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00086}00086\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\%-\/12s:"{}},\ strrchr(fname,\ \textcolor{charliteral}{'/'})\ ?\ strrchr(fname,\ \textcolor{charliteral}{'/'})\ +\ 1\ :\ fname);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ num\_keywords;\ i++)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\ \%d"{}},\ vec[i]);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00091}00091\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00092}00092\ \ \ \ \ \ \ \ \ MPI\_Irecv(NULL,\ 0,\ MPI\_CHAR,\ MPI\_ANY\_SOURCE,\ \mbox{\hyperlink{msg__consts_8h_a6839dd297b5061b3e9400e19237d9869}{REQUEST\_MSG}},\ MPI\_COMM\_WORLD,\ \&req);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00093}00093\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00094}00094\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00095}00095\ \ \ \ \ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00096}00096\ \ \ \ \ MPI\_Test(\&req,\ \&flag,\ MPI\_STATUS\_IGNORE);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00097}00097\ \ \ \ \ \textcolor{keywordflow}{if}\ (!flag)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00098}00098\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ MPI\_Cancel(\&req);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ MPI\_Wait(\&req,\ MPI\_STATUS\_IGNORE);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00101}00101\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00102}00102\ }
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00103}00103\ \ \ \ \ fclose(out);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ num\_keywords;\ i++)}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ free(keywords[i]);}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00106}00106\ \ \ \ \ \mbox{\hyperlink{hash__table_8h_a2512fdab32c231a3a2e5621cb1e309c9}{clear\_hash\_table}}();}
-\DoxyCodeLine{\Hypertarget{manager_8c_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00053}00053\ \ \ \ \ \textcolor{keywordtype}{char}\ files[\mbox{\hyperlink{msg__consts_8h_a2c5eecb22513a88c24ae5831a3265e54}{MAX\_FILES}}][PATH\_MAX]\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00054}00054\ \ \ \ \ \textcolor{keywordtype}{int}\ file\_count\ =\ \mbox{\hyperlink{file__utils_8h_af60f33bb7908850bdcf52ebe9f49d310}{list\_txt\_files}}(input\_dir,\ files,\ \mbox{\hyperlink{msg__consts_8h_a2c5eecb22513a88c24ae5831a3265e54}{MAX\_FILES}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\_count\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00056}00056\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Error\ reading\ directory:\ \%s\(\backslash\)n"{}},\ input\_dir);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ gaspi\_proc\_term(GASPI\_BLOCK);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ exit(1);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00060}00060\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00061}00061\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Found\ \%d\ files\ to\ process\(\backslash\)n"{}},\ file\_count);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00063}00063\ \ \ \ \ FILE\ *out\ =\ \mbox{\hyperlink{file__utils_8h_af2d299fe865532706c80ab701585b877}{open\_output\_file}}(output\_file);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00064}00064\ \ \ \ \ \textcolor{keywordflow}{if}\ (!out)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00065}00065\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ perror(\textcolor{stringliteral}{"{}Failed\ to\ open\ output\ file"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ gaspi\_proc\_term(GASPI\_BLOCK);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ exit(1);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00071}00071\ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\%-\/12s:"{}},\ \textcolor{stringliteral}{"{}dictionary"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00072}00072\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ num\_keywords;\ i++)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\ \%s"{}},\ keywords[i]);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00074}00074\ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00076}00076\ \ \ \ \ \textcolor{keywordtype}{int}\ current\_file\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00077}00077\ \ \ \ \ \textcolor{keywordtype}{int}\ done\_workers\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00079}00079\ \ \ \ \ gaspi\_pointer\_t\ work\_seg\_ptr;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00080}00080\ \ \ \ \ gaspi\_pointer\_t\ result\_seg\_ptr;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00081}00081\ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_segment\_ptr(\mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}},\ \&work\_seg\_ptr));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_segment\_ptr(\mbox{\hyperlink{gaspi__utils_8h_acd20f6c3dec7f555aa69e37102735855}{RESULT\_SEGMENT\_ID}},\ \&result\_seg\_ptr));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00084}00084\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Sending\ initial\ tasks\ to\ workers...\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{for}\ (gaspi\_rank\_t\ rank\ =\ 1;\ rank\ <\ processes\_num;\ rank++)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00086}00086\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_file\ <\ file\_count)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ gaspi\_offset\_t\ work\_offset\ =\ \mbox{\hyperlink{gaspi__utils_8h_a0a32fb9c303566dca9de843305c4e37a}{WORK\_OFFSET}}(rank);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy((\textcolor{keywordtype}{char}\ *)\ work\_seg\_ptr\ +\ work\_offset,\ files[current\_file]);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Sending\ file\ '\%s'\ to\ worker\ \%d\(\backslash\)n"{}},\ files[current\_file],}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rank);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ current\_file++;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_write\_notify(}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}},\ work\_offset,\ rank,\ \mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}},\ work\_offset,}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PATH\_MAX,\ \mbox{\hyperlink{msg__consts_8h_a97c1ce621794cced95d06717cabc0109}{WORK\_NOTIF\_ID}},\ \mbox{\hyperlink{msg__consts_8h_a75bcd7e2e1594d1a39d997ad7a2c7f76}{WORK\_AVAILABLE\_NOTIF}},\ 1,\ GASPI\_BLOCK));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00098}00098\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00100}00100\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Waiting\ for\ worker\ results...\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00101}00101\ \ \ \ \ \textcolor{keywordflow}{while}\ (done\_workers\ <\ processes\_num\ -\/\ 1)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00102}00102\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ gaspi\_notification\_id\_t\ notif\_id;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ gaspi\_return\_t\ ret\ =\ gaspi\_notify\_waitsome(}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_acd20f6c3dec7f555aa69e37102735855}{RESULT\_SEGMENT\_ID}},\ 1,\ processes\_num\ -\/\ 1,\ \&notif\_id,\ GASPI\_TEST);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ ==\ GASPI\_SUCCESS)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00107}00107\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ gaspi\_notification\_t\ notif\_val;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_notify\_reset(\mbox{\hyperlink{gaspi__utils_8h_acd20f6c3dec7f555aa69e37102735855}{RESULT\_SEGMENT\_ID}},\ notif\_id,\ \&notif\_val));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (notif\_val\ ==\ \mbox{\hyperlink{msg__consts_8h_a48edde5d1dbe87ef488044c9f128c645}{WORK\_DONE\_NOTIF}})}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gaspi\_rank\_t\ rank\ =\ notif\_id;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gaspi\_offset\_t\ result\_offset\ =\ \mbox{\hyperlink{gaspi__utils_8h_a5f3f445cab3950f07b2d3e57f339e25e}{RESULT\_OFFSET}}(rank);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *vec\ =\ (\textcolor{keywordtype}{int}\ *)\ ((\textcolor{keywordtype}{char}\ *)\ result\_seg\_ptr\ +\ result\_offset);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *fname\ =\ (\textcolor{keywordtype}{char}\ *)\ ((\textcolor{keywordtype}{char}\ *)\ result\_seg\_ptr\ +\ result\_offset\ +}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\_KEYWORDS}}\ *\ \textcolor{keyword}{sizeof}(int));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Received\ results\ from\ worker\ \%d\ for\ file\ '\%s'\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rank,\ strrchr(fname,\ \textcolor{charliteral}{'/'})\ ?\ strrchr(fname,\ \textcolor{charliteral}{'/'})\ +\ 1\ :\ fname);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\%-\/12s:"{}},}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strrchr(fname,\ \textcolor{charliteral}{'/'})\ ?\ strrchr(fname,\ \textcolor{charliteral}{'/'})\ +\ 1\ :\ fname);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ num\_keywords;\ i++)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\ \%d"{}},\ vec[i]);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(out,\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_file\ <\ file\_count)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gaspi\_offset\_t\ work\_offset\ =\ \mbox{\hyperlink{gaspi__utils_8h_a0a32fb9c303566dca9de843305c4e37a}{WORK\_OFFSET}}(rank);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy((\textcolor{keywordtype}{char}\ *)\ work\_seg\_ptr\ +\ work\_offset,\ files[current\_file]);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Sending\ next\ file\ '\%s'\ to\ worker\ \%d\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ files[current\_file],\ rank);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_file++;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_write\_notify(}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}},\ work\_offset,\ rank,\ \mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}},}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ work\_offset,\ PATH\_MAX,\ \mbox{\hyperlink{msg__consts_8h_a97c1ce621794cced95d06717cabc0109}{WORK\_NOTIF\_ID}},\ \mbox{\hyperlink{msg__consts_8h_a75bcd7e2e1594d1a39d997ad7a2c7f76}{WORK\_AVAILABLE\_NOTIF}},\ 1,}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GASPI\_BLOCK));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gaspi\_offset\_t\ work\_offset\ =\ \mbox{\hyperlink{gaspi__utils_8h_a0a32fb9c303566dca9de843305c4e37a}{WORK\_OFFSET}}(rank);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy((\textcolor{keywordtype}{char}\ *)\ work\_seg\_ptr\ +\ work\_offset,\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Sending\ shutdown\ signal\ to\ worker\ \%d\(\backslash\)n"{}},\ rank);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_write\_notify(}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}},\ work\_offset,\ rank,\ \mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}},}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ work\_offset,\ 1,\ \mbox{\hyperlink{msg__consts_8h_a97c1ce621794cced95d06717cabc0109}{WORK\_NOTIF\_ID}},\ \mbox{\hyperlink{msg__consts_8h_a3a4a4071bbae7d864b6b182695254729}{SHUTDOWN\_NOTIF}},\ 1,\ GASPI\_BLOCK));}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ done\_workers++;}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00153}00153\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00155}00155\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ All\ workers\ finished,\ cleaning\ up...\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00156}00156\ \ \ \ \ fclose(out);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00157}00157\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ num\_keywords;\ i++)}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ free(keywords[i]);}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00159}00159\ \ \ \ \ \mbox{\hyperlink{hash__table_8h_a2512fdab32c231a3a2e5621cb1e309c9}{clear\_hash\_table}}();}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00161}00161\ \ \ \ \ gaspi\_segment\_delete(\mbox{\hyperlink{gaspi__utils_8h_a5b7eb988a6a94afc6a78a0e5e48d6eee}{DICT\_SEGMENT\_ID}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00162}00162\ \ \ \ \ gaspi\_segment\_delete(\mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00163}00163\ \ \ \ \ gaspi\_segment\_delete(\mbox{\hyperlink{gaspi__utils_8h_acd20f6c3dec7f555aa69e37102735855}{RESULT\_SEGMENT\_ID}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00164}00164\ \ \ \ \ printf(\textcolor{stringliteral}{"{}[MANAGER]\ Cleanup\ complete\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{manager_8c_source_l00165}00165\ \}}
 
 \end{DoxyCode}

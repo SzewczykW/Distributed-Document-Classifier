@@ -1,6 +1,6 @@
 <map id="manager.h" name="manager.h">
 <area shape="rect" id="Node000001" title="Interface for the manager process." alt="" coords="44,5,135,31"/>
-<area shape="rect" id="Node000002" href="$d0/d29/main_8c.html" title="Entry point for the MPI&#45;based document classifier." alt="" coords="5,79,72,104"/>
+<area shape="rect" id="Node000002" href="$d0/d29/main_8c.html" title="Entry point for the GASPI&#45;based document classifier." alt="" coords="5,79,72,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,44,49,80,45,77,71,41"/>
 <area shape="rect" id="Node000003" href="$d4/d10/manager_8c.html" title="Orchestrates the classification by managing worker coordination and output collection." alt="" coords="96,79,187,104"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="108,40,135,77,131,80,104,43"/>

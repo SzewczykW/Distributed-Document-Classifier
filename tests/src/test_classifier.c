@@ -7,7 +7,6 @@
  * and handling of multiple/zero occurrences.
  */
 
-
 #include <criterion/criterion.h>
 #include <string.h>
 

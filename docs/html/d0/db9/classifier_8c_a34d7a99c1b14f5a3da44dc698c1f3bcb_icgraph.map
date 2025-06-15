@@ -1,6 +1,6 @@
 <map id="classify_text" name="classify_text">
 <area shape="rect" id="Node000001" title="Generates a classification vector from input text." alt="" coords="223,5,327,31"/>
-<area shape="rect" id="Node000002" href="$dc/d8e/worker_8c.html#a60b3bdb96860f3e67ef2dcc21b7b5c37" title="Entry point for each MPI worker process." alt="" coords="108,5,175,31"/>
+<area shape="rect" id="Node000002" href="$dc/d8e/worker_8c.html#a60b3bdb96860f3e67ef2dcc21b7b5c37" title="Entry point for each GASPI worker process." alt="" coords="108,5,175,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,21,175,21,175,15,209,15"/>
 <area shape="rect" id="Node000003" href="$d0/d29/main_8c.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="5,5,60,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>

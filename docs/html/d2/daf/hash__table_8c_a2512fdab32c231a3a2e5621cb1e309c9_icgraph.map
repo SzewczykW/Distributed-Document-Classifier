@@ -1,8 +1,8 @@
 <map id="clear_hash_table" name="clear_hash_table">
 <area shape="rect" id="Node000001" title="Frees all allocated hash table entries." alt="" coords="236,31,368,56"/>
-<area shape="rect" id="Node000002" href="$d4/d10/manager_8c.html#a5afb0ce7625828da3439e1e2aa87b0a9" title="Entry point for the manager process." alt="" coords="108,5,188,31"/>
+<area shape="rect" id="Node000002" href="$d4/d10/manager_8c.html#a693fc6348be56bfec805d6893f018c42" title="Entry point for the manager process." alt="" coords="108,5,188,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,33,188,27,189,22,223,28"/>
-<area shape="rect" id="Node000004" href="$dc/d8e/worker_8c.html#a60b3bdb96860f3e67ef2dcc21b7b5c37" title="Entry point for each MPI worker process." alt="" coords="115,55,181,80"/>
+<area shape="rect" id="Node000004" href="$dc/d8e/worker_8c.html#a60b3bdb96860f3e67ef2dcc21b7b5c37" title="Entry point for each GASPI worker process." alt="" coords="115,55,181,80"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,58,182,65,181,60,222,53"/>
 <area shape="rect" id="Node000003" href="$d0/d29/main_8c.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="5,31,60,56"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="95,32,61,40,60,35,94,27"/>

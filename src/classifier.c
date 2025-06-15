@@ -28,4 +28,3 @@ void classify_text(const char *text, int result[], int keyword_count)
         token = strtok(NULL, CLASSIFY_TOKENS);
     }
 }
-

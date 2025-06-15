@@ -1,16 +1,6 @@
 var searchData=
 [
-  ['main_0',['main',['../d0/d29/main_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.c']]],
-  ['main_2ec_1',['main.c',['../d0/d29/main_8c.html',1,'']]],
-  ['mainpage_2edox_2',['mainpage.dox',['../d5/d4d/mainpage_8dox.html',1,'']]],
-  ['manager_3',['manager',['../db/d45/manager_8h.html#a5afb0ce7625828da3439e1e2aa87b0a9',1,'manager(const char *input_dir, const char *dict_file, const char *output_file, int size):&#160;manager.c'],['../d4/d10/manager_8c.html#a5afb0ce7625828da3439e1e2aa87b0a9',1,'manager(const char *input_dir, const char *dict_file, const char *output_file, int size):&#160;manager.c']]],
-  ['manager_2ec_4',['manager.c',['../d4/d10/manager_8c.html',1,'']]],
-  ['manager_2eh_5',['manager.h',['../db/d45/manager_8h.html',1,'']]],
-  ['max_5fdoc_5fsize_6',['MAX_DOC_SIZE',['../d2/d81/msg__consts_8h.html#a38f0274fe1f86e8e289a1bdfeb560f5e',1,'msg_consts.h']]],
-  ['max_5ffiles_7',['MAX_FILES',['../d2/d81/msg__consts_8h.html#a2c5eecb22513a88c24ae5831a3265e54',1,'msg_consts.h']]],
-  ['max_5fkeywords_8',['MAX_KEYWORDS',['../d2/d81/msg__consts_8h.html#a5de4809365ed98f74fca414d93510bee',1,'msg_consts.h']]],
-  ['max_5fword_5flen_9',['MAX_WORD_LEN',['../d2/d81/msg__consts_8h.html#acd24df7121adef94ef8ff697ad56fb4f',1,'msg_consts.h']]],
-  ['mpich_20locally_10',['Installing MPICH Locally',['../index.html#mpich',1,'']]],
-  ['mpich_20path_11',['Setting up MPICH path',['../index.html#path',1,'']]],
-  ['msg_5fconsts_2eh_12',['msg_consts.h',['../d2/d81/msg__consts_8h.html',1,'']]]
+  ['index_0',['index',['../d5/da1/structnode.html#a5359a7ce1309be9415907be3ebbd2f91',1,'node']]],
+  ['init_5fgaspi_5fsegments_1',['init_gaspi_segments',['../df/df9/gaspi__utils_8h.html#a14d735066d46c448769b006d273cea21',1,'init_gaspi_segments(void):&#160;gaspi_utils.c'],['../db/dfb/gaspi__utils_8c.html#a14d735066d46c448769b006d273cea21',1,'init_gaspi_segments(void):&#160;gaspi_utils.c']]],
+  ['insert_5fword_2',['insert_word',['../d4/ddb/hash__table_8h.html#a02829007f61a93c496676c28e3a4cc60',1,'insert_word(const char *word, int index):&#160;hash_table.c'],['../d2/daf/hash__table_8c.html#a02829007f61a93c496676c28e3a4cc60',1,'insert_word(const char *word, int index):&#160;hash_table.c']]]
 ];

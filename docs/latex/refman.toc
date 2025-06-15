@@ -2,13 +2,13 @@
 \contentsline {chapter}{\numberline {1}Distributed Document Classifier}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Overview}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Architecture}{1}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Flow Diagram}{2}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Project Structure}{2}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Requirements}{2}{section.1.5}%
-\contentsline {section}{\numberline {1.6}Installing MPICH Locally}{2}{section.1.6}%
-\contentsline {section}{\numberline {1.7}Setting up MPICH path}{2}{section.1.7}%
+\contentsline {section}{\numberline {1.3}GASPI Memory Segments}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Flow Diagram}{2}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Project Structure}{2}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Requirements}{2}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Environment Setup}{2}{section.1.7}%
 \contentsline {section}{\numberline {1.8}Build}{2}{section.1.8}%
-\contentsline {section}{\numberline {1.9}Running the Classifier}{2}{section.1.9}%
+\contentsline {section}{\numberline {1.9}Running the Classifier}{3}{section.1.9}%
 \contentsline {section}{\numberline {1.10}Running Tests}{3}{section.1.10}%
 \contentsline {section}{\numberline {1.11}Documentation}{3}{section.1.11}%
 \contentsline {section}{\numberline {1.12}License}{3}{section.1.12}%
@@ -45,82 +45,103 @@
 \contentsline {subsubsection}{\numberline {5.4.2.5}read\_file\_content()}{17}{subsubsection.5.4.2.5}%
 \contentsline {subsubsection}{\numberline {5.4.2.6}receive\_dictionary()}{18}{subsubsection.5.4.2.6}%
 \contentsline {section}{\numberline {5.5}file\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{19}{section.5.5}%
-\contentsline {section}{\numberline {5.6}hash\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{19}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Detailed Description}{20}{subsection.5.6.1}%
+\contentsline {section}{\numberline {5.6}gaspi\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{19}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Detailed Description}{21}{subsection.5.6.1}%
 \contentsline {subsection}{\numberline {5.6.2}Macro Definition Documentation}{21}{subsection.5.6.2}%
-\contentsline {subsubsection}{\numberline {5.6.2.1}HASH\_SIZE}{21}{subsubsection.5.6.2.1}%
-\contentsline {subsection}{\numberline {5.6.3}Typedef Documentation}{21}{subsection.5.6.3}%
-\contentsline {subsubsection}{\numberline {5.6.3.1}Node}{21}{subsubsection.5.6.3.1}%
-\contentsline {subsection}{\numberline {5.6.4}Function Documentation}{21}{subsection.5.6.4}%
-\contentsline {subsubsection}{\numberline {5.6.4.1}clear\_hash\_table()}{21}{subsubsection.5.6.4.1}%
-\contentsline {subsubsection}{\numberline {5.6.4.2}find\_word()}{21}{subsubsection.5.6.4.2}%
-\contentsline {subsubsection}{\numberline {5.6.4.3}hash\_func()}{22}{subsubsection.5.6.4.3}%
-\contentsline {subsubsection}{\numberline {5.6.4.4}insert\_word()}{23}{subsubsection.5.6.4.4}%
-\contentsline {subsubsection}{\numberline {5.6.4.5}to\_lower()}{24}{subsubsection.5.6.4.5}%
-\contentsline {subsection}{\numberline {5.6.5}Variable Documentation}{24}{subsection.5.6.5}%
-\contentsline {subsubsection}{\numberline {5.6.5.1}hash\_table}{24}{subsubsection.5.6.5.1}%
-\contentsline {section}{\numberline {5.7}hash\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{25}{section.5.7}%
-\contentsline {section}{\numberline {5.8}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{25}{section.5.8}%
-\contentsline {subsection}{\numberline {5.8.1}Detailed Description}{25}{subsection.5.8.1}%
-\contentsline {subsection}{\numberline {5.8.2}Function Documentation}{26}{subsection.5.8.2}%
-\contentsline {subsubsection}{\numberline {5.8.2.1}manager()}{26}{subsubsection.5.8.2.1}%
-\contentsline {section}{\numberline {5.9}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{27}{section.5.9}%
-\contentsline {section}{\numberline {5.10}msg\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}consts.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{27}{section.5.10}%
-\contentsline {subsection}{\numberline {5.10.1}Detailed Description}{28}{subsection.5.10.1}%
-\contentsline {subsection}{\numberline {5.10.2}Macro Definition Documentation}{28}{subsection.5.10.2}%
-\contentsline {subsubsection}{\numberline {5.10.2.1}DONE\_MSG}{28}{subsubsection.5.10.2.1}%
-\contentsline {subsubsection}{\numberline {5.10.2.2}FILE\_MSG}{28}{subsubsection.5.10.2.2}%
-\contentsline {subsubsection}{\numberline {5.10.2.3}MAX\_DOC\_SIZE}{28}{subsubsection.5.10.2.3}%
-\contentsline {subsubsection}{\numberline {5.10.2.4}MAX\_FILES}{29}{subsubsection.5.10.2.4}%
-\contentsline {subsubsection}{\numberline {5.10.2.5}MAX\_KEYWORDS}{29}{subsubsection.5.10.2.5}%
-\contentsline {subsubsection}{\numberline {5.10.2.6}MAX\_WORD\_LEN}{29}{subsubsection.5.10.2.6}%
-\contentsline {subsubsection}{\numberline {5.10.2.7}REQUEST\_MSG}{29}{subsubsection.5.10.2.7}%
-\contentsline {subsubsection}{\numberline {5.10.2.8}VEC\_MSG}{29}{subsubsection.5.10.2.8}%
-\contentsline {section}{\numberline {5.11}msg\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}consts.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{30}{section.5.11}%
-\contentsline {section}{\numberline {5.12}worker.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{30}{section.5.12}%
-\contentsline {subsection}{\numberline {5.12.1}Detailed Description}{30}{subsection.5.12.1}%
-\contentsline {subsection}{\numberline {5.12.2}Function Documentation}{31}{subsection.5.12.2}%
-\contentsline {subsubsection}{\numberline {5.12.2.1}worker()}{31}{subsubsection.5.12.2.1}%
-\contentsline {section}{\numberline {5.13}worker.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{32}{section.5.13}%
-\contentsline {section}{\numberline {5.14}classifier.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{32}{section.5.14}%
-\contentsline {subsection}{\numberline {5.14.1}Detailed Description}{32}{subsection.5.14.1}%
-\contentsline {subsection}{\numberline {5.14.2}Function Documentation}{33}{subsection.5.14.2}%
-\contentsline {subsubsection}{\numberline {5.14.2.1}classify\_text()}{33}{subsubsection.5.14.2.1}%
-\contentsline {section}{\numberline {5.15}classifier.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{34}{section.5.15}%
-\contentsline {section}{\numberline {5.16}file\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{34}{section.5.16}%
-\contentsline {subsection}{\numberline {5.16.1}Detailed Description}{35}{subsection.5.16.1}%
-\contentsline {subsection}{\numberline {5.16.2}Function Documentation}{35}{subsection.5.16.2}%
-\contentsline {subsubsection}{\numberline {5.16.2.1}broadcast\_dictionary()}{35}{subsubsection.5.16.2.1}%
-\contentsline {subsubsection}{\numberline {5.16.2.2}list\_txt\_files()}{36}{subsubsection.5.16.2.2}%
-\contentsline {subsubsection}{\numberline {5.16.2.3}open\_output\_file()}{36}{subsubsection.5.16.2.3}%
-\contentsline {subsubsection}{\numberline {5.16.2.4}read\_dictionary()}{37}{subsubsection.5.16.2.4}%
-\contentsline {subsubsection}{\numberline {5.16.2.5}read\_file\_content()}{38}{subsubsection.5.16.2.5}%
-\contentsline {subsubsection}{\numberline {5.16.2.6}receive\_dictionary()}{38}{subsubsection.5.16.2.6}%
-\contentsline {section}{\numberline {5.17}file\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{39}{section.5.17}%
-\contentsline {section}{\numberline {5.18}hash\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{40}{section.5.18}%
-\contentsline {subsection}{\numberline {5.18.1}Detailed Description}{41}{subsection.5.18.1}%
-\contentsline {subsection}{\numberline {5.18.2}Function Documentation}{42}{subsection.5.18.2}%
-\contentsline {subsubsection}{\numberline {5.18.2.1}clear\_hash\_table()}{42}{subsubsection.5.18.2.1}%
-\contentsline {subsubsection}{\numberline {5.18.2.2}find\_word()}{42}{subsubsection.5.18.2.2}%
-\contentsline {subsubsection}{\numberline {5.18.2.3}hash\_func()}{43}{subsubsection.5.18.2.3}%
-\contentsline {subsubsection}{\numberline {5.18.2.4}insert\_word()}{44}{subsubsection.5.18.2.4}%
-\contentsline {subsubsection}{\numberline {5.18.2.5}to\_lower()}{45}{subsubsection.5.18.2.5}%
-\contentsline {subsection}{\numberline {5.18.3}Variable Documentation}{45}{subsection.5.18.3}%
-\contentsline {subsubsection}{\numberline {5.18.3.1}hash\_table}{45}{subsubsection.5.18.3.1}%
-\contentsline {section}{\numberline {5.19}hash\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{46}{section.5.19}%
-\contentsline {section}{\numberline {5.20}main.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{46}{section.5.20}%
-\contentsline {subsection}{\numberline {5.20.1}Detailed Description}{47}{subsection.5.20.1}%
-\contentsline {subsection}{\numberline {5.20.2}Function Documentation}{47}{subsection.5.20.2}%
-\contentsline {subsubsection}{\numberline {5.20.2.1}main()}{47}{subsubsection.5.20.2.1}%
-\contentsline {section}{\numberline {5.21}main.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{48}{section.5.21}%
-\contentsline {section}{\numberline {5.22}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{48}{section.5.22}%
-\contentsline {subsection}{\numberline {5.22.1}Detailed Description}{49}{subsection.5.22.1}%
-\contentsline {subsection}{\numberline {5.22.2}Function Documentation}{49}{subsection.5.22.2}%
-\contentsline {subsubsection}{\numberline {5.22.2.1}manager()}{49}{subsubsection.5.22.2.1}%
-\contentsline {section}{\numberline {5.23}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{50}{section.5.23}%
-\contentsline {section}{\numberline {5.24}worker.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{52}{section.5.24}%
-\contentsline {subsection}{\numberline {5.24.1}Detailed Description}{52}{subsection.5.24.1}%
+\contentsline {subsubsection}{\numberline {5.6.2.1}DICT\_SEGMENT\_ID}{21}{subsubsection.5.6.2.1}%
+\contentsline {subsubsection}{\numberline {5.6.2.2}GASPI\_CHECK}{21}{subsubsection.5.6.2.2}%
+\contentsline {subsubsection}{\numberline {5.6.2.3}RESULT\_OFFSET}{21}{subsubsection.5.6.2.3}%
+\contentsline {subsubsection}{\numberline {5.6.2.4}RESULT\_SEGMENT\_ID}{22}{subsubsection.5.6.2.4}%
+\contentsline {subsubsection}{\numberline {5.6.2.5}WORK\_OFFSET}{22}{subsubsection.5.6.2.5}%
+\contentsline {subsubsection}{\numberline {5.6.2.6}WORK\_SEGMENT\_ID}{22}{subsubsection.5.6.2.6}%
+\contentsline {subsubsection}{\numberline {5.6.2.7}WORKER\_DATA\_SIZE}{22}{subsubsection.5.6.2.7}%
+\contentsline {subsection}{\numberline {5.6.3}Function Documentation}{22}{subsection.5.6.3}%
+\contentsline {subsubsection}{\numberline {5.6.3.1}cleanup\_gaspi\_segments()}{22}{subsubsection.5.6.3.1}%
+\contentsline {subsubsection}{\numberline {5.6.3.2}init\_gaspi\_segments()}{22}{subsubsection.5.6.3.2}%
+\contentsline {section}{\numberline {5.7}gaspi\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{23}{section.5.7}%
+\contentsline {section}{\numberline {5.8}hash\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{23}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Detailed Description}{24}{subsection.5.8.1}%
+\contentsline {subsection}{\numberline {5.8.2}Macro Definition Documentation}{24}{subsection.5.8.2}%
+\contentsline {subsubsection}{\numberline {5.8.2.1}HASH\_SIZE}{24}{subsubsection.5.8.2.1}%
+\contentsline {subsection}{\numberline {5.8.3}Typedef Documentation}{25}{subsection.5.8.3}%
+\contentsline {subsubsection}{\numberline {5.8.3.1}Node}{25}{subsubsection.5.8.3.1}%
+\contentsline {subsection}{\numberline {5.8.4}Function Documentation}{25}{subsection.5.8.4}%
+\contentsline {subsubsection}{\numberline {5.8.4.1}clear\_hash\_table()}{25}{subsubsection.5.8.4.1}%
+\contentsline {subsubsection}{\numberline {5.8.4.2}find\_word()}{25}{subsubsection.5.8.4.2}%
+\contentsline {subsubsection}{\numberline {5.8.4.3}hash\_func()}{26}{subsubsection.5.8.4.3}%
+\contentsline {subsubsection}{\numberline {5.8.4.4}insert\_word()}{27}{subsubsection.5.8.4.4}%
+\contentsline {subsubsection}{\numberline {5.8.4.5}to\_lower()}{28}{subsubsection.5.8.4.5}%
+\contentsline {subsection}{\numberline {5.8.5}Variable Documentation}{28}{subsection.5.8.5}%
+\contentsline {subsubsection}{\numberline {5.8.5.1}hash\_table}{28}{subsubsection.5.8.5.1}%
+\contentsline {section}{\numberline {5.9}hash\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{29}{section.5.9}%
+\contentsline {section}{\numberline {5.10}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{29}{section.5.10}%
+\contentsline {subsection}{\numberline {5.10.1}Detailed Description}{29}{subsection.5.10.1}%
+\contentsline {subsection}{\numberline {5.10.2}Function Documentation}{30}{subsection.5.10.2}%
+\contentsline {subsubsection}{\numberline {5.10.2.1}manager()}{30}{subsubsection.5.10.2.1}%
+\contentsline {section}{\numberline {5.11}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{31}{section.5.11}%
+\contentsline {section}{\numberline {5.12}msg\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}consts.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{31}{section.5.12}%
+\contentsline {subsection}{\numberline {5.12.1}Detailed Description}{32}{subsection.5.12.1}%
+\contentsline {subsection}{\numberline {5.12.2}Macro Definition Documentation}{32}{subsection.5.12.2}%
+\contentsline {subsubsection}{\numberline {5.12.2.1}MAX\_DOC\_SIZE}{32}{subsubsection.5.12.2.1}%
+\contentsline {subsubsection}{\numberline {5.12.2.2}MAX\_FILES}{32}{subsubsection.5.12.2.2}%
+\contentsline {subsubsection}{\numberline {5.12.2.3}MAX\_KEYWORDS}{32}{subsubsection.5.12.2.3}%
+\contentsline {subsubsection}{\numberline {5.12.2.4}MAX\_WORD\_LEN}{33}{subsubsection.5.12.2.4}%
+\contentsline {subsubsection}{\numberline {5.12.2.5}RESULT\_NOTIF\_ID}{33}{subsubsection.5.12.2.5}%
+\contentsline {subsubsection}{\numberline {5.12.2.6}SHUTDOWN\_NOTIF}{33}{subsubsection.5.12.2.6}%
+\contentsline {subsubsection}{\numberline {5.12.2.7}WORK\_AVAILABLE\_NOTIF}{33}{subsubsection.5.12.2.7}%
+\contentsline {subsubsection}{\numberline {5.12.2.8}WORK\_DONE\_NOTIF}{33}{subsubsection.5.12.2.8}%
+\contentsline {subsubsection}{\numberline {5.12.2.9}WORK\_NOTIF\_ID}{33}{subsubsection.5.12.2.9}%
+\contentsline {section}{\numberline {5.13}msg\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}consts.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{34}{section.5.13}%
+\contentsline {section}{\numberline {5.14}worker.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{34}{section.5.14}%
+\contentsline {subsection}{\numberline {5.14.1}Detailed Description}{34}{subsection.5.14.1}%
+\contentsline {subsection}{\numberline {5.14.2}Function Documentation}{35}{subsection.5.14.2}%
+\contentsline {subsubsection}{\numberline {5.14.2.1}worker()}{35}{subsubsection.5.14.2.1}%
+\contentsline {section}{\numberline {5.15}worker.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{36}{section.5.15}%
+\contentsline {section}{\numberline {5.16}classifier.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{36}{section.5.16}%
+\contentsline {subsection}{\numberline {5.16.1}Detailed Description}{36}{subsection.5.16.1}%
+\contentsline {subsection}{\numberline {5.16.2}Function Documentation}{37}{subsection.5.16.2}%
+\contentsline {subsubsection}{\numberline {5.16.2.1}classify\_text()}{37}{subsubsection.5.16.2.1}%
+\contentsline {section}{\numberline {5.17}classifier.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{38}{section.5.17}%
+\contentsline {section}{\numberline {5.18}file\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{38}{section.5.18}%
+\contentsline {subsection}{\numberline {5.18.1}Detailed Description}{39}{subsection.5.18.1}%
+\contentsline {subsection}{\numberline {5.18.2}Function Documentation}{39}{subsection.5.18.2}%
+\contentsline {subsubsection}{\numberline {5.18.2.1}broadcast\_dictionary()}{39}{subsubsection.5.18.2.1}%
+\contentsline {subsubsection}{\numberline {5.18.2.2}list\_txt\_files()}{40}{subsubsection.5.18.2.2}%
+\contentsline {subsubsection}{\numberline {5.18.2.3}open\_output\_file()}{40}{subsubsection.5.18.2.3}%
+\contentsline {subsubsection}{\numberline {5.18.2.4}read\_dictionary()}{41}{subsubsection.5.18.2.4}%
+\contentsline {subsubsection}{\numberline {5.18.2.5}read\_file\_content()}{42}{subsubsection.5.18.2.5}%
+\contentsline {subsubsection}{\numberline {5.18.2.6}receive\_dictionary()}{42}{subsubsection.5.18.2.6}%
+\contentsline {section}{\numberline {5.19}file\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{43}{section.5.19}%
+\contentsline {section}{\numberline {5.20}gaspi\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{45}{section.5.20}%
+\contentsline {subsection}{\numberline {5.20.1}Detailed Description}{45}{subsection.5.20.1}%
+\contentsline {subsection}{\numberline {5.20.2}Function Documentation}{46}{subsection.5.20.2}%
+\contentsline {subsubsection}{\numberline {5.20.2.1}cleanup\_gaspi\_segments()}{46}{subsubsection.5.20.2.1}%
+\contentsline {subsubsection}{\numberline {5.20.2.2}init\_gaspi\_segments()}{46}{subsubsection.5.20.2.2}%
+\contentsline {section}{\numberline {5.21}gaspi\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{46}{section.5.21}%
+\contentsline {section}{\numberline {5.22}hash\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{47}{section.5.22}%
+\contentsline {subsection}{\numberline {5.22.1}Detailed Description}{47}{subsection.5.22.1}%
+\contentsline {subsection}{\numberline {5.22.2}Function Documentation}{48}{subsection.5.22.2}%
+\contentsline {subsubsection}{\numberline {5.22.2.1}clear\_hash\_table()}{48}{subsubsection.5.22.2.1}%
+\contentsline {subsubsection}{\numberline {5.22.2.2}find\_word()}{48}{subsubsection.5.22.2.2}%
+\contentsline {subsubsection}{\numberline {5.22.2.3}hash\_func()}{49}{subsubsection.5.22.2.3}%
+\contentsline {subsubsection}{\numberline {5.22.2.4}insert\_word()}{50}{subsubsection.5.22.2.4}%
+\contentsline {subsubsection}{\numberline {5.22.2.5}to\_lower()}{51}{subsubsection.5.22.2.5}%
+\contentsline {subsection}{\numberline {5.22.3}Variable Documentation}{51}{subsection.5.22.3}%
+\contentsline {subsubsection}{\numberline {5.22.3.1}hash\_table}{51}{subsubsection.5.22.3.1}%
+\contentsline {section}{\numberline {5.23}hash\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}table.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{52}{section.5.23}%
+\contentsline {section}{\numberline {5.24}main.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{52}{section.5.24}%
+\contentsline {subsection}{\numberline {5.24.1}Detailed Description}{53}{subsection.5.24.1}%
 \contentsline {subsection}{\numberline {5.24.2}Function Documentation}{53}{subsection.5.24.2}%
-\contentsline {subsubsection}{\numberline {5.24.2.1}worker()}{53}{subsubsection.5.24.2.1}%
-\contentsline {section}{\numberline {5.25}worker.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{54}{section.5.25}%
-\contentsline {chapter}{Index}{55}{section*.77}%
+\contentsline {subsubsection}{\numberline {5.24.2.1}main()}{53}{subsubsection.5.24.2.1}%
+\contentsline {section}{\numberline {5.25}main.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{54}{section.5.25}%
+\contentsline {section}{\numberline {5.26}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{55}{section.5.26}%
+\contentsline {subsection}{\numberline {5.26.1}Detailed Description}{55}{subsection.5.26.1}%
+\contentsline {subsection}{\numberline {5.26.2}Function Documentation}{56}{subsection.5.26.2}%
+\contentsline {subsubsection}{\numberline {5.26.2.1}manager()}{56}{subsubsection.5.26.2.1}%
+\contentsline {section}{\numberline {5.27}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{57}{section.5.27}%
+\contentsline {section}{\numberline {5.28}worker.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{59}{section.5.28}%
+\contentsline {subsection}{\numberline {5.28.1}Detailed Description}{59}{subsection.5.28.1}%
+\contentsline {subsection}{\numberline {5.28.2}Function Documentation}{60}{subsection.5.28.2}%
+\contentsline {subsubsection}{\numberline {5.28.2.1}worker()}{60}{subsubsection.5.28.2.1}%
+\contentsline {section}{\numberline {5.29}worker.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{61}{section.5.29}%
+\contentsline {chapter}{Index}{63}{section*.83}%

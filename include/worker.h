@@ -8,7 +8,7 @@
 #define WORKER_H
 
 /**
- * @brief Entry point for each MPI worker process.
+ * @brief Entry point for each GASPI worker process.
  *
  * Each worker:
  * - Receives the dictionary from the manager
@@ -18,4 +18,3 @@
 void worker(void);
 
 #endif
-

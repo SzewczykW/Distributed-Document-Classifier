@@ -1,0 +1,199 @@
+\doxysection{gaspi\+\_\+utils.\+h File Reference}
+\hypertarget{gaspi__utils_8h}{}\label{gaspi__utils_8h}\index{gaspi\_utils.h@{gaspi\_utils.h}}
+
+
+Utility macros and functions for GASPI error handling.  
+
+
+{\ttfamily \#include $<$GASPI.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for gaspi\+\_\+utils.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{d6/d75/gaspi__utils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d82/gaspi__utils_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{gaspi__utils_8h_a5b7eb988a6a94afc6a78a0e5e48d6eee}{DICT\+\_\+\+SEGMENT\+\_\+\+ID}}~0
+\item 
+\#define \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\+\_\+\+CHECK}}(call)
+\begin{DoxyCompactList}\small\item\em Check if GASPI call returned success, exit on error. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{gaspi__utils_8h_a5f3f445cab3950f07b2d3e57f339e25e}{RESULT\+\_\+\+OFFSET}}(rank)~((rank -\/ 1) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{gaspi__utils_8h_a3fb116497578f7ccb5b53f4b090573fc}{WORKER\+\_\+\+DATA\+\_\+\+SIZE}})
+\item 
+\#define \mbox{\hyperlink{gaspi__utils_8h_acd20f6c3dec7f555aa69e37102735855}{RESULT\+\_\+\+SEGMENT\+\_\+\+ID}}~2
+\item 
+\#define \mbox{\hyperlink{gaspi__utils_8h_a0a32fb9c303566dca9de843305c4e37a}{WORK\+\_\+\+OFFSET}}(rank)~((rank -\/ 1) \texorpdfstring{$\ast$}{*} PATH\+\_\+\+MAX)
+\item 
+\#define \mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\+\_\+\+SEGMENT\+\_\+\+ID}}~1
+\item 
+\#define \mbox{\hyperlink{gaspi__utils_8h_a3fb116497578f7ccb5b53f4b090573fc}{WORKER\+\_\+\+DATA\+\_\+\+SIZE}}~(PATH\+\_\+\+MAX + \mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\+\_\+\+KEYWORDS}} \texorpdfstring{$\ast$}{*} sizeof(int))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{gaspi__utils_8h_a53972a7b034ef7754db9a2e03f2b3c56}{cleanup\+\_\+gaspi\+\_\+segments}} (void)
+\begin{DoxyCompactList}\small\item\em Cleans up GASPI segments. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{gaspi__utils_8h_a14d735066d46c448769b006d273cea21}{init\+\_\+gaspi\+\_\+segments}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes GASPI segments for dictionary and work data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Utility macros and functions for GASPI error handling. 
+
+\begin{DoxyAuthor}{Author}
+Wiktor Szewczyk 
+\end{DoxyAuthor}
+
+
+Definition in file \mbox{\hyperlink{gaspi__utils_8h_source}{gaspi\+\_\+utils.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{gaspi__utils_8h_a5b7eb988a6a94afc6a78a0e5e48d6eee}\label{gaspi__utils_8h_a5b7eb988a6a94afc6a78a0e5e48d6eee} 
+\index{gaspi\_utils.h@{gaspi\_utils.h}!DICT\_SEGMENT\_ID@{DICT\_SEGMENT\_ID}}
+\index{DICT\_SEGMENT\_ID@{DICT\_SEGMENT\_ID}!gaspi\_utils.h@{gaspi\_utils.h}}
+\doxysubsubsection{\texorpdfstring{DICT\_SEGMENT\_ID}{DICT\_SEGMENT\_ID}}
+{\footnotesize\ttfamily \#define DICT\+\_\+\+SEGMENT\+\_\+\+ID~0}
+
+
+
+Definition at line \mbox{\hyperlink{gaspi__utils_8h_source_l00033}{33}} of file \mbox{\hyperlink{gaspi__utils_8h_source}{gaspi\+\_\+utils.\+h}}.
+
+\Hypertarget{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}\label{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1} 
+\index{gaspi\_utils.h@{gaspi\_utils.h}!GASPI\_CHECK@{GASPI\_CHECK}}
+\index{GASPI\_CHECK@{GASPI\_CHECK}!gaspi\_utils.h@{gaspi\_utils.h}}
+\doxysubsubsection{\texorpdfstring{GASPI\_CHECK}{GASPI\_CHECK}}
+{\footnotesize\ttfamily \#define GASPI\+\_\+\+CHECK(\begin{DoxyParamCaption}\item[{}]{call }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{do}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ gaspi\_return\_t\ ret\ =\ (call);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ if\ (ret\ !=\ GASPI\_SUCCESS)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}GASPI\ error\ at\ \%s:\%d:\ \%s\ returned\ \%d\(\backslash\)n"{}},\ \_\_FILE\_\_,\ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_LINE\_\_,\ \#call,\ ret);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ gaspi\_proc\_term(GASPI\_BLOCK);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{keywordflow}{while}\ (0)}
+
+\end{DoxyCode}
+
+
+Check if GASPI call returned success, exit on error. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em call} & The GASPI function call to check \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{gaspi__utils_8h_source_l00019}{19}} of file \mbox{\hyperlink{gaspi__utils_8h_source}{gaspi\+\_\+utils.\+h}}.
+
+\Hypertarget{gaspi__utils_8h_a5f3f445cab3950f07b2d3e57f339e25e}\label{gaspi__utils_8h_a5f3f445cab3950f07b2d3e57f339e25e} 
+\index{gaspi\_utils.h@{gaspi\_utils.h}!RESULT\_OFFSET@{RESULT\_OFFSET}}
+\index{RESULT\_OFFSET@{RESULT\_OFFSET}!gaspi\_utils.h@{gaspi\_utils.h}}
+\doxysubsubsection{\texorpdfstring{RESULT\_OFFSET}{RESULT\_OFFSET}}
+{\footnotesize\ttfamily \#define RESULT\+\_\+\+OFFSET(\begin{DoxyParamCaption}\item[{}]{rank }\end{DoxyParamCaption})~((rank -\/ 1) \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{gaspi__utils_8h_a3fb116497578f7ccb5b53f4b090573fc}{WORKER\+\_\+\+DATA\+\_\+\+SIZE}})}
+
+
+
+Definition at line \mbox{\hyperlink{gaspi__utils_8h_source_l00043}{43}} of file \mbox{\hyperlink{gaspi__utils_8h_source}{gaspi\+\_\+utils.\+h}}.
+
+\Hypertarget{gaspi__utils_8h_acd20f6c3dec7f555aa69e37102735855}\label{gaspi__utils_8h_acd20f6c3dec7f555aa69e37102735855} 
+\index{gaspi\_utils.h@{gaspi\_utils.h}!RESULT\_SEGMENT\_ID@{RESULT\_SEGMENT\_ID}}
+\index{RESULT\_SEGMENT\_ID@{RESULT\_SEGMENT\_ID}!gaspi\_utils.h@{gaspi\_utils.h}}
+\doxysubsubsection{\texorpdfstring{RESULT\_SEGMENT\_ID}{RESULT\_SEGMENT\_ID}}
+{\footnotesize\ttfamily \#define RESULT\+\_\+\+SEGMENT\+\_\+\+ID~2}
+
+
+
+Definition at line \mbox{\hyperlink{gaspi__utils_8h_source_l00035}{35}} of file \mbox{\hyperlink{gaspi__utils_8h_source}{gaspi\+\_\+utils.\+h}}.
+
+\Hypertarget{gaspi__utils_8h_a0a32fb9c303566dca9de843305c4e37a}\label{gaspi__utils_8h_a0a32fb9c303566dca9de843305c4e37a} 
+\index{gaspi\_utils.h@{gaspi\_utils.h}!WORK\_OFFSET@{WORK\_OFFSET}}
+\index{WORK\_OFFSET@{WORK\_OFFSET}!gaspi\_utils.h@{gaspi\_utils.h}}
+\doxysubsubsection{\texorpdfstring{WORK\_OFFSET}{WORK\_OFFSET}}
+{\footnotesize\ttfamily \#define WORK\+\_\+\+OFFSET(\begin{DoxyParamCaption}\item[{}]{rank }\end{DoxyParamCaption})~((rank -\/ 1) \texorpdfstring{$\ast$}{*} PATH\+\_\+\+MAX)}
+
+
+
+Definition at line \mbox{\hyperlink{gaspi__utils_8h_source_l00041}{41}} of file \mbox{\hyperlink{gaspi__utils_8h_source}{gaspi\+\_\+utils.\+h}}.
+
+\Hypertarget{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}\label{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190} 
+\index{gaspi\_utils.h@{gaspi\_utils.h}!WORK\_SEGMENT\_ID@{WORK\_SEGMENT\_ID}}
+\index{WORK\_SEGMENT\_ID@{WORK\_SEGMENT\_ID}!gaspi\_utils.h@{gaspi\_utils.h}}
+\doxysubsubsection{\texorpdfstring{WORK\_SEGMENT\_ID}{WORK\_SEGMENT\_ID}}
+{\footnotesize\ttfamily \#define WORK\+\_\+\+SEGMENT\+\_\+\+ID~1}
+
+
+
+Definition at line \mbox{\hyperlink{gaspi__utils_8h_source_l00034}{34}} of file \mbox{\hyperlink{gaspi__utils_8h_source}{gaspi\+\_\+utils.\+h}}.
+
+\Hypertarget{gaspi__utils_8h_a3fb116497578f7ccb5b53f4b090573fc}\label{gaspi__utils_8h_a3fb116497578f7ccb5b53f4b090573fc} 
+\index{gaspi\_utils.h@{gaspi\_utils.h}!WORKER\_DATA\_SIZE@{WORKER\_DATA\_SIZE}}
+\index{WORKER\_DATA\_SIZE@{WORKER\_DATA\_SIZE}!gaspi\_utils.h@{gaspi\_utils.h}}
+\doxysubsubsection{\texorpdfstring{WORKER\_DATA\_SIZE}{WORKER\_DATA\_SIZE}}
+{\footnotesize\ttfamily \#define WORKER\+\_\+\+DATA\+\_\+\+SIZE~(PATH\+\_\+\+MAX + \mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\+\_\+\+KEYWORDS}} \texorpdfstring{$\ast$}{*} sizeof(int))}
+
+
+
+Definition at line \mbox{\hyperlink{gaspi__utils_8h_source_l00038}{38}} of file \mbox{\hyperlink{gaspi__utils_8h_source}{gaspi\+\_\+utils.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{gaspi__utils_8h_a53972a7b034ef7754db9a2e03f2b3c56}\label{gaspi__utils_8h_a53972a7b034ef7754db9a2e03f2b3c56} 
+\index{gaspi\_utils.h@{gaspi\_utils.h}!cleanup\_gaspi\_segments@{cleanup\_gaspi\_segments}}
+\index{cleanup\_gaspi\_segments@{cleanup\_gaspi\_segments}!gaspi\_utils.h@{gaspi\_utils.h}}
+\doxysubsubsection{\texorpdfstring{cleanup\_gaspi\_segments()}{cleanup\_gaspi\_segments()}}
+{\footnotesize\ttfamily void cleanup\+\_\+gaspi\+\_\+segments (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Cleans up GASPI segments. 
+
+
+
+Definition at line \mbox{\hyperlink{gaspi__utils_8c_source_l00024}{24}} of file \mbox{\hyperlink{gaspi__utils_8c_source}{gaspi\+\_\+utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{gaspi__utils_8h_source_l00033}{DICT\+\_\+\+SEGMENT\+\_\+\+ID}}, and \mbox{\hyperlink{gaspi__utils_8h_source_l00034}{WORK\+\_\+\+SEGMENT\+\_\+\+ID}}.
+
+\Hypertarget{gaspi__utils_8h_a14d735066d46c448769b006d273cea21}\label{gaspi__utils_8h_a14d735066d46c448769b006d273cea21} 
+\index{gaspi\_utils.h@{gaspi\_utils.h}!init\_gaspi\_segments@{init\_gaspi\_segments}}
+\index{init\_gaspi\_segments@{init\_gaspi\_segments}!gaspi\_utils.h@{gaspi\_utils.h}}
+\doxysubsubsection{\texorpdfstring{init\_gaspi\_segments()}{init\_gaspi\_segments()}}
+{\footnotesize\ttfamily void init\+\_\+gaspi\+\_\+segments (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes GASPI segments for dictionary and work data. 
+
+
+
+Definition at line \mbox{\hyperlink{gaspi__utils_8c_source_l00010}{10}} of file \mbox{\hyperlink{gaspi__utils_8c_source}{gaspi\+\_\+utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{gaspi__utils_8h_source_l00033}{DICT\+\_\+\+SEGMENT\+\_\+\+ID}}, \mbox{\hyperlink{gaspi__utils_8h_source_l00019}{GASPI\+\_\+\+CHECK}}, \mbox{\hyperlink{msg__consts_8h_source_l00011}{MAX\+\_\+\+DOC\+\_\+\+SIZE}}, \mbox{\hyperlink{msg__consts_8h_source_l00014}{MAX\+\_\+\+KEYWORDS}}, \mbox{\hyperlink{msg__consts_8h_source_l00017}{MAX\+\_\+\+WORD\+\_\+\+LEN}}, and \mbox{\hyperlink{gaspi__utils_8h_source_l00034}{WORK\+\_\+\+SEGMENT\+\_\+\+ID}}.
+

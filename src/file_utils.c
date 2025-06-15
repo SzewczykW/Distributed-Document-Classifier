@@ -1,10 +1,10 @@
 /**
  * @file file_utils.c
  * @author Wiktor Szewczyk
- * @brief File reading, dictionary parsing, and dictionary broadcasting over MPI.
+ * @brief File reading, dictionary parsing, and dictionary broadcasting over GASPI.
  */
 
-#include <mpi.h>
+#include <GASPI.h>
 #include <dirent.h>
 #include <limits.h>
 #include <stdio.h>
@@ -12,6 +12,7 @@
 #include <string.h>
 
 #include "file_utils.h"
+#include "gaspi_utils.h"
 #include "hash_table.h"
 #include "msg_consts.h"
 
@@ -82,20 +83,49 @@ int read_dictionary(const char *dict_path, char *keywords[], int max_keywords)
 
 void broadcast_dictionary(char *keywords[], int num_keywords)
 {
-    MPI_Bcast(&num_keywords, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    gaspi_rank_t size;
+    GASPI_CHECK(gaspi_proc_num(&size));
+
+    gaspi_pointer_t dict_seg_ptr;
+    GASPI_CHECK(gaspi_segment_ptr(DICT_SEGMENT_ID, &dict_seg_ptr));
+
+    // Zapisz liczbę słów kluczowych
+    memcpy(dict_seg_ptr, &num_keywords, sizeof(int));
+
+    // Zapisz słowa kluczowe
     for (int i = 0; i < num_keywords; i++)
     {
-        MPI_Bcast(keywords[i], MAX_WORD_LEN, MPI_CHAR, 0, MPI_COMM_WORLD);
+        strncpy((char *) dict_seg_ptr + sizeof(int) + i * MAX_WORD_LEN, keywords[i],
+                MAX_WORD_LEN - 1);
     }
+
+    // Wyślij do wszystkich workerów
+    for (gaspi_rank_t rank = 1; rank < size; rank++)
+    {
+        GASPI_CHECK(gaspi_write(DICT_SEGMENT_ID, 0, rank, DICT_SEGMENT_ID, 0,
+                                sizeof(int) + num_keywords * MAX_WORD_LEN, 0,
+                                GASPI_BLOCK));
+    }
+
+    GASPI_CHECK(gaspi_wait(0, GASPI_BLOCK));
 }
 
 void receive_dictionary(char *keywords[], int *num_keywords)
 {
-    MPI_Bcast(num_keywords, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    gaspi_pointer_t dict_seg_ptr;
+    GASPI_CHECK(gaspi_segment_ptr(DICT_SEGMENT_ID, &dict_seg_ptr));
+
+    // Odbierz liczbę słów kluczowych
+    memcpy(num_keywords, dict_seg_ptr, sizeof(int));
+
+    // Odbierz słowa kluczowe
     char word[MAX_WORD_LEN] = {0};
     for (int i = 0; i < *num_keywords; i++)
     {
-        MPI_Bcast(word, MAX_WORD_LEN, MPI_CHAR, 0, MPI_COMM_WORLD);
+        strncpy(word, (char *) dict_seg_ptr + sizeof(int) + i * MAX_WORD_LEN,
+                MAX_WORD_LEN - 1);
+        word[MAX_WORD_LEN - 1] = '\0'; // Zabezpieczenie
+
         keywords[i] = strdup(word);
         if (!keywords[i])
             exit(EXIT_FAILURE);

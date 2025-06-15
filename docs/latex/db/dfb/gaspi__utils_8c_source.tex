@@ -1,0 +1,29 @@
+\doxysection{gaspi\+\_\+utils.\+c}
+\hypertarget{gaspi__utils_8c_source}{}\label{gaspi__utils_8c_source}\index{gaspi\_utils.c@{gaspi\_utils.c}}
+\mbox{\hyperlink{gaspi__utils_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{gaspi__utils_8h}{gaspi\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{msg__consts_8h}{msg\_consts.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00010}\mbox{\hyperlink{gaspi__utils_8h_a14d735066d46c448769b006d273cea21}{00010}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gaspi__utils_8c_a14d735066d46c448769b006d273cea21}{init\_gaspi\_segments}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00011}00011\ \{}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00012}00012\ \ \ \ \ gaspi\_size\_t\ dict\_size\ =\ \textcolor{keyword}{sizeof}(int)\ +\ \mbox{\hyperlink{msg__consts_8h_a5de4809365ed98f74fca414d93510bee}{MAX\_KEYWORDS}}\ *\ \mbox{\hyperlink{msg__consts_8h_acd24df7121adef94ef8ff697ad56fb4f}{MAX\_WORD\_LEN}};}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00013}00013\ \ \ \ \ gaspi\_size\_t\ work\_size\ =\ \mbox{\hyperlink{msg__consts_8h_a38f0274fe1f86e8e289a1bdfeb560f5e}{MAX\_DOC\_SIZE}}\ +\ \textcolor{keyword}{sizeof}(int);}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00015}00015\ \ \ \ \ \textcolor{comment}{//\ Segment\ dla\ słownika}}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00016}00016\ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_segment\_create(\mbox{\hyperlink{gaspi__utils_8h_a5b7eb988a6a94afc6a78a0e5e48d6eee}{DICT\_SEGMENT\_ID}},\ dict\_size,\ GASPI\_GROUP\_ALL,}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GASPI\_BLOCK,\ GASPI\_ALLOC\_DEFAULT));}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00019}00019\ \ \ \ \ \textcolor{comment}{//\ Segment\ dla\ pracy}}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{gaspi__utils_8h_a6df97fcfe1d11531fa206a1925b455f1}{GASPI\_CHECK}}(gaspi\_segment\_create(\mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}},\ work\_size,\ GASPI\_GROUP\_ALL,}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GASPI\_BLOCK,\ GASPI\_ALLOC\_DEFAULT));}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00022}00022\ \}}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00024}\mbox{\hyperlink{gaspi__utils_8h_a53972a7b034ef7754db9a2e03f2b3c56}{00024}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{gaspi__utils_8c_a53972a7b034ef7754db9a2e03f2b3c56}{cleanup\_gaspi\_segments}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00025}00025\ \{}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00026}00026\ \ \ \ \ gaspi\_segment\_delete(\mbox{\hyperlink{gaspi__utils_8h_a5b7eb988a6a94afc6a78a0e5e48d6eee}{DICT\_SEGMENT\_ID}});}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00027}00027\ \ \ \ \ gaspi\_segment\_delete(\mbox{\hyperlink{gaspi__utils_8h_a7fc83a288b51f0549c6db666022e9190}{WORK\_SEGMENT\_ID}});}
+\DoxyCodeLine{\Hypertarget{gaspi__utils_8c_source_l00028}00028\ \}}
+
+\end{DoxyCode}

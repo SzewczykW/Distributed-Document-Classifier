@@ -99,125 +99,191 @@ $(document).ready(function(){initNavTree('d4/d10/manager_8c_source.html','../../
 </div><!--header-->
 <div class="contents">
 <a href="../../d4/d10/manager_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;mpi.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d9d/file__utils_8h.html">file_utils.h</a>&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/ddb/hash__table_8h.html">hash_table.h</a>&quot;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d45/manager_8h.html">manager.h</a>&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="../../d2/d81/msg__consts_8h.html">msg_consts.h</a>&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../db/d45/manager_8h.html#a5afb0ce7625828da3439e1e2aa87b0a9">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d4/d10/manager_8c.html#a5afb0ce7625828da3439e1e2aa87b0a9">manager</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *input_dir, <span class="keyword">const</span> <span class="keywordtype">char</span> *dict_file, <span class="keyword">const</span> <span class="keywordtype">char</span> *output_file,</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>             <span class="keywordtype">int</span> size)</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">char</span> *keywords[<a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a5de4809365ed98f74fca414d93510bee">MAX_KEYWORDS</a>] = {0};</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordtype">int</span> num_keywords = <a class="code hl_function" href="../../d1/d9d/file__utils_8h.html#a9cef8f76bf0bbcbbc225ed062b5d8d15">read_dictionary</a>(dict_file, keywords, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a5de4809365ed98f74fca414d93510bee">MAX_KEYWORDS</a>);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">if</span> (num_keywords &lt; 0)</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        perror(<span class="stringliteral">&quot;Failed to read dictionary&quot;</span>);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        MPI_Abort(MPI_COMM_WORLD, 1);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_function" href="../../d1/d9d/file__utils_8h.html#a07982d8fbcce521936640f6b39550dad">broadcast_dictionary</a>(keywords, num_keywords);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">char</span> files[<a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a2c5eecb22513a88c24ae5831a3265e54">MAX_FILES</a>][PATH_MAX] = {0};</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">int</span> file_count = <a class="code hl_function" href="../../d1/d9d/file__utils_8h.html#af60f33bb7908850bdcf52ebe9f49d310">list_txt_files</a>(input_dir, files, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a2c5eecb22513a88c24ae5831a3265e54">MAX_FILES</a>);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (file_count &lt; 0)</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        fprintf(stderr, <span class="stringliteral">&quot;Error reading directory: %s\n&quot;</span>, input_dir);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        MPI_Abort(MPI_COMM_WORLD, 1);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    FILE *out = <a class="code hl_function" href="../../d1/d9d/file__utils_8h.html#af2d299fe865532706c80ab701585b877">open_output_file</a>(output_file);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">if</span> (!out)</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        perror(<span class="stringliteral">&quot;Failed to open output file&quot;</span>);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        MPI_Abort(MPI_COMM_WORLD, 1);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    fprintf(out, <span class="stringliteral">&quot;%-12s:&quot;</span>, <span class="stringliteral">&quot;dictionary&quot;</span>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_keywords; i++)</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        fprintf(out, <span class="stringliteral">&quot; %s&quot;</span>, keywords[i]);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    fprintf(out, <span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;GASPI.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;limits.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d9d/file__utils_8h.html">file_utils.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="../../df/df9/gaspi__utils_8h.html">gaspi_utils.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="../../d4/ddb/hash__table_8h.html">hash_table.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="../../db/d45/manager_8h.html">manager.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="../../d2/d81/msg__consts_8h.html">msg_consts.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../db/d45/manager_8h.html#a693fc6348be56bfec805d6893f018c42">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d4/d10/manager_8c.html#a693fc6348be56bfec805d6893f018c42">manager</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *input_dir, <span class="keyword">const</span> <span class="keywordtype">char</span> *dict_file, <span class="keyword">const</span> <span class="keywordtype">char</span> *output_file,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>             <span class="keywordtype">int</span> processes_num)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    printf(<span class="stringliteral">&quot;[MANAGER] Starting with %d processes\n&quot;</span>, processes_num);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    gaspi_size_t dict_size = <span class="keyword">sizeof</span>(int) + <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a5de4809365ed98f74fca414d93510bee">MAX_KEYWORDS</a> * <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#acd24df7121adef94ef8ff697ad56fb4f">MAX_WORD_LEN</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    gaspi_size_t work_size = processes_num * PATH_MAX;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    gaspi_size_t result_size = processes_num * <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a3fb116497578f7ccb5b53f4b090573fc">WORKER_DATA_SIZE</a>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    printf(<span class="stringliteral">&quot;[MANAGER] Creating GASPI segments...\n&quot;</span>);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a>(gaspi_segment_create(<a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a5b7eb988a6a94afc6a78a0e5e48d6eee">DICT_SEGMENT_ID</a>, dict_size, GASPI_GROUP_ALL,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                                     GASPI_BLOCK, GASPI_ALLOC_DEFAULT));</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a>(gaspi_segment_create(<a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a>, work_size, GASPI_GROUP_ALL,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                                     GASPI_BLOCK, GASPI_ALLOC_DEFAULT));</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a>(gaspi_segment_create(<a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#acd20f6c3dec7f555aa69e37102735855">RESULT_SEGMENT_ID</a>, result_size, GASPI_GROUP_ALL,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                                     GASPI_BLOCK, GASPI_ALLOC_DEFAULT));</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    printf(<span class="stringliteral">&quot;[MANAGER] GASPI segments created successfully\n&quot;</span>);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">char</span> *keywords[<a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a5de4809365ed98f74fca414d93510bee">MAX_KEYWORDS</a>] = {0};</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">int</span> num_keywords = <a class="code hl_function" href="../../d1/d9d/file__utils_8h.html#a9cef8f76bf0bbcbbc225ed062b5d8d15">read_dictionary</a>(dict_file, keywords, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a5de4809365ed98f74fca414d93510bee">MAX_KEYWORDS</a>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">if</span> (num_keywords &lt; 0)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        perror(<span class="stringliteral">&quot;Failed to read dictionary&quot;</span>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        gaspi_proc_term(GASPI_BLOCK);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        exit(1);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    printf(<span class="stringliteral">&quot;[MANAGER] Dictionary loaded: %d keywords\n&quot;</span>, num_keywords);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">int</span> current_file = 0;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">int</span> done_workers = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    printf(<span class="stringliteral">&quot;[MANAGER] Broadcasting dictionary to workers...\n&quot;</span>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_function" href="../../d1/d9d/file__utils_8h.html#a07982d8fbcce521936640f6b39550dad">broadcast_dictionary</a>(keywords, num_keywords);</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    MPI_Request req;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    MPI_Status status;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    MPI_Irecv(NULL, 0, MPI_CHAR, MPI_ANY_SOURCE, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a6839dd297b5061b3e9400e19237d9869">REQUEST_MSG</a>, MPI_COMM_WORLD, &amp;req);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">while</span> (done_workers &lt; size - 1)</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordtype">int</span> flag = 0;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        MPI_Test(&amp;req, &amp;flag, &amp;status);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">if</span> (!flag)</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">int</span> source = status.MPI_SOURCE;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">if</span> (current_file &lt; file_count)</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            MPI_Send(files[current_file++], PATH_MAX, MPI_CHAR, source, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a157536d2849554b7111608f8824d571a">FILE_MSG</a>,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                     MPI_COMM_WORLD);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            MPI_Send(NULL, 0, MPI_CHAR, source, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a4dd9ac5a198afbe2477a1105baf7771c">DONE_MSG</a>, MPI_COMM_WORLD);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            done_workers++;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            MPI_Irecv(NULL, 0, MPI_CHAR, MPI_ANY_SOURCE, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a6839dd297b5061b3e9400e19237d9869">REQUEST_MSG</a>, MPI_COMM_WORLD,</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                      &amp;req);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        }</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordtype">int</span> vec[<a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a5de4809365ed98f74fca414d93510bee">MAX_KEYWORDS</a>];</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordtype">char</span> fname[PATH_MAX];</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        MPI_Recv(vec, num_keywords, MPI_INT, source, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#acd7ee4380f1a94150f3a40b15b576e77">VEC_MSG</a>, MPI_COMM_WORLD,</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                 MPI_STATUS_IGNORE);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        MPI_Recv(fname, PATH_MAX, MPI_CHAR, source, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a157536d2849554b7111608f8824d571a">FILE_MSG</a>, MPI_COMM_WORLD,</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                 MPI_STATUS_IGNORE);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        fprintf(out, <span class="stringliteral">&quot;%-12s:&quot;</span>, strrchr(fname, <span class="charliteral">&#39;/&#39;</span>) ? strrchr(fname, <span class="charliteral">&#39;/&#39;</span>) + 1 : fname);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_keywords; i++)</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            fprintf(out, <span class="stringliteral">&quot; %d&quot;</span>, vec[i]);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        fprintf(out, <span class="stringliteral">&quot;\n&quot;</span>);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        MPI_Irecv(NULL, 0, MPI_CHAR, MPI_ANY_SOURCE, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a6839dd297b5061b3e9400e19237d9869">REQUEST_MSG</a>, MPI_COMM_WORLD, &amp;req);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">int</span> flag = 0;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    MPI_Test(&amp;req, &amp;flag, MPI_STATUS_IGNORE);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span> (!flag)</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        MPI_Cancel(&amp;req);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        MPI_Wait(&amp;req, MPI_STATUS_IGNORE);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    fclose(out);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_keywords; i++)</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        free(keywords[i]);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_function" href="../../d4/ddb/hash__table_8h.html#a2512fdab32c231a3a2e5621cb1e309c9">clear_hash_table</a>();</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">char</span> files[<a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a2c5eecb22513a88c24ae5831a3265e54">MAX_FILES</a>][PATH_MAX] = {0};</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">int</span> file_count = <a class="code hl_function" href="../../d1/d9d/file__utils_8h.html#af60f33bb7908850bdcf52ebe9f49d310">list_txt_files</a>(input_dir, files, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a2c5eecb22513a88c24ae5831a3265e54">MAX_FILES</a>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">if</span> (file_count &lt; 0)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        fprintf(stderr, <span class="stringliteral">&quot;Error reading directory: %s\n&quot;</span>, input_dir);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        gaspi_proc_term(GASPI_BLOCK);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        exit(1);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    printf(<span class="stringliteral">&quot;[MANAGER] Found %d files to process\n&quot;</span>, file_count);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    FILE *out = <a class="code hl_function" href="../../d1/d9d/file__utils_8h.html#af2d299fe865532706c80ab701585b877">open_output_file</a>(output_file);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span> (!out)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        perror(<span class="stringliteral">&quot;Failed to open output file&quot;</span>);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        gaspi_proc_term(GASPI_BLOCK);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        exit(1);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    fprintf(out, <span class="stringliteral">&quot;%-12s:&quot;</span>, <span class="stringliteral">&quot;dictionary&quot;</span>);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_keywords; i++)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        fprintf(out, <span class="stringliteral">&quot; %s&quot;</span>, keywords[i]);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    fprintf(out, <span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">int</span> current_file = 0;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">int</span> done_workers = 0;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    gaspi_pointer_t work_seg_ptr;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    gaspi_pointer_t result_seg_ptr;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a>(gaspi_segment_ptr(<a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a>, &amp;work_seg_ptr));</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a>(gaspi_segment_ptr(<a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#acd20f6c3dec7f555aa69e37102735855">RESULT_SEGMENT_ID</a>, &amp;result_seg_ptr));</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    printf(<span class="stringliteral">&quot;[MANAGER] Sending initial tasks to workers...\n&quot;</span>);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">for</span> (gaspi_rank_t rank = 1; rank &lt; processes_num; rank++)</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">if</span> (current_file &lt; file_count)</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            gaspi_offset_t work_offset = <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a0a32fb9c303566dca9de843305c4e37a">WORK_OFFSET</a>(rank);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            strcpy((<span class="keywordtype">char</span> *) work_seg_ptr + work_offset, files[current_file]);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            printf(<span class="stringliteral">&quot;[MANAGER] Sending file &#39;%s&#39; to worker %d\n&quot;</span>, files[current_file],</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                   rank);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            current_file++;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a>(gaspi_write_notify(</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a>, work_offset, rank, <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a>, work_offset,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                PATH_MAX, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a97c1ce621794cced95d06717cabc0109">WORK_NOTIF_ID</a>, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a75bcd7e2e1594d1a39d997ad7a2c7f76">WORK_AVAILABLE_NOTIF</a>, 1, GASPI_BLOCK));</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    printf(<span class="stringliteral">&quot;[MANAGER] Waiting for worker results...\n&quot;</span>);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">while</span> (done_workers &lt; processes_num - 1)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        gaspi_notification_id_t notif_id;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        gaspi_return_t ret = gaspi_notify_waitsome(</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#acd20f6c3dec7f555aa69e37102735855">RESULT_SEGMENT_ID</a>, 1, processes_num - 1, &amp;notif_id, GASPI_TEST);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">if</span> (ret == GASPI_SUCCESS)</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            gaspi_notification_t notif_val;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a>(gaspi_notify_reset(<a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#acd20f6c3dec7f555aa69e37102735855">RESULT_SEGMENT_ID</a>, notif_id, &amp;notif_val));</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keywordflow">if</span> (notif_val == <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a48edde5d1dbe87ef488044c9f128c645">WORK_DONE_NOTIF</a>)</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                gaspi_rank_t rank = notif_id;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                gaspi_offset_t result_offset = <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a5f3f445cab3950f07b2d3e57f339e25e">RESULT_OFFSET</a>(rank);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                <span class="keywordtype">int</span> *vec = (<span class="keywordtype">int</span> *) ((<span class="keywordtype">char</span> *) result_seg_ptr + result_offset);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                <span class="keywordtype">char</span> *fname = (<span class="keywordtype">char</span> *) ((<span class="keywordtype">char</span> *) result_seg_ptr + result_offset +</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                                        <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a5de4809365ed98f74fca414d93510bee">MAX_KEYWORDS</a> * <span class="keyword">sizeof</span>(int));</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                printf(<span class="stringliteral">&quot;[MANAGER] Received results from worker %d for file &#39;%s&#39;\n&quot;</span>,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                       rank, strrchr(fname, <span class="charliteral">&#39;/&#39;</span>) ? strrchr(fname, <span class="charliteral">&#39;/&#39;</span>) + 1 : fname);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                fprintf(out, <span class="stringliteral">&quot;%-12s:&quot;</span>,</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                        strrchr(fname, <span class="charliteral">&#39;/&#39;</span>) ? strrchr(fname, <span class="charliteral">&#39;/&#39;</span>) + 1 : fname);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_keywords; i++)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                    fprintf(out, <span class="stringliteral">&quot; %d&quot;</span>, vec[i]);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                fprintf(out, <span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                <span class="keywordflow">if</span> (current_file &lt; file_count)</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                    gaspi_offset_t work_offset = <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a0a32fb9c303566dca9de843305c4e37a">WORK_OFFSET</a>(rank);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                    strcpy((<span class="keywordtype">char</span> *) work_seg_ptr + work_offset, files[current_file]);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                    printf(<span class="stringliteral">&quot;[MANAGER] Sending next file &#39;%s&#39; to worker %d\n&quot;</span>,</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                           files[current_file], rank);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                    current_file++;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                    <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a>(gaspi_write_notify(</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                        <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a>, work_offset, rank, <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a>,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                        work_offset, PATH_MAX, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a97c1ce621794cced95d06717cabc0109">WORK_NOTIF_ID</a>, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a75bcd7e2e1594d1a39d997ad7a2c7f76">WORK_AVAILABLE_NOTIF</a>, 1,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                        GASPI_BLOCK));</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                    gaspi_offset_t work_offset = <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a0a32fb9c303566dca9de843305c4e37a">WORK_OFFSET</a>(rank);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                    strcpy((<span class="keywordtype">char</span> *) work_seg_ptr + work_offset, <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                    printf(<span class="stringliteral">&quot;[MANAGER] Sending shutdown signal to worker %d\n&quot;</span>, rank);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                    <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a>(gaspi_write_notify(</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                        <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a>, work_offset, rank, <a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a>,</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                        work_offset, 1, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a97c1ce621794cced95d06717cabc0109">WORK_NOTIF_ID</a>, <a class="code hl_define" href="../../d2/d81/msg__consts_8h.html#a3a4a4071bbae7d864b6b182695254729">SHUTDOWN_NOTIF</a>, 1, GASPI_BLOCK));</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                    done_workers++;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                }</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            }</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    }</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    printf(<span class="stringliteral">&quot;[MANAGER] All workers finished, cleaning up...\n&quot;</span>);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    fclose(out);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_keywords; i++)</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        free(keywords[i]);</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <a class="code hl_function" href="../../d4/ddb/hash__table_8h.html#a2512fdab32c231a3a2e5621cb1e309c9">clear_hash_table</a>();</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    gaspi_segment_delete(<a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a5b7eb988a6a94afc6a78a0e5e48d6eee">DICT_SEGMENT_ID</a>);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    gaspi_segment_delete(<a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a>);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    gaspi_segment_delete(<a class="code hl_define" href="../../df/df9/gaspi__utils_8h.html#acd20f6c3dec7f555aa69e37102735855">RESULT_SEGMENT_ID</a>);</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    printf(<span class="stringliteral">&quot;[MANAGER] Cleanup complete\n&quot;</span>);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
 </div>
 <div class="ttc" id="afile__utils_8h_html"><div class="ttname"><a href="../../d1/d9d/file__utils_8h.html">file_utils.h</a></div><div class="ttdoc">Utility functions for files operations.</div></div>
-<div class="ttc" id="afile__utils_8h_html_a07982d8fbcce521936640f6b39550dad"><div class="ttname"><a href="../../d1/d9d/file__utils_8h.html#a07982d8fbcce521936640f6b39550dad">broadcast_dictionary</a></div><div class="ttdeci">void broadcast_dictionary(char *keywords[], int num_keywords)</div><div class="ttdoc">Broadcasts dictionary from manager to workers.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d5e/file__utils_8c_source.html#l00083">file_utils.c:83</a></div></div>
-<div class="ttc" id="afile__utils_8h_html_a9cef8f76bf0bbcbbc225ed062b5d8d15"><div class="ttname"><a href="../../d1/d9d/file__utils_8h.html#a9cef8f76bf0bbcbbc225ed062b5d8d15">read_dictionary</a></div><div class="ttdeci">int read_dictionary(const char *dict_path, char *keywords[], int max_keywords)</div><div class="ttdoc">Reads dictionary and builds global keyword list and hash table.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d5e/file__utils_8c_source.html#l00057">file_utils.c:57</a></div></div>
-<div class="ttc" id="afile__utils_8h_html_af2d299fe865532706c80ab701585b877"><div class="ttname"><a href="../../d1/d9d/file__utils_8h.html#af2d299fe865532706c80ab701585b877">open_output_file</a></div><div class="ttdeci">FILE * open_output_file(const char *output_path)</div><div class="ttdoc">Opens the result output file for writing.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d5e/file__utils_8c_source.html#l00052">file_utils.c:52</a></div></div>
-<div class="ttc" id="afile__utils_8h_html_af60f33bb7908850bdcf52ebe9f49d310"><div class="ttname"><a href="../../d1/d9d/file__utils_8h.html#af60f33bb7908850bdcf52ebe9f49d310">list_txt_files</a></div><div class="ttdeci">int list_txt_files(const char *dir_path, char files[][PATH_MAX], int max_files)</div><div class="ttdoc">Lists all .txt files in a directory.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d5e/file__utils_8c_source.html#l00018">file_utils.c:18</a></div></div>
+<div class="ttc" id="afile__utils_8h_html_a07982d8fbcce521936640f6b39550dad"><div class="ttname"><a href="../../d1/d9d/file__utils_8h.html#a07982d8fbcce521936640f6b39550dad">broadcast_dictionary</a></div><div class="ttdeci">void broadcast_dictionary(char *keywords[], int num_keywords)</div><div class="ttdoc">Broadcasts dictionary from manager to workers.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d5e/file__utils_8c_source.html#l00084">file_utils.c:84</a></div></div>
+<div class="ttc" id="afile__utils_8h_html_a9cef8f76bf0bbcbbc225ed062b5d8d15"><div class="ttname"><a href="../../d1/d9d/file__utils_8h.html#a9cef8f76bf0bbcbbc225ed062b5d8d15">read_dictionary</a></div><div class="ttdeci">int read_dictionary(const char *dict_path, char *keywords[], int max_keywords)</div><div class="ttdoc">Reads dictionary and builds global keyword list and hash table.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d5e/file__utils_8c_source.html#l00058">file_utils.c:58</a></div></div>
+<div class="ttc" id="afile__utils_8h_html_af2d299fe865532706c80ab701585b877"><div class="ttname"><a href="../../d1/d9d/file__utils_8h.html#af2d299fe865532706c80ab701585b877">open_output_file</a></div><div class="ttdeci">FILE * open_output_file(const char *output_path)</div><div class="ttdoc">Opens the result output file for writing.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d5e/file__utils_8c_source.html#l00053">file_utils.c:53</a></div></div>
+<div class="ttc" id="afile__utils_8h_html_af60f33bb7908850bdcf52ebe9f49d310"><div class="ttname"><a href="../../d1/d9d/file__utils_8h.html#af60f33bb7908850bdcf52ebe9f49d310">list_txt_files</a></div><div class="ttdeci">int list_txt_files(const char *dir_path, char files[][PATH_MAX], int max_files)</div><div class="ttdoc">Lists all .txt files in a directory.</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d5e/file__utils_8c_source.html#l00019">file_utils.c:19</a></div></div>
+<div class="ttc" id="agaspi__utils_8h_html"><div class="ttname"><a href="../../df/df9/gaspi__utils_8h.html">gaspi_utils.h</a></div><div class="ttdoc">Utility macros and functions for GASPI error handling.</div></div>
+<div class="ttc" id="agaspi__utils_8h_html_a0a32fb9c303566dca9de843305c4e37a"><div class="ttname"><a href="../../df/df9/gaspi__utils_8h.html#a0a32fb9c303566dca9de843305c4e37a">WORK_OFFSET</a></div><div class="ttdeci">#define WORK_OFFSET(rank)</div><div class="ttdef"><b>Definition</b> <a href="../../df/df9/gaspi__utils_8h_source.html#l00041">gaspi_utils.h:41</a></div></div>
+<div class="ttc" id="agaspi__utils_8h_html_a3fb116497578f7ccb5b53f4b090573fc"><div class="ttname"><a href="../../df/df9/gaspi__utils_8h.html#a3fb116497578f7ccb5b53f4b090573fc">WORKER_DATA_SIZE</a></div><div class="ttdeci">#define WORKER_DATA_SIZE</div><div class="ttdef"><b>Definition</b> <a href="../../df/df9/gaspi__utils_8h_source.html#l00038">gaspi_utils.h:38</a></div></div>
+<div class="ttc" id="agaspi__utils_8h_html_a5b7eb988a6a94afc6a78a0e5e48d6eee"><div class="ttname"><a href="../../df/df9/gaspi__utils_8h.html#a5b7eb988a6a94afc6a78a0e5e48d6eee">DICT_SEGMENT_ID</a></div><div class="ttdeci">#define DICT_SEGMENT_ID</div><div class="ttdef"><b>Definition</b> <a href="../../df/df9/gaspi__utils_8h_source.html#l00033">gaspi_utils.h:33</a></div></div>
+<div class="ttc" id="agaspi__utils_8h_html_a5f3f445cab3950f07b2d3e57f339e25e"><div class="ttname"><a href="../../df/df9/gaspi__utils_8h.html#a5f3f445cab3950f07b2d3e57f339e25e">RESULT_OFFSET</a></div><div class="ttdeci">#define RESULT_OFFSET(rank)</div><div class="ttdef"><b>Definition</b> <a href="../../df/df9/gaspi__utils_8h_source.html#l00043">gaspi_utils.h:43</a></div></div>
+<div class="ttc" id="agaspi__utils_8h_html_a6df97fcfe1d11531fa206a1925b455f1"><div class="ttname"><a href="../../df/df9/gaspi__utils_8h.html#a6df97fcfe1d11531fa206a1925b455f1">GASPI_CHECK</a></div><div class="ttdeci">#define GASPI_CHECK(call)</div><div class="ttdoc">Check if GASPI call returned success, exit on error.</div><div class="ttdef"><b>Definition</b> <a href="../../df/df9/gaspi__utils_8h_source.html#l00019">gaspi_utils.h:19</a></div></div>
+<div class="ttc" id="agaspi__utils_8h_html_a7fc83a288b51f0549c6db666022e9190"><div class="ttname"><a href="../../df/df9/gaspi__utils_8h.html#a7fc83a288b51f0549c6db666022e9190">WORK_SEGMENT_ID</a></div><div class="ttdeci">#define WORK_SEGMENT_ID</div><div class="ttdef"><b>Definition</b> <a href="../../df/df9/gaspi__utils_8h_source.html#l00034">gaspi_utils.h:34</a></div></div>
+<div class="ttc" id="agaspi__utils_8h_html_acd20f6c3dec7f555aa69e37102735855"><div class="ttname"><a href="../../df/df9/gaspi__utils_8h.html#acd20f6c3dec7f555aa69e37102735855">RESULT_SEGMENT_ID</a></div><div class="ttdeci">#define RESULT_SEGMENT_ID</div><div class="ttdef"><b>Definition</b> <a href="../../df/df9/gaspi__utils_8h_source.html#l00035">gaspi_utils.h:35</a></div></div>
 <div class="ttc" id="ahash__table_8h_html"><div class="ttname"><a href="../../d4/ddb/hash__table_8h.html">hash_table.h</a></div><div class="ttdoc">Simple fixed-size chained hash table for word lookup.</div></div>
-<div class="ttc" id="ahash__table_8h_html_a2512fdab32c231a3a2e5621cb1e309c9"><div class="ttname"><a href="../../d4/ddb/hash__table_8h.html#a2512fdab32c231a3a2e5621cb1e309c9">clear_hash_table</a></div><div class="ttdeci">void clear_hash_table(void)</div><div class="ttdoc">Frees all allocated hash table entries.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/daf/hash__table_8c_source.html#l00049">hash_table.c:49</a></div></div>
-<div class="ttc" id="amanager_8c_html_a5afb0ce7625828da3439e1e2aa87b0a9"><div class="ttname"><a href="../../d4/d10/manager_8c.html#a5afb0ce7625828da3439e1e2aa87b0a9">manager</a></div><div class="ttdeci">void manager(const char *input_dir, const char *dict_file, const char *output_file, int size)</div><div class="ttdoc">Entry point for the manager process.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d10/manager_8c_source.html#l00017">manager.c:17</a></div></div>
+<div class="ttc" id="ahash__table_8h_html_a2512fdab32c231a3a2e5621cb1e309c9"><div class="ttname"><a href="../../d4/ddb/hash__table_8h.html#a2512fdab32c231a3a2e5621cb1e309c9">clear_hash_table</a></div><div class="ttdeci">void clear_hash_table(void)</div><div class="ttdoc">Frees all allocated hash table entries.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/daf/hash__table_8c_source.html#l00048">hash_table.c:48</a></div></div>
+<div class="ttc" id="amanager_8c_html_a693fc6348be56bfec805d6893f018c42"><div class="ttname"><a href="../../d4/d10/manager_8c.html#a693fc6348be56bfec805d6893f018c42">manager</a></div><div class="ttdeci">void manager(const char *input_dir, const char *dict_file, const char *output_file, int processes_num)</div><div class="ttdoc">Entry point for the manager process.</div><div class="ttdef"><b>Definition</b> <a href="../../d4/d10/manager_8c_source.html#l00020">manager.c:20</a></div></div>
 <div class="ttc" id="amanager_8h_html"><div class="ttname"><a href="../../db/d45/manager_8h.html">manager.h</a></div><div class="ttdoc">Interface for the manager process.</div></div>
-<div class="ttc" id="amsg__consts_8h_html"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html">msg_consts.h</a></div><div class="ttdoc">Constants for MPI messaging and buffer sizes.</div></div>
-<div class="ttc" id="amsg__consts_8h_html_a157536d2849554b7111608f8824d571a"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#a157536d2849554b7111608f8824d571a">FILE_MSG</a></div><div class="ttdeci">#define FILE_MSG</div><div class="ttdoc">Filename message.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00024">msg_consts.h:24</a></div></div>
+<div class="ttc" id="amsg__consts_8h_html"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html">msg_consts.h</a></div><div class="ttdoc">Constants for GASPI messaging and buffer sizes.</div></div>
 <div class="ttc" id="amsg__consts_8h_html_a2c5eecb22513a88c24ae5831a3265e54"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#a2c5eecb22513a88c24ae5831a3265e54">MAX_FILES</a></div><div class="ttdeci">#define MAX_FILES</div><div class="ttdoc">Maximum number of files.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00020">msg_consts.h:20</a></div></div>
-<div class="ttc" id="amsg__consts_8h_html_a4dd9ac5a198afbe2477a1105baf7771c"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#a4dd9ac5a198afbe2477a1105baf7771c">DONE_MSG</a></div><div class="ttdeci">#define DONE_MSG</div><div class="ttdoc">Worker signals completion.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00026">msg_consts.h:26</a></div></div>
+<div class="ttc" id="amsg__consts_8h_html_a3a4a4071bbae7d864b6b182695254729"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#a3a4a4071bbae7d864b6b182695254729">SHUTDOWN_NOTIF</a></div><div class="ttdeci">#define SHUTDOWN_NOTIF</div><div class="ttdoc">GASPI notification values.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00023">msg_consts.h:23</a></div></div>
+<div class="ttc" id="amsg__consts_8h_html_a48edde5d1dbe87ef488044c9f128c645"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#a48edde5d1dbe87ef488044c9f128c645">WORK_DONE_NOTIF</a></div><div class="ttdeci">#define WORK_DONE_NOTIF</div><div class="ttdoc">Work completed notification.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00025">msg_consts.h:25</a></div></div>
 <div class="ttc" id="amsg__consts_8h_html_a5de4809365ed98f74fca414d93510bee"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#a5de4809365ed98f74fca414d93510bee">MAX_KEYWORDS</a></div><div class="ttdeci">#define MAX_KEYWORDS</div><div class="ttdoc">Maximum number of dictionary keywords.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00014">msg_consts.h:14</a></div></div>
-<div class="ttc" id="amsg__consts_8h_html_a6839dd297b5061b3e9400e19237d9869"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#a6839dd297b5061b3e9400e19237d9869">REQUEST_MSG</a></div><div class="ttdeci">#define REQUEST_MSG</div><div class="ttdoc">MPI message tags.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00023">msg_consts.h:23</a></div></div>
-<div class="ttc" id="amsg__consts_8h_html_acd7ee4380f1a94150f3a40b15b576e77"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#acd7ee4380f1a94150f3a40b15b576e77">VEC_MSG</a></div><div class="ttdeci">#define VEC_MSG</div><div class="ttdoc">Feature vector message.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00025">msg_consts.h:25</a></div></div>
+<div class="ttc" id="amsg__consts_8h_html_a75bcd7e2e1594d1a39d997ad7a2c7f76"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#a75bcd7e2e1594d1a39d997ad7a2c7f76">WORK_AVAILABLE_NOTIF</a></div><div class="ttdeci">#define WORK_AVAILABLE_NOTIF</div><div class="ttdoc">Work available notification.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00024">msg_consts.h:24</a></div></div>
+<div class="ttc" id="amsg__consts_8h_html_a97c1ce621794cced95d06717cabc0109"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#a97c1ce621794cced95d06717cabc0109">WORK_NOTIF_ID</a></div><div class="ttdeci">#define WORK_NOTIF_ID</div><div class="ttdoc">GASPI notification IDs.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00028">msg_consts.h:28</a></div></div>
+<div class="ttc" id="amsg__consts_8h_html_acd24df7121adef94ef8ff697ad56fb4f"><div class="ttname"><a href="../../d2/d81/msg__consts_8h.html#acd24df7121adef94ef8ff697ad56fb4f">MAX_WORD_LEN</a></div><div class="ttdeci">#define MAX_WORD_LEN</div><div class="ttdoc">Maximum length of a single keyword.</div><div class="ttdef"><b>Definition</b> <a href="../../d2/d81/msg__consts_8h_source.html#l00017">msg_consts.h:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

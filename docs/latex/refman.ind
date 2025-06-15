@@ -1,42 +1,43 @@
 \begin{theindex}
 
   \item {broadcast\_dictionary}
-    \subitem {file\_utils.c}, \hyperpage{35}
+    \subitem {file\_utils.c}, \hyperpage{39}
     \subitem {file\_utils.h}, \hyperpage{15}
 
   \indexspace
 
-  \item {classifier.c}, \hyperpage{32}, \hyperpage{34}
-    \subitem {classify\_text}, \hyperpage{33}
+  \item {classifier.c}, \hyperpage{36}, \hyperpage{38}
+    \subitem {classify\_text}, \hyperpage{37}
   \item {classifier.h}, \hyperpage{11}, \hyperpage{13}
     \subitem {classify\_text}, \hyperpage{12}
     \subitem {CLASSIFY\_TOKENS}, \hyperpage{12}
   \item {classify\_text}
-    \subitem {classifier.c}, \hyperpage{33}
+    \subitem {classifier.c}, \hyperpage{37}
     \subitem {classifier.h}, \hyperpage{12}
   \item {CLASSIFY\_TOKENS}
     \subitem {classifier.h}, \hyperpage{12}
+  \item {cleanup\_gaspi\_segments}
+    \subitem {gaspi\_utils.c}, \hyperpage{46}
+    \subitem {gaspi\_utils.h}, \hyperpage{22}
   \item {clear\_hash\_table}
-    \subitem {hash\_table.c}, \hyperpage{42}
-    \subitem {hash\_table.h}, \hyperpage{21}
+    \subitem {hash\_table.c}, \hyperpage{48}
+    \subitem {hash\_table.h}, \hyperpage{25}
 
   \indexspace
 
+  \item {DICT\_SEGMENT\_ID}
+    \subitem {gaspi\_utils.h}, \hyperpage{21}
   \item {Distributed Document Classifier}, \hyperpage{1}
-  \item {DONE\_MSG}
-    \subitem {msg\_consts.h}, \hyperpage{28}
 
   \indexspace
 
-  \item {FILE\_MSG}
-    \subitem {msg\_consts.h}, \hyperpage{28}
-  \item {file\_utils.c}, \hyperpage{34}, \hyperpage{39}
-    \subitem {broadcast\_dictionary}, \hyperpage{35}
-    \subitem {list\_txt\_files}, \hyperpage{35}
-    \subitem {open\_output\_file}, \hyperpage{36}
-    \subitem {read\_dictionary}, \hyperpage{37}
-    \subitem {read\_file\_content}, \hyperpage{38}
-    \subitem {receive\_dictionary}, \hyperpage{38}
+  \item {file\_utils.c}, \hyperpage{38}, \hyperpage{43}
+    \subitem {broadcast\_dictionary}, \hyperpage{39}
+    \subitem {list\_txt\_files}, \hyperpage{39}
+    \subitem {open\_output\_file}, \hyperpage{40}
+    \subitem {read\_dictionary}, \hyperpage{41}
+    \subitem {read\_file\_content}, \hyperpage{42}
+    \subitem {receive\_dictionary}, \hyperpage{42}
   \item {file\_utils.h}, \hyperpage{13}, \hyperpage{19}
     \subitem {broadcast\_dictionary}, \hyperpage{15}
     \subitem {list\_txt\_files}, \hyperpage{15}
@@ -45,88 +46,110 @@
     \subitem {read\_file\_content}, \hyperpage{17}
     \subitem {receive\_dictionary}, \hyperpage{18}
   \item {find\_word}
-    \subitem {hash\_table.c}, \hyperpage{42}
-    \subitem {hash\_table.h}, \hyperpage{21}
+    \subitem {hash\_table.c}, \hyperpage{48}
+    \subitem {hash\_table.h}, \hyperpage{25}
+
+  \indexspace
+
+  \item {GASPI\_CHECK}
+    \subitem {gaspi\_utils.h}, \hyperpage{21}
+  \item {gaspi\_utils.c}, \hyperpage{45, 46}
+    \subitem {cleanup\_gaspi\_segments}, \hyperpage{46}
+    \subitem {init\_gaspi\_segments}, \hyperpage{46}
+  \item {gaspi\_utils.h}, \hyperpage{19}, \hyperpage{23}
+    \subitem {cleanup\_gaspi\_segments}, \hyperpage{22}
+    \subitem {DICT\_SEGMENT\_ID}, \hyperpage{21}
+    \subitem {GASPI\_CHECK}, \hyperpage{21}
+    \subitem {init\_gaspi\_segments}, \hyperpage{22}
+    \subitem {RESULT\_OFFSET}, \hyperpage{21}
+    \subitem {RESULT\_SEGMENT\_ID}, \hyperpage{21}
+    \subitem {WORK\_OFFSET}, \hyperpage{22}
+    \subitem {WORK\_SEGMENT\_ID}, \hyperpage{22}
+    \subitem {WORKER\_DATA\_SIZE}, \hyperpage{22}
 
   \indexspace
 
   \item {hash\_func}
-    \subitem {hash\_table.c}, \hyperpage{43}
-    \subitem {hash\_table.h}, \hyperpage{22}
+    \subitem {hash\_table.c}, \hyperpage{49}
+    \subitem {hash\_table.h}, \hyperpage{26}
   \item {HASH\_SIZE}
-    \subitem {hash\_table.h}, \hyperpage{21}
-  \item {hash\_table}
-    \subitem {hash\_table.c}, \hyperpage{45}
     \subitem {hash\_table.h}, \hyperpage{24}
-  \item {hash\_table.c}, \hyperpage{40}, \hyperpage{46}
-    \subitem {clear\_hash\_table}, \hyperpage{42}
-    \subitem {find\_word}, \hyperpage{42}
-    \subitem {hash\_func}, \hyperpage{43}
-    \subitem {hash\_table}, \hyperpage{45}
-    \subitem {insert\_word}, \hyperpage{44}
-    \subitem {to\_lower}, \hyperpage{45}
-  \item {hash\_table.h}, \hyperpage{19}, \hyperpage{25}
-    \subitem {clear\_hash\_table}, \hyperpage{21}
-    \subitem {find\_word}, \hyperpage{21}
-    \subitem {hash\_func}, \hyperpage{22}
-    \subitem {HASH\_SIZE}, \hyperpage{21}
-    \subitem {hash\_table}, \hyperpage{24}
-    \subitem {insert\_word}, \hyperpage{23}
-    \subitem {Node}, \hyperpage{21}
-    \subitem {to\_lower}, \hyperpage{24}
+  \item {hash\_table}
+    \subitem {hash\_table.c}, \hyperpage{51}
+    \subitem {hash\_table.h}, \hyperpage{28}
+  \item {hash\_table.c}, \hyperpage{47}, \hyperpage{52}
+    \subitem {clear\_hash\_table}, \hyperpage{48}
+    \subitem {find\_word}, \hyperpage{48}
+    \subitem {hash\_func}, \hyperpage{49}
+    \subitem {hash\_table}, \hyperpage{51}
+    \subitem {insert\_word}, \hyperpage{50}
+    \subitem {to\_lower}, \hyperpage{51}
+  \item {hash\_table.h}, \hyperpage{23}, \hyperpage{29}
+    \subitem {clear\_hash\_table}, \hyperpage{25}
+    \subitem {find\_word}, \hyperpage{25}
+    \subitem {hash\_func}, \hyperpage{26}
+    \subitem {HASH\_SIZE}, \hyperpage{24}
+    \subitem {hash\_table}, \hyperpage{28}
+    \subitem {insert\_word}, \hyperpage{27}
+    \subitem {Node}, \hyperpage{25}
+    \subitem {to\_lower}, \hyperpage{28}
 
   \indexspace
 
   \item {index}
     \subitem {node}, \hyperpage{9}
+  \item {init\_gaspi\_segments}
+    \subitem {gaspi\_utils.c}, \hyperpage{46}
+    \subitem {gaspi\_utils.h}, \hyperpage{22}
   \item {insert\_word}
-    \subitem {hash\_table.c}, \hyperpage{44}
-    \subitem {hash\_table.h}, \hyperpage{23}
+    \subitem {hash\_table.c}, \hyperpage{50}
+    \subitem {hash\_table.h}, \hyperpage{27}
 
   \indexspace
 
   \item {list\_txt\_files}
-    \subitem {file\_utils.c}, \hyperpage{35}
+    \subitem {file\_utils.c}, \hyperpage{39}
     \subitem {file\_utils.h}, \hyperpage{15}
 
   \indexspace
 
   \item {main}
-    \subitem {main.c}, \hyperpage{47}
-  \item {main.c}, \hyperpage{46}, \hyperpage{48}
-    \subitem {main}, \hyperpage{47}
+    \subitem {main.c}, \hyperpage{53}
+  \item {main.c}, \hyperpage{52}, \hyperpage{54}
+    \subitem {main}, \hyperpage{53}
   \item {mainpage.dox}, \hyperpage{11}
   \item {manager}
-    \subitem {manager.c}, \hyperpage{49}
-    \subitem {manager.h}, \hyperpage{26}
-  \item {manager.c}, \hyperpage{48}, \hyperpage{50}
-    \subitem {manager}, \hyperpage{49}
-  \item {manager.h}, \hyperpage{25}, \hyperpage{27}
-    \subitem {manager}, \hyperpage{26}
+    \subitem {manager.c}, \hyperpage{56}
+    \subitem {manager.h}, \hyperpage{30}
+  \item {manager.c}, \hyperpage{55}, \hyperpage{57}
+    \subitem {manager}, \hyperpage{56}
+  \item {manager.h}, \hyperpage{29}, \hyperpage{31}
+    \subitem {manager}, \hyperpage{30}
   \item {MAX\_DOC\_SIZE}
-    \subitem {msg\_consts.h}, \hyperpage{28}
+    \subitem {msg\_consts.h}, \hyperpage{32}
   \item {MAX\_FILES}
-    \subitem {msg\_consts.h}, \hyperpage{28}
+    \subitem {msg\_consts.h}, \hyperpage{32}
   \item {MAX\_KEYWORDS}
-    \subitem {msg\_consts.h}, \hyperpage{29}
+    \subitem {msg\_consts.h}, \hyperpage{32}
   \item {MAX\_WORD\_LEN}
-    \subitem {msg\_consts.h}, \hyperpage{29}
-  \item {msg\_consts.h}, \hyperpage{27}, \hyperpage{30}
-    \subitem {DONE\_MSG}, \hyperpage{28}
-    \subitem {FILE\_MSG}, \hyperpage{28}
-    \subitem {MAX\_DOC\_SIZE}, \hyperpage{28}
-    \subitem {MAX\_FILES}, \hyperpage{28}
-    \subitem {MAX\_KEYWORDS}, \hyperpage{29}
-    \subitem {MAX\_WORD\_LEN}, \hyperpage{29}
-    \subitem {REQUEST\_MSG}, \hyperpage{29}
-    \subitem {VEC\_MSG}, \hyperpage{29}
+    \subitem {msg\_consts.h}, \hyperpage{32}
+  \item {msg\_consts.h}, \hyperpage{31}, \hyperpage{34}
+    \subitem {MAX\_DOC\_SIZE}, \hyperpage{32}
+    \subitem {MAX\_FILES}, \hyperpage{32}
+    \subitem {MAX\_KEYWORDS}, \hyperpage{32}
+    \subitem {MAX\_WORD\_LEN}, \hyperpage{32}
+    \subitem {RESULT\_NOTIF\_ID}, \hyperpage{33}
+    \subitem {SHUTDOWN\_NOTIF}, \hyperpage{33}
+    \subitem {WORK\_AVAILABLE\_NOTIF}, \hyperpage{33}
+    \subitem {WORK\_DONE\_NOTIF}, \hyperpage{33}
+    \subitem {WORK\_NOTIF\_ID}, \hyperpage{33}
 
   \indexspace
 
   \item {next}
     \subitem {node}, \hyperpage{9}
   \item {Node}, \hyperpage{10}
-    \subitem {hash\_table.h}, \hyperpage{21}
+    \subitem {hash\_table.h}, \hyperpage{25}
   \item {node}, \hyperpage{9}
     \subitem {index}, \hyperpage{9}
     \subitem {next}, \hyperpage{9}
@@ -135,44 +158,60 @@
   \indexspace
 
   \item {open\_output\_file}
-    \subitem {file\_utils.c}, \hyperpage{36}
+    \subitem {file\_utils.c}, \hyperpage{40}
     \subitem {file\_utils.h}, \hyperpage{16}
 
   \indexspace
 
   \item {read\_dictionary}
-    \subitem {file\_utils.c}, \hyperpage{37}
+    \subitem {file\_utils.c}, \hyperpage{41}
     \subitem {file\_utils.h}, \hyperpage{16}
   \item {read\_file\_content}
-    \subitem {file\_utils.c}, \hyperpage{38}
+    \subitem {file\_utils.c}, \hyperpage{42}
     \subitem {file\_utils.h}, \hyperpage{17}
   \item {receive\_dictionary}
-    \subitem {file\_utils.c}, \hyperpage{38}
+    \subitem {file\_utils.c}, \hyperpage{42}
     \subitem {file\_utils.h}, \hyperpage{18}
-  \item {REQUEST\_MSG}
-    \subitem {msg\_consts.h}, \hyperpage{29}
+  \item {RESULT\_NOTIF\_ID}
+    \subitem {msg\_consts.h}, \hyperpage{33}
+  \item {RESULT\_OFFSET}
+    \subitem {gaspi\_utils.h}, \hyperpage{21}
+  \item {RESULT\_SEGMENT\_ID}
+    \subitem {gaspi\_utils.h}, \hyperpage{21}
+
+  \indexspace
+
+  \item {SHUTDOWN\_NOTIF}
+    \subitem {msg\_consts.h}, \hyperpage{33}
 
   \indexspace
 
   \item {to\_lower}
-    \subitem {hash\_table.c}, \hyperpage{45}
-    \subitem {hash\_table.h}, \hyperpage{24}
-
-  \indexspace
-
-  \item {VEC\_MSG}
-    \subitem {msg\_consts.h}, \hyperpage{29}
+    \subitem {hash\_table.c}, \hyperpage{51}
+    \subitem {hash\_table.h}, \hyperpage{28}
 
   \indexspace
 
   \item {word}
     \subitem {node}, \hyperpage{10}
+  \item {WORK\_AVAILABLE\_NOTIF}
+    \subitem {msg\_consts.h}, \hyperpage{33}
+  \item {WORK\_DONE\_NOTIF}
+    \subitem {msg\_consts.h}, \hyperpage{33}
+  \item {WORK\_NOTIF\_ID}
+    \subitem {msg\_consts.h}, \hyperpage{33}
+  \item {WORK\_OFFSET}
+    \subitem {gaspi\_utils.h}, \hyperpage{22}
+  \item {WORK\_SEGMENT\_ID}
+    \subitem {gaspi\_utils.h}, \hyperpage{22}
   \item {worker}
-    \subitem {worker.c}, \hyperpage{53}
-    \subitem {worker.h}, \hyperpage{31}
-  \item {worker.c}, \hyperpage{52}, \hyperpage{54}
-    \subitem {worker}, \hyperpage{53}
-  \item {worker.h}, \hyperpage{30}, \hyperpage{32}
-    \subitem {worker}, \hyperpage{31}
+    \subitem {worker.c}, \hyperpage{60}
+    \subitem {worker.h}, \hyperpage{35}
+  \item {worker.c}, \hyperpage{59}, \hyperpage{61}
+    \subitem {worker}, \hyperpage{60}
+  \item {worker.h}, \hyperpage{34}, \hyperpage{36}
+    \subitem {worker}, \hyperpage{35}
+  \item {WORKER\_DATA\_SIZE}
+    \subitem {gaspi\_utils.h}, \hyperpage{22}
 
 \end{theindex}
