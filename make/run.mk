@@ -2,7 +2,7 @@ MPI_FLAGS ?= -f nodes -n 16
 RUN_FLAGS ?= ./example/input/ ./example/dict.txt ./example/output/result.txt
 
 run: $(TARGET)
-	LD_LIBRARY_PATH=$(MPICH_TARGET_DIR)/lib MPIR_CVAR_ENABLE_GPU=0 mpiexec $(MPI_FLAGS) $(TARGET) $(RUN_FLAGS)
+	MPIR_CVAR_ENABLE_GPU=0 mpiexec $(MPI_FLAGS) $(TARGET) $(RUN_FLAGS)
 
 run-help:
 	@echo ""

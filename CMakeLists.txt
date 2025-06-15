@@ -13,7 +13,15 @@ if(NOT DEFINED ENV{MPICH_TARGET_DIR})
     message(FATAL_ERROR "MPICH_TARGET_DIR is not set. Please export it before running CMake.")
 endif()
 
+# =============================
+# === GASPI Path ==============
+# =============================
+if(NOT DEFINED ENV{GASPI_TARGET_DIR})
+    message(FATAL_ERROR "GASPI_TARGET_DIR is not set. Please export it before running CMake.")
+endif()
+
 set(MPI_HOME $ENV{MPICH_TARGET_DIR})
+set(GASPI_HOME $ENV{GASPI_TARGET_DIR})
 set(CMAKE_C_COMPILER "${MPI_HOME}/bin/mpicc")
 add_compile_definitions(_POSIX_C_SOURCE=200809L)
 add_compile_options(
@@ -39,14 +47,17 @@ add_executable(ddc
 target_include_directories(ddc PRIVATE
     "${CMAKE_SOURCE_DIR}/include"
     "${MPI_HOME}/include"
+    "${GASPI_HOME}/include"
 )
 
 target_link_directories(ddc PRIVATE
     "${MPI_HOME}/lib"
+    "${GASPI_HOME}/lib64"
 )
 
 target_link_libraries(ddc PRIVATE
     mpi
+    gaspi
 )
 
 # =============================

@@ -1,5 +1,5 @@
 test: $(TESTS)
-	LD_LIBRARY_PATH=$(MPICH_TARGET_DIR)/lib ./$(TESTS)
+	./$(TESTS)
 
 $(TESTS): $(TEST_OBJS)
 	@mkdir -p $(BIN_DIR)

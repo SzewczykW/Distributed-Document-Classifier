@@ -3,13 +3,24 @@ ifeq ($(MPICH_TARGET_DIR),)
 $(error MPICH_TARGET_DIR is not set. Please export it before running make.)
 endif
 
+GASPI_TARGET_DIR ?= $(shell echo $$GASPI_TARGET_DIR)
+ifeq ($(GASPI_TARGET_DIR),)
+$(error GASPI_TARGET_DIR is not set. Please export it before running make.)
+endif
+
 CC := $(MPICH_TARGET_DIR)/bin/mpicc
 
-CFLAGS := -std=c17 -Wall -Wextra -Werror -Wpedantic -O3 -D_POSIX_C_SOURCE=200809L -Iinclude -I$(MPICH_TARGET_DIR)/include
-LDFLAGS := -L$(MPICH_TARGET_DIR)/lib -lmpi
+MPI_CFLAGS := -I$(MPICH_TARGET_DIR)/include
+MPI_LDFLAGS := -L$(MPICH_TARGET_DIR)/lib -lmpi -Wl,-rpath=$(MPICH_TARGET_DIR)/lib
 
-TEST_CFLAGS := -std=c17 -Wall -Wextra -Werror -Wpedantic -O3 -D_POSIX_C_SOURCE=200809L -Iinclude -Itests/include
-TEST_LDFLAGS := -lcriterion
+GASPI_CFLAGS := -I$(GASPI_TARGET_DIR)/include
+GASPI_LDFLAGS := -L$(GASPI_TARGET_DIR)/lib64 -lgaspi -Wl,-rpath=$(GASPI_TARGET_DIR)/lib64
+
+CFLAGS := -std=c17 -Wall -Wextra -Werror -Wpedantic -O3 -D_POSIX_C_SOURCE=200809L -Iinclude $(MPI_CFLAGS) $(GASPI_CFLAGS)
+LDFLAGS := $(MPI_LDFLAGS) $(GASPI_LDFLAGS)
+
+TEST_CFLAGS := -std=c17 -Wall -Wextra -Werror -Wpedantic -O3 -D_POSIX_C_SOURCE=200809L -Iinclude -Itests/include $(MPI_CFLAGS) $(GASPI_CFLAGS)
+TEST_LDFLAGS := -lcriterion $(MPI_LDFLAGS) $(GASPI_LDFLAGS)
 
 BUILD_DIR := build
 BIN_DIR := $(BUILD_DIR)/bin
